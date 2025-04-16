@@ -11,6 +11,27 @@
 </head>
 <body>
     <header>
+        <script><script> 
+
+document.getElementById('menu-icon').addEventListener('click', function () {
+    var navLinks = document.getElementById('nav-links');
+    if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+    } else {
+        navLinks.style.display = 'flex';
+    }
+});
+
+// Ensure video plays on mobile devices after user interaction
+document.addEventListener('DOMContentLoaded', function () {
+    var video = document.getElementById('bgvideo');
+    video.addEventListener('click', function () {
+        if (video.paused) {
+            video.play();
+        }
+    });
+});
+</script> </script> 
         <nav>
             <div class="logo">Arcade</div>
             <div class="menu-icon" id="menu-icon">&#9776;</div>
