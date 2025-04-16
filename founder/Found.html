@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <script><script> 
+        <script>
 
 document.getElementById('menu-icon').addEventListener('click', function () {
     var navLinks = document.getElementById('nav-links');
@@ -31,7 +31,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-</script> </script> 
+</script> 
+        <style> 
+        nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+        
+        </style> 
         <nav>
             <div class="logo">Arcade</div>
             <div class="menu-icon" id="menu-icon">&#9776;</div>
