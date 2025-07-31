@@ -1,292 +1,170 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARCADE</title>
-    <link rel="icon" type="image/x-icon" href="m7.jpg">
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <header>
-        <nav>
-            <div class="logo">Arcade</div>
-            <div class="menu-icon" id="menu-icon">&#9776;</div>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="https://arcade.name.ng/About.html">About</a></li>
-                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
-                <li><a href="https://arcade.name.ng/founder/Found.html">Founder</a></li>
-                <li><a href="https://gigx267.github.io/Arcade-Security-/">Web Security</a></li>
-                <li><a href=" https://gigx267.github.io/Digital-Rubki-Cube/">Web Game </a></li>
-                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
+    <title>Arcade Studio | Websites for Aesthetic Brands</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        .hero {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
+        :root {
+            --bg-dark: #0a0a0a;
+            --gold-primary: #FFD700;
+            --gold-secondary: #b8860b;
+            --text-light: #f5f5f5;
+            --hover-glow: rgba(255, 215, 0, 0.3);
+            --diamond-gradient: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.5) 50%, rgba(255,255,255,0.8) 100%);
+            --teal-primary: #b6d2d3;
+            --teal-dark: #1a3a3c;
+            --teal-darker: #15272a;
         }
-
-        #hero-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-text {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-family: 'Roboto', sans-serif;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                0 0 20px rgba(0, 255, 255, 0.7),
-                0 0 30px rgba(0, 255, 255, 0.7);
-            font-size: 2em;
-            text-align: center;
-            animation: glow 1.5s infinite alternate;
-            mix-blend-mode: screen;
-        }
-
-        .logo {
-            color: white;
-            font-family: 'Roboto', sans-serif;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                0 0 20px rgba(0, 255, 255, 0.7),
-                0 0 30px rgba(0, 255, 255, 0.7);
-            font-size: 2em;
-            animation: glow 1.5s infinite alternate;
-            mix-blend-mode: screen;
-        }
-
-        .nav-links {
-            color: white;
-            font-family: 'Roboto', sans-serif;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                0 0 20px rgba(0, 255, 255, 0.7),
-                0 0 30px rgba(0, 255, 255, 0.7);
-            font-size: 2em;
-            animation: glow 1.5s infinite alternate;
-            mix-blend-mode: screen;
-        }
-
-        .hero-text p {
-            background: rgba(0, 0, 0, 0.5);
-            /* Adjust the background to blend with the video */
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                    0 0 20px rgba(0, 255, 255, 0.7),
-                    0 0 30px rgba(0, 255, 255, 0.7);
-            }
-
-            to {
-                text-shadow: 0 0 20px rgba(0, 255, 255, 1),
-                    0 0 30px rgba(0, 255, 255, 1),
-                    0 0 40px rgba(0, 255, 255, 1);
-            }
-        }
-    </style>
-
-    <section class="hero">
-        <video autoplay muted loop playsinline id="hero-video">
-            <source src="https://cdn.dribbble.com/userupload/42782100/file/original-5dd7d3650433f9c253263125f124a866.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-        <div class="hero-text">
-            <p>  Websites for Aesthetic Brands </p>
-            <div class="hero-buttons">
-                <a href="https://arcade.name.ng/About.html " class="btn">About</a>
-                <a href="projects.html" class="btn">Projects</a>
-            </div>
-        </div>
-    </section>
-
-    <style>
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 5px;
-            text-decoration: none;
-            /* Remove underline */
-            color: white;
-            background-color: #007BFF;
-            /* Button color */
-            border: none;
-            border-radius: 4px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            /* Darker shade on hover */
-        }
-    </style>
-
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .hero {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        #hero-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-text {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                0 0 20px rgba(0, 255, 255, 0.7),
-                0 0 30px rgba(0, 255, 255, 0.7);
-            font-size: 2em;
-            text-align: center;
-            animation: glow 1.5s infinite alternate;
-            mix-blend-mode: screen;
-        }
-
-        .hero-text p {
-            background: rgba(0, 0, 0, 0.5);
-            /* Adjust the background to blend with the video */
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            height: 13ch;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            height: 1cm;
-        }
-
-        .btn {
-            background: rgba(0, 255, 255, 0.7);
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                0 0 20px rgba(0, 255, 255, 0.7);
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        .btn:hover {
-            background: rgba(0, 255, 255, 1);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 1),
-                0 0 30px rgba(0, 255, 255, 1);
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.7),
-                    0 0 20px rgba(0, 255, 255, 0.7),
-                    0 0 30px rgba(0, 255, 255, 0.7);
-            }
-
-            to {
-                text-shadow: 0 0 20px rgba(0, 255, 255, 1),
-                    0 0 30px rgba(0, 255, 255, 1),
-                    0 0 40px rgba(0, 255, 255, 1);
-            }
-        }
-    </style>
-
-    <script src="script.js"></script>
-
-    <style>
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
         }
-
+        
         body {
-            font-family: Arial, sans-serif;
+            background-color: var(--teal-darker);
+            color: var(--text-light);
+            overflow-x: hidden;
         }
-
-        header {
-            position: fixed;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 0;
-            z-index: 1000;
-        }
-
-        nav {
+        
+        /* Navigation - Enhanced */
+        .navbar {
+            background-color: rgba(10, 20, 22, 0.9);
+            color: var(--text-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--teal-primary);
+            box-shadow: 0 0 15px rgba(182, 210, 211, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
-
-        .logo {
-            color: #fff;
-            font-size: 24px;
-        }
-
-        .menu-icon {
-            display: none;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .nav-links {
-            list-style: none;
+        
+        .navbar-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+        
+       
+        .logo {
+    color: transparent; /* Make text transparent to show only stroke/shadow */
+    font-weight: 700;
+    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif; /* Futuristic, geometric font */
+    letter-spacing: 4px; /* More spaced out */
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4); /* Cyan glow */
+    -webkit-text-stroke: 1px #00ffff; /* Neon stroke around text */
+    /* Optional: Use a pseudo-element for a subtle "scanline" effect */
+    position: relative;
+    overflow: hidden; /* Important for scanline effect */
+}
 
-        .nav-links li {
-            margin-left: 20px;
-        }
+/* Pseudo-element for a subtle scanline or underglow */
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Adjust based on your layout */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8a2be2, transparent); /* Purple glowing line */
+    animation: pulse-line 2s infinite ease-in-out;
+}
 
-        .nav-links a {
+@keyframes pulse-line {
+    0%, 100% {
+        transform: scaleX(0.8);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+        .logo:hover {
             color: #fff;
+            text-shadow: 0 0 10px rgba(182, 210, 211, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
             text-decoration: none;
-            font-size: 18px;
-        }
-
-        .hero {
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
             position: relative;
-            height: 100vh;
-            overflow: hidden;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
-
+        
+        .nav-links a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--teal-primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         #hero-video {
             position: absolute;
             top: 0;
@@ -294,72 +172,1496 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6);
         }
-
+        
         .hero-text {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+        
+        .hero-text p {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--teal-primary);
+            font-family: "Playfair Display", serif;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
+            color: #15272a;
+            box-shadow: 0 4px 15px rgba(182, 210, 211, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Content Section */
+        .content-container {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .media-primary {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            height: 500px;
+        }
+        
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+        }
+        
+        .media-secondary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .animated-icon {
+            background: rgba(26, 58, 60, 0.7);
+            border: 1px solid rgba(182, 210, 211, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        
+        .animated-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(182, 210, 211, 0.2);
+            border-color: var(--teal-primary);
+        }
+        
+        .animated-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .text-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .text-heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--teal-primary);
+            margin-bottom: 2rem;
+            font-family: "Playfair Display", serif;
+        }
+        
+        .text-heading span {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .text-body {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .ctas {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .cta {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .cta-primary {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
+            color: #15272a;
+            border: none;
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: var(--teal-primary);
+            border: 2px solid var(--teal-primary);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
+        }
+        
+        .cta-secondary:hover {
+            background: rgba(182, 210, 211, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Services Section */
+        .services-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 1.5rem;
             text-align: center;
         }
-
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+        
+        .section-title {
+            color: var(--teal-primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            font-family: "Playfair Display", serif;
         }
-
-        .hero-text p {
-            font-size: 24px;
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--teal-primary);
+            margin: 1rem auto 0;
         }
-
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: var(--teal-dark);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(182, 210, 211, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: var(--teal-primary);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(182, 210, 211, 0.1);
+            border-radius: 50%;
+            color: var(--teal-primary);
+            font-size: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: var(--teal-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: "Playfair Display", serif;
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Client Showcase */
+        .client-showcase {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        
+       
+        
+        /* Footer */
+        .footer {
+            background: #0a1416;
+            padding: 4rem 2rem 2rem;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--teal-primary);
+            font-family: "Playfair Display", serif;
+            letter-spacing: 1px;
+        }
+        
+        .footer-about {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--teal-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            color: var(--teal-primary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: #0a1416;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(182, 210, 211, 0.2);
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .content-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .media-primary {
+                height: 400px;
+            }
+            
+            .text-heading {
+                font-size: 2.8rem;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .menu-icon {
+            .mobile-menu-toggle {
                 display: block;
             }
-
+            
             .nav-links {
                 display: none;
+            }
+            
+            .hero-text p {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
                 flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
                 width: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                position: absolute;
-                top: 60px;
-                left: 0;
+                max-width: 250px;
             }
-
-            .nav-links li {
-                margin: 10px 0;
-                text-align: center;
+            
+            .ctas {
+                flex-direction: column;
             }
-
-            .nav-links a {
-                font-size: 20px;
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text p {
+                font-size: 2rem;
+            }
+            
+            .text-heading {
+                font-size: 2.2rem;
             }
         }
     </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
+            
+            <ul class="nav-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="/About.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="https://arcade.name.ng/index.html">Home</a>
+        <a href="/About.html">About Us</a>
+        <a href="https://arcade.name.ng/projects.html">Projects</a>
+        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a>
+        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
+        <a href="https://arcade.name.ng/contact.html">Contact</a>
+    </div>
+    
+    <!-- Overlay for mobile menu -->
+    <div class="overlay" id="overlay"></div>
 
-    <script>
-        document.getElementById('menu-icon').addEventListener('click', function () {
-            var navLinks = document.getElementById('nav-links');
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
+    <!-- Hero Section -->
+   
+
+    <!-- Content Section -->
+    <section class="content-container">
+        <div class="media-primary">
+            <video class="hero-video" autoplay loop muted playsinline poster="c (4).jpg">
+                <source src="vc.mp4" type="video/mp4">
+                <source src="vc.mp4" type="video/webm">
+                <!-- Fallback image if video can't be loaded -->
+                <img alt="Arcade Studio team working on creative digital projects" src="c (3).jpg">
+            </video>
+        </div>
+
+        <div class="media-secondary">
+            <figure class="animated-icon">
+                <img alt="Web development illustration" src="m (2).jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="Animation icon" src="c (4).jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="Cybersecurity shield icon" src="c (5).jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="Design icon" src="c (8).jpg" />
+            </figure>
+        </div>
+
+        <div class="text-content">
+           
+            
+            <div class="text-body">
+                <p>
+                    Arcade Studio is a Nigerian-based software development & animation studio with cybersecurity expertise. We craft 
+                    stunning digital experiences for aesthetic brands through bespoke websites, mobile applications, 
+                    and captivating animations—all secured with enterprise-grade protection.
+                </p>
+                
+                <div class="ctas">
+                    <a class="cta cta-primary" href="https://arcade.name.ng/contact.html">Start Your Project</a>
+                    <a class="cta cta-secondary" href="https://arcade.name.ng/projects.html">See Past Projects </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+<section class="about-section">
+    <div class="about-container">
+        <div class="about-content">
+            <h2 class="about-title">We Design Websites & Apps 
+for Aesthetic
+brands </h2>
+            <p class="about-subtitle">We are a passionate team of software developers, animators, and cybersecurity specialists </p>
+            
+            <div class="about-text">
+               <p>
+         Abuja's leading software development and animation powerhouse.  Our passion lies in bringing your vision to life through a comprehensive suite of services, all built on a foundation of cutting-edge technology and robust security.
+    </p>
+
+    <h2>Our Core Expertise: Crafting Digital Excellence</h2>
+    <p>
+        At Arcade Studio, our multidisciplinary team excels in three key areas, seamlessly integrated to deliver cohesive and impactful solutions:
+    </p>
+    <ul>
+        <li>
+            <strong>Bespoke Website Development:</strong> We go beyond templates to create custom-built websites that are a true extension of your brand's identity. From elegant e-commerce platforms to dynamic corporate sites, we focus on responsive design, intuitive user experience (UX), and scalable architecture, ensuring your online presence is both beautiful and high-performing across all devices.
+        </li>
+        <li>
+            <strong>Intuitive Mobile Application Creation:</strong> In today's mobile-first world, a powerful app can be a game-changer. We design and develop native and cross-platform mobile applications that are not only visually appealing but also incredibly user-friendly, secure, and optimized for performance, putting your brand directly into the hands of your audience.
+        </li>
+        <li>
+            <strong>Captivating Animations:</strong> Storytelling is at the heart of every great brand. Our animation specialists create compelling 2D and 3D animations, motion graphics, and explainer videos that grab attention, simplify complex ideas, and evoke emotion, ensuring your message resonates deeply with your target market.
+        </li>
+    </ul>
+
+            </div>
+        </div>
+        
+        <div class="about-media">
+            <!-- Bento-style video container -->
+            <div class="bento-grid">
+                <div class="bento-main">
+                    <div class="video-container">
+                        <video autoplay loop muted playsinline class="smart-video">
+                            <source src="bbh.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="bento-cell bento-cell-1"></div>
+                <div class="bento-cell bento-cell-2"></div>
+                <div class="bento-cell bento-cell-3"></div>
+                <div class="bento-cell bento-cell-4"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add this CSS to your style section -->
+<style>
+    /* About Section */
+    .about-section {
+        padding: 6rem 2rem;
+        background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .about-content {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .about-media {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .about-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--blue-primary);
+        position: relative;
+        display: inline-block;
+    }
+    
+    .about-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, var(--gold-primary), transparent);
+    }
+    
+    .about-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        opacity: 0.8;
+        margin-bottom: 2rem;
+    }
+    
+    .about-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-light);
+        opacity: 0.9;
+    }
+    
+    .about-text p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .about-features {
+        list-style: none;
+        margin: 2rem 0;
+    }
+    
+    .about-features li {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        position: relative;
+    }
+    
+    .about-features i {
+        position: absolute;
+        left: 0;
+        top: 0.3rem;
+        color: var(--gold-primary);
+    }
+    
+    /* Bento Grid */
+    .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+        height: 500px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .bento-main {
+        grid-column: 1 / span 3;
+        grid-row: 1 / span 3;
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    .bento-cell {
+        background: rgba(255,215,0,0.1);
+        border: 1px solid rgba(255,215,0,0.2);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .bento-cell:hover {
+        background: rgba(21, 96, 158, 0.2);
+        transform: translateY(-5px);
+    }
+    
+    .bento-cell-1 {
+        grid-column: 4;
+        grid-row: 1;
+               background: url(' https://cdn.dribbble.com/userupload/29915330/file/original-a1fdbfaf16f6c67df944cb0a1a5c5566.gif') center/cover;
+    }
+    
+    .bento-cell-2 {
+        grid-column: 4;
+        grid-row: 2;
+                background: url('./c\ \(2\).jpg') center/cover;
+    }
+    
+    .bento-cell-3 {
+        grid-column: 4;
+        grid-row: 3;
+        background: url('./c\ \(1\).jpg') center/cover;
+    }
+    
+    .bento-cell-4 {
+        grid-column: 1 / span 4;
+        grid-row: 4;
+        height: 20px;
+        background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        opacity: 0.3;
+    }
+    
+    /* Video Container */
+    .video-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .smart-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+    
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+        border-radius: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .about-container {
+            flex-direction: column;
+        }
+        
+        .bento-grid {
+            height: 400px;
+        }
+        
+        .bento-main {
+            grid-column: 1 / span 4;
+            grid-row: 1 / span 2;
+        }
+        
+        .bento-cell-1, .bento-cell-2, .bento-cell-3 {
+            grid-column: span 1;
+            grid-row: 3;
+        }
+    }
+</style>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Premium Benefits Section Styles */
+        .premium-benefits {
+            position: relative;
+            padding: 100px 0;
+            background: #0a0a0a;
+            color: #fff;
+            overflow: hidden;
+            font-family: 'Urbanist', sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #d4af37, #f4e6c8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .benefits-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .benefit-card {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .benefit-card:hover {
+            background: rgba(30, 30, 30, 0.8);
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .card-icon {
+            flex-shrink: 0;
+        }
+
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border-radius: 12px;
+            font-size: 24px;
+            color: #d4af37;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .cta-wrapper {
+            position: relative;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 35px;
+            background: linear-gradient(90deg, #d4af37, #f4e6c8);
+            color: #0a0a0a;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button .arrow-wrapper {
+            width: 24px;
+            height: 24px;
+            background: #0a0a0a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button i {
+            color: #d4af37;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover .arrow-wrapper {
+            transform: translateX(5px);
+        }
+
+        /* Showcase Grid Styles */
+        .benefits-showcase {
+            position: relative;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            height: 600px;
+        }
+
+        .showcase-main {
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .showcase-item {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .item-1 {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        .item-2 {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        /* Adjusted grid-row for items 3 and 4 to align within a 3-row grid */
+        .item-3 {
+            grid-column: 1;
+            grid-row: 1 / span 2; /* To make it span two rows if needed, adjust based on desired layout */
+        }
+
+        .item-4 {
+            grid-column: 2;
+            grid-row: 1 / span 2; /* To make it span two rows if needed, adjust based on desired layout */
+        }
+
+
+        .hover-3d:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.03);
+        }
+
+        .showcase-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.8), transparent 50%);
+        }
+
+        .play-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .pulse-circle {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse 2s infinite;
+        }
+
+        .play-indicator i {
+            font-size: 20px;
+            color: #d4af37;
+            margin-left: 10px;
+        }
+
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .gradient-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4af37, #f4e6c8);
+            border-radius: 12px;
+            color: #0a0a0a;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gradient-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .gradient-card span {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-inner {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cursor-outer {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.15s;
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic {
+            position: relative;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-showcase {
+                margin-top: 50px;
+                height: 500px;
+            }
+
+            .showcase-grid {
+                grid-template-rows: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust rows for smaller screens */
+            }
+
+            .item-3, .item-4 {
+                grid-column: span 1; /* Reset span for smaller screens */
+                grid-row: auto; /* Allow auto row placement */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .benefit-card {
+                flex-direction: column;
+            }
+
+            .showcase-grid {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+<section class="why-choose-us">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Why Partner With <span class="text-gradient">Arcade Studio</span></h2>
+            
+</div>
+
+<div class="benefits-grid">
+    <div class="benefits-content">
+        <p class="intro-text">
+            Here's what sets us apart and makes us the ideal choice for your digital transformation:
+        </p>
+
+        <div class="benefits-list">
+            
+
+           
+
+           
+
+            <div class="benefit-card">
+                <div class="card-icon">
+                    <div class="icon-wrapper pulse">
+                        <i class="ph ph-sparkle"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Boundary-Pushing Creativity</h3>
+                    <p>We don't follow trends - we set them. Our design team thrives on creating mind-blowing digital experiences that capture attention and leave lasting impressions. From bold visual concepts to innovative interactions, we transform ordinary projects into extraordinary digital showcases.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <div class="card-icon">
+                    <div class="icon-wrapper pulse">
+                        <i class="ph ph-handshake"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Stress-Free Collaboration</h3>
+                    <p>We believe great work happens when the process is enjoyable. Our team makes working together effortless with clear communication, transparent pricing, and flexible approaches. You'll get premium quality without the premium headaches - just creative partnership that delivers results.</p>
+                </div>
+            </div>
+
+            <div class="benefit-card">
+                <div class="card-icon">
+                    <div class="icon-wrapper pulse">
+                        <i class="ph ph-coins"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Premium Quality, Affordable Rates</h3>
+                    <p>Exceptional digital experiences shouldn't break the bank. We've streamlined our processes to deliver outstanding value without compromising quality. Whether you're a startup or established enterprise, we'll work within your budget to create solutions that drive real ROI.</p>
+                </div>
+            </div>
+        </div>
+
+                <div class="cta-wrapper">
+                   
+                    </a>
+                </div>
+            </div>
+
+            <div class="benefits-showcase">
+                <div class="showcase-grid">
+                    <div class="showcase-main hover-3d">
+                        <video autoplay loop muted playsinline class="showcase-video">
+                            <source src="zv (2).mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="play-indicator">
+                            <div class="pulse-circle"></div>
+                            <i class="ph ph-play"></i>
+                        </div>
+                    </div>
+                    <div class="showcase-item item-1 hover-3d" style="background-image: url('./f\ \(5\).webp')">
+                        <div class="item-overlay">
+                            <span>Client-Centric Approach</span>
+                        </div>
+                    </div>
+                    <div class="showcase-item item-2 hover-3d" style="background-image: url('./f\ \(4\).webp')">
+                        <div class="item-overlay">
+                            <span>Proven Results</span>
+                        </div>
+                    </div>
+                   
+                      
+                   
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="particles-js" id="benefits-particles"></div>
+    <div class="custom-cursor">
+        <div class="cursor-inner"></div>
+        <div class="cursor-outer"></div>
+    </div>
+</section>
+
+<script>
+    // Custom Cursor
+    const cursorInner = document.querySelector('.cursor-inner');
+    const cursorOuter = document.querySelector('.cursor-outer');
+
+    document.addEventListener('mousemove', e => {
+        cursorInner.style.left = e.clientX + 'px';
+        cursorInner.style.top = e.clientY + 'px';
+        cursorOuter.style.left = e.clientX + 'px';
+        cursorOuter.style.top = e.clientY + 'px';
+    });
+
+    // Magnetic Button Effect
+    document.querySelectorAll('.magnetic').forEach(button => {
+        button.addEventListener('mousemove', e => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            button.style.transform = `translate(${(x - rect.width / 2) * 0.2}px, ${(y - rect.height / 2) * 0.2}px)`;
+            button.querySelector('.arrow-wrapper').style.transform = `translate(${(x - rect.width / 2) * 0.1}px, ${(y - rect.height / 2) * 0.1}px)`;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = `translate(0, 0)`;
+            button.querySelector('.arrow-wrapper').style.transform = `translate(0, 0)`;
+        });
+    });
+
+    // Pause and Play video on hover for showcase-main
+    const showcaseVideo = document.querySelector('.showcase-video');
+    const playIndicator = document.querySelector('.play-indicator');
+
+    if (showcaseVideo) {
+        showcaseVideo.addEventListener('mouseenter', () => {
+            showcaseVideo.pause();
+            playIndicator.style.opacity = '1';
+        });
+
+        showcaseVideo.addEventListener('mouseleave', () => {
+            showcaseVideo.play();
+            playIndicator.style.opacity = '0';
+        });
+
+        playIndicator.addEventListener('click', () => {
+            if (showcaseVideo.paused) {
+                showcaseVideo.play();
+                playIndicator.style.opacity = '0';
             } else {
-                navLinks.style.display = 'flex';
+                showcaseVideo.pause();
+                playIndicator.style.opacity = '1';
             }
         });
+    }
 
-        // Ensure video plays on mobile devices after user interaction
-        document.addEventListener('DOMContentLoaded', function () {
-            var video = document.getElementById('hero-video');
-            video.addEventListener('click', function () {
-                if (video.paused) {
-                    video.play();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span class="footer-logo-text">Arcade Studio</span>
+                </div>
+                <p class="footer-about">Crafting stunning digital experiences for aesthetic brands with a focus on design, security, and innovation.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-heading">Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                    <li><a href="https://arcade.name.ng/about.html">About Us</a></li>
+                    <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                    <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-heading">Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Web Development</a></li>
+                    <li><a href="#">Mobile Apps</a></li>
+                    <li><a href="#">Animation</a></li>
+                    <li><a href="#">Cybersecurity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-heading">Contact</h3>
+                <ul class="footer-links">
+                   
+                    <li><a href="tel:+1234567890">09061407613</a></li>
+                    <li><a href="https://arcade.name.ng/contact.html">Contact Form</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Arcade Studio. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle hamburger animation
+            this.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking overlay
+        overlay.addEventListener('click', function() {
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileNav.classList.remove('active');
+            this.classList.remove('active');
+            mobileMenuToggle.classList.remove('open');
+        });
+        
+        // Animate service cards on scroll
+        const animateOnScroll = () => {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const windowHeight = window.innerHeight;
+            
+            serviceCards.forEach((card, index) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const animationPoint = windowHeight / 1.5;
+                
+                if (cardPosition < animationPoint) {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 200);
                 }
             });
+        };
+        
+        // Set initial state for animation
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
         });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
     </script>
 </body>
-
 </html>
