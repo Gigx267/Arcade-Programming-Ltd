@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Development: Free APIs and Modern Use Cases | Arcade Studio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --gold-primary: #FFD700;
+            --gold-secondary: #b8860b;
+            --text-light: #f5f5f5;
+            --hover-glow: rgba(255, 215, 0, 0.3);
+            --diamond-gradient: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.5) 50%, rgba(255,255,255,0.8) 100%);
+            --teal-primary: #b6d2d3;
+            --teal-dark: #1a3a3c;
+            --teal-darker: #15272a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--teal-darker);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Navigation - Enhanced */
+        .navbar {
+            background-color: rgba(10, 20, 22, 0.9);
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--teal-primary);
+            box-shadow: 0 0 15px rgba(182, 210, 211, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            color: transparent;
+            font-weight: 700;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+            -webkit-text-stroke: 1px #00ffff;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #8a2be2, transparent);
+            animation: pulse-line 2s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-line {
+            0%, 100% {
+                transform: scaleX(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+        
+        .logo:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(182, 210, 211, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--teal-primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Blog Content */
+        .blog-container {
+            max-width: 900px;
+            margin: 120px auto 60px;
+            padding: 0 2rem;
+        }
+        
+        .blog-header {
+            margin-bottom: 3rem;
+        }
+        
+        .blog-category {
+            color: var(--teal-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .blog-title {
+            color: var(--teal-primary);
+            font-size: 2.8rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .blog-hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .blog-content h2 {
+            color: var(--teal-primary);
+            font-family: 'Playfair Display', serif;
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .blog-content h3 {
+            color: var(--teal-primary);
+            margin: 2rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .code-block {
+            background: var(--teal-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--teal-primary);
+        }
+        
+        .info-box {
+            background: rgba(182, 210, 211, 0.1);
+            border-left: 4px solid var(--teal-primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .info-box h4 {
+            color: var(--teal-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--teal-primary);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .blog-tags {
+            display: flex;
+            gap: 0.8rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .blog-tag {
+            background: rgba(182, 210, 211, 0.1);
+            color: var(--teal-primary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(182, 210, 211, 0.2);
+        }
+        
+        .nav-button {
+            color: var(--teal-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-button:hover {
+            opacity: 0.8;
+        }
+        
+        /* QR Code Demo Section */
+        .qr-demo {
+            background: var(--teal-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .qr-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--teal-primary);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .qr-button {
+            background: var(--teal-primary);
+            color: var(--teal-darker);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        
+        .qr-button:hover {
+            background: #9cc2c4;
+            transform: translateY(-2px);
+        }
+        
+        .qr-result {
+            margin-top: 1.5rem;
+        }
+        
+        .qr-image {
+            max-width: 200px;
+            border: 5px solid white;
+            border-radius: 8px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .qr-download {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--teal-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Use Cases Grid */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .use-case-card {
+            background: rgba(182, 210, 211, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(182, 210, 211, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--teal-primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--teal-primary);
+        }
+        
+        .use-case-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--teal-primary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0a1416;
+            padding: 4rem 2rem 2rem;
+            color: var(--text-light);
+            margin-top: 5rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--teal-primary);
+            font-family: "Playfair Display", serif;
+            letter-spacing: 1px;
+        }
+        
+        .footer-about {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--teal-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            color: var(--teal-primary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: #0a1416;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(182, 210, 211, 0.2);
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .blog-title {
+                font-size: 2.2rem;
+            }
+            
+            .blog-hero-image {
+                height: 250px;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .blog-navigation {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-title {
+                font-size: 1.8rem;
+            }
+            
+            .blog-container {
+                padding: 0 1.5rem;
+            }
+            
+            .qr-demo {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
+            
+            <ul class="nav-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="/About.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                <li><a href="Arcadeblog.html">Blog</a></li>
+                <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="https://arcade.name.ng/index.html">Home</a>
+        <a href="/About.html">About Us</a>
+        <a href="https://arcade.name.ng/projects.html">Projects</a>
+        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a>
+        <a href="Arcadeblog.html">Blog</a>
+        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
+        <a href="https://arcade.name.ng/contact.html">Contact</a>
+    </div>
+    
+    <!-- Overlay for mobile menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Blog Content -->
+    <article class="blog-container">
+        <header class="blog-header">
+            <span class="blog-category">Development</span>
+            <h1 class="blog-title">QR Code Development: Free APIs and Modern Use Cases in 2025</h1>
+            <div class="blog-meta">
+                <div class="blog-author">
+                    <span>Gigx267</span>
+                </div>
+            </div>
+        </header>
+
+        <img src="dt (12).heic" alt="QR Code Technology" class="blog-hero-image">
+
+        <div class="blog-content">
+            <p>QR codes have evolved from simple marketing tools to powerful connectors between the physical and digital worlds. For developers, creating QR codes has never been easier thanks to free APIs and libraries. In this comprehensive guide, we'll explore how to generate QR codes using free APIs and examine their innovative applications in 2025.</p>
+<P> Qr codes work with Binarization: The software converts the image into a binary format, where each module is interpreted as either black (1) or white (0).
+   The corrected binary data is then converted back into the original format, whether it's a URL, text, or contact information, and your device takes the appropriate action.  </P>
+ <h3>Implementing QR Code Generation in Your Projects</h3>
+            
+            <p>Here's how you can integrate QR code generation into a web application using JavaScript:</p>
+            
+            <div class="code-block">
+                // Simple QR code generator function<br>
+                function generateQRCode(data, size = '200x200') {<br>
+                &nbsp;&nbsp;const encodedData = encodeURIComponent(data);<br>
+                &nbsp;&nbsp;return `https://api.qrserver.com/v1/create-qr-code/?size=${size}&data=${encodedData}`;<br>
+                }<br><br>
+                
+                // Usage example<br>
+                const qrUrl = generateQRCode('https://arcade.name.ng');<br>
+                console.log(qrUrl); // Returns the QR code image URL
+            </div>
+            
+            <h3>Interactive QR Code Generator</h3>
+            
+            <p>Try generating your own QR code with this interactive demo:</p>
+            
+            <div class="qr-demo">
+                <input type="text" class="qr-input" placeholder="Enter URL or text" value="https://arcade.name.ng">
+                <button class="qr-button" onclick="generateDemoQR()">Generate QR Code</button>
+                
+                <div class="qr-result" id="qrResult">
+                    <img id="qrImage" class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://arcade.name.ng" alt="QR Code">
+                    <a href="#" class="qr-download" id="downloadLink" download="qrcode.png">Download QR Code</a>
+                </div>
+            </div>
+   <h2>Uses of Binarization in various cases   </h2>     
+   <P> Financial institutions and other services may use binarization as part of a signature verification process. The software converts a captured signature into a binary image, which makes it easier to compare
+     the unique patterns and shapes to a stored reference. This helps in fraud detection.</P>
+     <P> Many popular photo editing and digital art apps use binarization to create stylized 
+        effects. By converting an image to pure black and white, artists can achieve a high-contrast, graphic novel, or sketch-like appearance.
+         It's the core process behind filters that simplify complex photos into bold lines and shapes.</P>
+         <P>In AI training, binarization can be used as a powerful form of data augmentation. By creating binarized versions of training images, a model can learn to recognize features and patterns that are consistent regardless of lighting, color, or other environmental variables. This makes the model more robust and less susceptible to variations in the real world. This is particularly useful for:
+
+Handwriting Recognition: Binarization ensures that the AI focuses on the shape of the letters themselves, rather than the color of the ink or the paper.
+
+Medical Imaging: In some cases, binarization helps AI models analyze X-rays or MRI scans by isolating key features, such as the outlines of organs or tumors, from the surrounding tissue </P>
+
+<P>Binarization acts as a form of "noise reduction" for AI. It helps models ignore irrelevant information like image noise or inconsistent lighting conditions. By providing a clean, high-contrast input, binarization helps the AI make more confident and accurate predictions. This is critical for applications like:
+
+Autonomous Vehicles: Some systems may use binarization to quickly process traffic signs or lane markings under different lighting conditions.
+
+Robotics: A robot using computer vision to sort objects can use binarization to quickly distinguish between different shapes, ensuring a precise grasp.
+
+In essence, binarization is a fundamental and highly effective pre-processing step that simplifies the world for AI, enabling models to be faster, more accurate, and more efficient across a wide range of applications. </P><h2>Generating QR Codes with Free APIs</h2>
+            
+            <p>Several free APIs allow developers to generate QR codes quickly and efficiently. One of the most popular is the QR Server API, which provides a simple endpoint for creating QR codes:</p>
+            
+            <div class="code-block">
+                // Basic QR code generation API endpoint<br>
+                https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=YourDataHere<br><br>
+                
+                // Example with URL encoding<br>
+                https://api.qrserver.com/v1/create-qr-code/<br>?size=200x200&data=https%3A%2F%2FGoogle.com.ng%2F
+            </div>
+            
+            <div class="info-box">
+                <h4>💡 API Parameters</h4>
+                <p>The QR Server API supports various parameters: size, color, background color, format (PNG, SVG, EPS), and error correction level. This flexibility makes it suitable for diverse applications.</p>
+            </div>
+            
+           
+            
+            <h2>Alternative Free QR Code APIs</h2>
+            
+            <p>While QR Server is popular, several other free APIs offer unique features:</p>
+            
+            <ul>
+                <li><strong>GoQR.me:</strong> Supports color customization and logo embedding</li>
+                <li><strong>QRickit:</strong> Offers batch generation and analytics</li>
+                <li><strong>QR Code Generator by Scanova:</strong> Provides design templates and high-resolution outputs</li>
+                <li><strong>Google Chart API:</strong> Deprecated but still functional for simple needs</li>
+            </ul>
+            
+            
+            <h2>QR Code Uses in 2025 </h2>
+            
+            <p>Contactless Payments and Transactions  </p>
+             <p>Interactive Marketing and Advertising  </p>
+            <p>  Inventory Management </p>
+ <p> Event Management and Ticketing </p>
+  <p>Personal and Professional Networking </p>
+
+
+
+            <div class="code-block">
+                // Generate QR code for contact information (vCard)<br>
+                const vCardData = `BEGIN:VCARD<br>
+                VERSION:3.0<br>
+                N:Last;First<br>
+                ORG:Company<br>
+                TEL:1234567890<br>
+                EMAIL:email@example.com<br>
+                END:VCARD`;<br><br>
+                
+                const contactQR = generateQRCode(vCardData);<br><br>
+                
+                // Generate QR code for WiFi credentials<br>
+                const wifiData = `WIFI:S:NetworkName;T:WPA;P:Password;;`;<br>
+                const wifiQR = generateQRCode(wifiData);
+            </div>
+            
+            <h2>Conclusion</h2>
+            
+            <p>QR codes continue to be invaluable tools for developers, offering a simple way to bridge physical and digital experiences. With free APIs making generation effortless, and innovative use cases emerging across industries, QR technology remains relevant and powerful in 2025.</p>
+            
+            <p>By understanding how to implement QR codes effectively and staying aware of security considerations, developers can create seamless, engaging experiences for users across countless applications.</p>
+            
+            <div class="blog-tags">
+                <span class="blog-tag">QR Codes</span>
+                <span class="blog-tag">API Development</span>
+                <span class="blog-tag">Web Development</span>
+                <span class="blog-tag">2025 Trends</span>
+                <span class="blog-tag">JavaScript</span>
+            </div>
+        </div>
+        
+        <div class="blog-navigation">
+            <a href="#" class="nav-button">← Previous Article</a>
+            <a href="#" class="nav-button">Next Article →</a>
+        </div>
+        
+        <!-- Related Posts -->
+       
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">
+                    <span class="footer-logo-text">Arcade Studio</span>
+                </div>
+                <p class="footer-about">
+                    We create stunning, secure websites for aesthetic brands with a focus on performance and user experience.
+                </p>
+            </div>
+            
+            <div>
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                    <li><a href="/About.html">About Us</a></li>
+                    <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                    <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="footer-heading">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="Arcadeblog.html">Blog</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="footer-heading">Connect With Us</h3>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Arcade Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
+        });
+        
+        overlay.addEventListener('click', function() {
+            menuToggle.setAttribute('aria-expanded', 'false');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // QR Code Generation Functionality
+        function generateDemoQR() {
+            const input = document.querySelector('.qr-input');
+            const qrImage = document.getElementById('qrImage');
+            const downloadLink = document.getElementById('downloadLink');
+            
+            if (input.value.trim() !== '') {
+                const encodedData = encodeURIComponent(input.value);
+                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedData}`;
+                
+                qrImage.src = qrUrl;
+                downloadLink.href = qrUrl;
+            }
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
