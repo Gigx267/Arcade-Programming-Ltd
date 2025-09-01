@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazarus Group: North Korea’s Cyber Warriors and Their Global Operations | Arcade Studio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --gold-primary: #FFD700;
+            --text-light: #f5f5f5;
+            --hover-glow: rgba(255, 215, 0, 0.3);
+            --diamond-gradient: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.5) 50%, rgba(255,255,255,0.8) 100%);
+            --teal-primary: #b6d2d3;
+            --teal-dark: #1a3a3c;
+            --teal-darker: #15272a;
+            --cyber-blue: #00ffff;
+            --cyber-purple: #8a2be2;
+            --cyber-red: #ff073a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', 'Arial', sans-serif; }
+        body { background-color: var(--teal-darker); color: var(--text-light); overflow-x: hidden; line-height: 1.6; }
+        .navbar { background-color: rgba(10, 20, 22, 0.9); color: var(--text-light); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid var(--teal-primary); box-shadow: 0 0 15px rgba(182, 210, 211, 0.1); position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px);}
+        .navbar-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;}
+        .logo { color: transparent; font-weight: 700; font-size: 2rem; font-family: 'Orbitron', sans-serif; letter-spacing: 4px; text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4); -webkit-text-stroke: 1px #00ffff; position: relative; overflow: hidden; text-decoration: none; }
+        .logo::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, transparent, #8a2be2, transparent); animation: pulse-line 2s infinite ease-in-out;}
+        @keyframes pulse-line { 0%, 100% { transform: scaleX(0.8); opacity: 0.7; } 50% { transform: scaleX(1); opacity: 1; } }
+        .logo:hover { color: #fff; text-shadow: 0 0 10px rgba(182, 210, 211, 0.5);}
+        .nav-links { display: flex; list-style: none; gap: 2rem;}
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 0; position: relative; font-size: 0.95rem; letter-spacing: 0.5px;}
+        .nav-links a:hover { color: var(--teal-primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--teal-primary); transition: width 0.3s;}
+        .nav-links a:hover::after { width: 100%;}
+        .mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 1001;}
+        .mobile-menu-toggle span { display: block; width: 25px; height: 3px; background-color: #fff; margin: 5px 0; transition: all 0.3s ease;}
+        .blog-container { max-width: 900px; margin: 120px auto 60px; padding: 0 2rem;}
+        .blog-header { margin-bottom: 3rem;}
+        .blog-category { color: var(--cyber-blue); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block;}
+        .blog-title { color: var(--cyber-blue); font-size: 2.8rem; font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; line-height: 1.2;}
+        .blog-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;}
+        .blog-author { display: flex; align-items: center; gap: 0.5rem;}
+        .blog-hero-image { width: 100%; height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);}
+        .blog-content { font-size: 1.1rem; line-height: 1.8;}
+        .blog-content p { margin-bottom: 1.5rem; opacity: 0.9;}
+        .blog-content h2 { color: var(--cyber-blue); font-family: 'Playfair Display', serif; margin: 2.5rem 0 1.5rem; font-size: 1.8rem;}
+        .blog-content h3 { color: var(--cyber-blue); margin: 2rem 0 1rem; font-size: 1.4rem;}
+        .blog-content ul, .blog-content ol { margin-left: 1.5rem; margin-bottom: 1.5rem;}
+        .blog-content li { margin-bottom: 0.5rem; opacity: 0.9;}
+        .code-block { background: var(--teal-dark); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; overflow-x: auto; font-family: monospace; font-size: 0.95rem; line-height: 1.5; border-left: 4px solid var(--cyber-blue);}
+        .info-box { background: rgba(0, 255, 255, 0.1); border-left: 4px solid var(--cyber-blue); padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px;}
+        .info-box h4 { color: var(--cyber-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;}
+        .blog-content blockquote { border-left: 4px solid var(--cyber-blue); padding-left: 1.5rem; margin: 1.5rem 0; font-style: italic; opacity: 0.8;}
+        .blog-tags { display: flex; gap: 0.8rem; margin: 2rem 0; flex-wrap: wrap;}
+        .blog-tag { background: rgba(0, 255, 255, 0.1); color: var(--cyber-blue); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem;}
+        .blog-navigation { display: flex; justify-content: space-between; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(182, 210, 211, 0.2);}
+        .nav-button { color: var(--cyber-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; transition: all 0.3s;}
+        .nav-button:hover { opacity: 0.8;}
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: rgba(0, 255, 255, 0.05); border-radius: 8px; overflow: hidden;}
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(0, 255, 255, 0.1);}
+        .comparison-table th { background: rgba(0, 255, 255, 0.1); color: var(--cyber-blue); font-weight: 600;}
+        .comparison-table tr:last-child td { border-bottom: none;}
+        .footer { background: #0a1416; padding: 4rem 2rem 2rem; color: var(--text-light); margin-top: 5rem;}
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;}
+        .footer-logo { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;}
+        .footer-logo-text { font-size: 1.5rem; font-weight: bold; color: var(--teal-primary); font-family: "Playfair Display", serif; letter-spacing: 1px;}
+        .footer-about { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; margin-bottom: 1.5rem;}
+        .footer-social { display: flex; gap: 1rem;}
+        .footer-social a { color: var(--text-light); font-size: 1.2rem; transition: color 0.3s ease;}
+        .footer-social a:hover { color: var(--teal-primary);}
+        .footer-heading { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--teal-primary); text-transform: uppercase; letter-spacing: 1px;}
+        .footer-links { list-style: none;}
+        .footer-links li { margin-bottom: 0.8rem;}
+        .footer-links a { color: var(--text-light); text-decoration: none; transition: color 0.3s ease; font-size: 0.9rem; opacity: 0.8; display: block;}
+        .footer-links a:hover { color: var(--teal-primary); opacity: 1;}
+        .footer-bottom { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.6;}
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 80%; max-width: 400px; height: 100vh; background: #0a1416; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); transition: right 0.3s ease; z-index: 1000; padding: 80px 30px 30px; display: flex; flex-direction: column; gap: 2rem;}
+        .mobile-nav.active { right: 0;}
+        .mobile-nav a { color: var(--text-light); text-decoration: none; font-size: 1.2rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(182, 210, 211, 0.2); transition: color 0.3s ease;}
+        .mobile-nav a:hover { color: var(--teal-primary);}
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;}
+        .overlay.active { opacity: 1; visibility: visible;}
+        @media (max-width: 768px) {
+            .mobile-menu-toggle { display: block; }
+            .nav-links { display: none; }
+            .blog-title { font-size: 2.2rem;}
+            .blog-hero-image { height: 250px;}
+            .blog-meta { flex-direction: column; align-items: flex-start; gap: 1rem;}
+            .blog-navigation { flex-direction: column; gap: 1.5rem;}
+            .comparison-table { display: block; overflow-x: auto;}
+        }
+        @media (max-width: 480px) {
+            .blog-title { font-size: 1.8rem;}
+            .blog-container { padding: 0 1.5rem;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
+            <ul class="nav-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="/About.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                <li><a href="Arcadeblog.html">Blog</a></li>
+                <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="https://arcade.name.ng/index.html">Home</a>
+        <a href="/About.html">About Us</a>
+        <a href="https://arcade.name.ng/projects.html">Projects</a>
+        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a>
+        <a href="Arcadeblog.html">Blog</a>
+        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
+        <a href="https://arcade.name.ng/contact.html">Contact</a>
+    </div>
+    <!-- Overlay for mobile menu -->
+    <div class="overlay" id="overlay"></div>
+    <!-- Blog Content -->
+    <article class="blog-container">
+        <header class="blog-header">
+            <span class="blog-category">Cyber Espionage</span>
+            <h1 class="blog-title">Lazarus Group: North Korea’s Cyber Warriors and Their Global Operations</h1>
+            <div class="blog-meta">
+                <div class="blog-author">
+                    <span>Gigx267</span>
+                </div>
+                <span>May 20, 2025</span>
+                <span>10 min read</span>
+            </div>
+        </header>
+        <img src="tre (1).jpg" alt="Lazarus Group North Korea" class="blog-hero-image">
+        <div class="blog-content">
+            <p>Among the world’s most feared cyber adversaries, the Lazarus Group stands out for its audacity, technical skill, and global reach. Backed by North Korea’s regime, Lazarus has conducted some of the most notorious cyberattacks of the last decade—spanning espionage, financial theft, and destructive sabotage.</p>
+            <h2>Who Is Lazarus Group?</h2>
+            <p>Lazarus Group is a North Korean state-sponsored Advanced Persistent Threat (APT) team. Its operations serve the regime’s goals—funding the state, gathering intelligence, and projecting power in cyberspace. Lazarus is known for blending cybercrime and cyber warfare tactics, operating with little concern for international norms.</p>
+            <div class="info-box">
+                <h4>💀 Lazarus Group Profile</h4>
+                <ul>
+                    <li><strong>Aliases:</strong> Hidden Cobra, APT38, Guardians of Peace, Nickel Academy</li>
+                    <li><strong>Affiliation:</strong> North Korean Reconnaissance General Bureau</li>
+                    <li><strong>Main Targets:</strong> Banks, crypto exchanges, defense, media, critical infrastructure</li>
+                </ul>
+            </div>
+            <h2>Signature Attacks & Global Operations</h2>
+            <h3>1. Sony Pictures Hack (2014)</h3>
+            <ul>
+                <li>Lazarus stole and leaked terabytes of data, destroying computers and embarrassing Sony. The attack was retaliation for the movie “The Interview.” It marked a turning point in destructive, politically motivated cyber warfare.</li>
+            </ul>
+            <h3>2. Bangladesh Bank Heist (2016)</h3>
+            <ul>
+                <li>Using SWIFT network compromises, Lazarus attempted to steal $1 billion; they succeeded in transferring $81 million. This attack demonstrated the group’s financial motivation and technical sophistication.</li>
+            </ul>
+            <h3>3. WannaCry Ransomware (2017)</h3>
+            <ul>
+                <li>Lazarus unleashed ransomware that crippled hospitals, businesses, and infrastructure worldwide. The attack exploited a leaked NSA exploit and caused billions in damages.</li>
+            </ul>
+            <h3>4. Crypto Exchange Thefts (2018–2025)</h3>
+            <ul>
+                <li>Lazarus has stolen billions from cryptocurrency exchanges globally, funding North Korea’s military and nuclear ambitions.</li>
+            </ul>
+            <h3>5. Espionage & Military Targeting</h3>
+            <ul>
+                <li>Lazarus conducts continuous espionage against government, defense, and media targets, seeking strategic intelligence and technology secrets.</li>
+            </ul>
+            <div class="info-box">
+                <h4>🌐 2025 Trend Watch</h4>
+                <p>Lazarus is increasingly using AI-powered malware, deepfake social engineering, and supply chain compromises to bypass advanced defenses.</p>
+            </div>
+            <h2>Techniques & Tactics</h2>
+            <ul>
+                <li>Custom malware: RATs, wipers, ransomware, crypto miners</li>
+                <li>Spear-phishing and fake job postings</li>
+                <li>Malicious document and software updates</li>
+                <li>Software supply chain attacks</li>
+                <li>Money laundering via crypto mixers and DeFi platforms</li>
+            </ul>
+            <h2>Lazarus: Cybercrime Meets Cyber Warfare</h2>
+            <p>Lazarus uniquely blends criminal heists and state-driven sabotage. Their attacks serve both to fund North Korea and to achieve strategic aims—disrupting adversaries, stealing secrets, and projecting power beyond the nation’s borders.</p>
+            <blockquote>
+                “Lazarus Group is not just a cybercriminal gang. They are digital commandos serving a regime.” — US Cybersecurity & Infrastructure Security Agency (CISA)
+            </blockquote>
+            <h2>Defending Against Lazarus Group</h2>
+            <ul>
+                <li>Multi-layered ransomware and malware defense</li>
+                <li>Continuous supply chain vetting and monitoring</li>
+                <li>Employee awareness and anti-phishing training</li>
+                <li>Blockchain analytics and crypto transaction monitoring</li>
+                <li>International intelligence sharing for rapid response</li>
+            </ul>
+            <h2>The Future: Lazarus in 2025 and Beyond</h2>
+            <p>Lazarus remains a top global threat, innovating with new attack techniques and targeting emerging technologies. Their blend of financial theft and strategic sabotage ensures they will shape the cyber landscape for years to come.</p>
+            <div class="info-box">
+                <h4>🔮 2030 Outlook</h4>
+                <p>Lazarus is expected to expand its operations into quantum, AI, and IoT targeting—making cyber defense against nation-state threats an ever-evolving challenge.</p>
+            </div>
+            <h2>Conclusion: The Long Shadow of Lazarus Group</h2>
+            <p>Lazarus Group’s legacy is one of audacious global attacks, bridging the worlds of cybercrime and cyber warfare. As they continue to evolve, organizations everywhere must remain vigilant, adaptive, and collaborative in their defense strategies. In the ongoing digital arms race, Lazarus Group is a name that commands caution and respect.</p>
+            <div class="blog-tags">
+                <span class="blog-tag">Lazarus Group</span>
+                <span class="blog-tag">North Korea</span>
+                <span class="blog-tag">Cyber Espionage</span>
+                <span class="blog-tag">Ransomware</span>
+                <span class="blog-tag">Crypto Theft</span>
+            </div>
+        </div>
+        <div class="blog-navigation">
+            <a href="Blogpost7.html" class="nav-button">← Previous Article</a>
+            <a href="Arcadeblog.html" class="nav-button">Blog Home →</a>
+        </div>
+    </article>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">
+                    <span class="footer-logo-text">Arcade Studio</span>
+                </div>
+                <p class="footer-about">
+                    We create stunning, secure websites for aesthetic brands with a focus on performance and user experience.
+                </p>
+                <div class="footer-social"></div>
+            </div>
+            <div>
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                    <li><a href="/About.html">About Us</a></li>
+                    <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                    <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-heading">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="Arcadeblog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div></div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Arcade Studio. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
+        });
+        overlay.addEventListener('click', function() {
+            menuToggle.setAttribute('aria-expanded', 'false');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
