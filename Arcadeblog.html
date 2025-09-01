@@ -1,0 +1,810 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Studio | Websites for Aesthetic Brands</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --gold-primary: #FFD700;
+            --gold-secondary: #b8860b;
+            --text-light: #f5f5f5;
+            --hover-glow: rgba(255, 215, 0, 0.3);
+            --diamond-gradient: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.5) 50%, rgba(255,255,255,0.8) 100%);
+            --teal-primary: #b6d2d3;
+            --teal-dark: #1a3a3c;
+            --teal-darker: #15272a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--teal-darker);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation - Enhanced */
+        .navbar {
+            background-color: rgba(10, 20, 22, 0.9);
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--teal-primary);
+            box-shadow: 0 0 15px rgba(182, 210, 211, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+       
+        .logo {
+    color: transparent; /* Make text transparent to show only stroke/shadow */
+    font-weight: 700;
+    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif; /* Futuristic, geometric font */
+    letter-spacing: 4px; /* More spaced out */
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4); /* Cyan glow */
+    -webkit-text-stroke: 1px #00ffff; /* Neon stroke around text */
+    /* Optional: Use a pseudo-element for a subtle "scanline" effect */
+    position: relative;
+    overflow: hidden; /* Important for scanline effect */
+}
+
+/* Pseudo-element for a subtle scanline or underglow */
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Adjust based on your layout */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8a2be2, transparent); /* Purple glowing line */
+    animation: pulse-line 2s infinite ease-in-out;
+}
+
+@keyframes pulse-line {
+    0%, 100% {
+        transform: scaleX(0.8);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+        .logo:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(182, 210, 211, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--teal-primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6);
+        }
+        
+        .hero-text {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+        
+        .hero-text p {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--teal-primary);
+            font-family: "Playfair Display", serif;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
+            color: #15272a;
+            box-shadow: 0 4px 15px rgba(182, 210, 211, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Content Section */
+        .content-container {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .media-primary {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            height: 500px;
+        }
+        
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+        }
+        
+        .media-secondary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .animated-icon {
+            background: rgba(26, 58, 60, 0.7);
+            border: 1px solid rgba(182, 210, 211, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        
+        .animated-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(182, 210, 211, 0.2);
+            border-color: var(--teal-primary);
+        }
+        
+        .animated-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .text-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .text-heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--teal-primary);
+            margin-bottom: 2rem;
+            font-family: "Playfair Display", serif;
+        }
+        
+        .text-heading span {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .text-body {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .ctas {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .cta {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .cta-primary {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
+            color: #15272a;
+            border: none;
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: var(--teal-primary);
+            border: 2px solid var(--teal-primary);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
+        }
+        
+        .cta-secondary:hover {
+            background: rgba(182, 210, 211, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Services Section */
+        .services-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            color: var(--teal-primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            font-family: "Playfair Display", serif;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--teal-primary);
+            margin: 1rem auto 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: var(--teal-dark);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(182, 210, 211, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: var(--teal-primary);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(182, 210, 211, 0.1);
+            border-radius: 50%;
+            color: var(--teal-primary);
+            font-size: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: var(--teal-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: "Playfair Display", serif;
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Client Showcase */
+        .client-showcase {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        
+       
+        
+        /* Footer */
+        .footer {
+            background: #0a1416;
+            padding: 4rem 2rem 2rem;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--teal-primary);
+            font-family: "Playfair Display", serif;
+            letter-spacing: 1px;
+        }
+        
+        .footer-about {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--teal-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            color: var(--teal-primary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: #0a1416;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(182, 210, 211, 0.2);
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--teal-primary);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .content-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .media-primary {
+                height: 400px;
+            }
+            
+            .text-heading {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text p {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .ctas {
+                flex-direction: column;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text p {
+                font-size: 2rem;
+            }
+            
+            .text-heading {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
+            
+            <ul class="nav-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="/About.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                <li><a href="Arcadeblog.html">Blog </a></li>
+                <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="https://arcade.name.ng/index.html">Home</a>
+        <a href="/About.html">About Us</a>
+        <a href="https://arcade.name.ng/projects.html">Projects</a>
+        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a>
+        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
+        <a href="https://arcade.name.ng/contact.html">Contact</a>
+    </div>
+    
+    <!-- Overlay for mobile menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+   
+
+   <!-- Add this section after the Client Showcase section in your HTML -->
+
+<!-- Hacker's Blog Section -->
+<section class="blog-section" style="padding: 5rem 2rem; background: var(--teal-darker);">
+    <div class="blog-container" style="max-width: 1200px; margin: 0 auto;">
+        <h2 class="section-title" style="text-align: center; color: var(--teal-primary); font-size: 2.5rem; margin-bottom: 3rem; font-family: 'Playfair Display', serif;">
+         <BR><BR> Gigx267   Hacker's Blog
+        </h2>
+        
+        <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+            <!-- Blog Post 1 -->
+            <div class="blog-card" style="background: var(--teal-dark); border-radius: 12px; overflow: hidden; transition: all 0.5s ease; border: 1px solid rgba(182, 210, 211, 0.1);">
+                <div class="blog-image" style="height: 500px; overflow: hidden;">
+                    <img src="pt4.png" alt="Cybersecurity" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="blog-content" style="padding: 1.5rem;">
+                    <span class="blog-category" style="color: var(--teal-primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Security</span>
+                    <h3 class="blog-title" style="color: var(--text-light); margin: 0.5rem 0 1rem; font-size: 1.3rem; font-family: 'Montserrat', sans-serif;">
+                    Using Free Apis To Develop Qrcodes and understanding Binarization
+                    </h3>
+                    <p class="blog-excerpt" style="color: var(--text-light); opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem;">
+                        For developers, creating QR codes has never been easier thanks to free APIs and libraries. In this comprehensive guide, we'll explore how to generate QR codes using free APIs and examine their innovative applications in 2025.
+                    </p>
+                    <div class="blog-meta" style="display: flex; justify-content: space-between; align-items: center;">
+
+                        <a href="Blogpost1.html" class="read-more" style="color: var(--teal-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog Post 2 -->
+            <div class="blog-card" style="background: var(--teal-dark); border-radius: 12px; overflow: hidden; transition: all 0.5s ease; border: 1px solid rgba(182, 210, 211, 0.1);">
+                <div class="blog-image" style="height: 300px; overflow: hidden;">
+                    <img src="pt10.png" alt="Ethical Hacking" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="blog-content" style="padding: 1.5rem;">
+                    <span class="blog-category" style="color: var(--teal-primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Ethical Hacking</span>
+                    <h3 class="blog-title" style="color: var(--text-light); margin: 0.5rem 0 1rem; font-size: 1.3rem; font-family: 'Montserrat', sans-serif;">
+                     The Rise and Fall of Cybersecurity in Africa
+                    </h3>
+                    <p class="blog-excerpt" style="color: var(--text-light); opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem;">
+                        An in-depth analysis of the cybersecurity landscape in Africa, highlighting key challenges and success stories.
+                    </p>
+                    <div class="blog-meta" style="display: flex; justify-content: space-between; align-items: center;">
+                       
+                        <a href="Blogpost2.html" class="read-more" style="color: var(--teal-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog Post 3 -->
+            <div class="blog-card" style="background: var(--teal-dark); border-radius: 12px; overflow: hidden; transition: all 0.5s ease; border: 1px solid rgba(182, 210, 211, 0.1);">
+                <div class="blog-image" style="height: 500px; overflow: hidden;">
+                    <img src="pt2.png" alt="Encryption" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="blog-content" style="padding: 1.5rem;">
+                    <span class="blog-category" style="color: var(--teal-primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Encryption</span>
+                    <h3 class="blog-title" style="color: var(--text-light); margin: 0.5rem 0 1rem; font-size: 1.3rem; font-family: 'Montserrat', sans-serif;">
+                        Quantum Computing: The Future of Encryption & Security
+                    </h3>
+                    <p class="blog-excerpt" style="color: var(--text-light); opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem;">
+                        How quantum computing will revolutionize encryption and what it means for the future of cybersecurity.
+                    </p>
+                    <div class="blog-meta" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="blog-date" style="color: var(--teal-primary); font-size: 0.8rem;">March 10, 2023</span>
+                        <a href="#" class="read-more" style="color: var(--teal-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="Arcadeblog.html" class="cta cta-primary" style="display: inline-block; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-align: center; background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark)); color: #15272a; text-decoration: none;">
+                View All Articles
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Add this CSS to your existing style section -->
+<style>
+    .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        border-color: var(--teal-primary);
+    }
+    
+    .read-more:hover {
+        text-decoration: underline !important;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
