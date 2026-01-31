@@ -1,612 +1,311 @@
-          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Kelechi - Founder of Arcade</title>
+    <title>Arcade Studio | Team Code</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;500&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+        :root {
+            --neon-yellow: #f3e600;
+            --neon-pink: #ff0055;
+            --dark-bg: #050505;
+            --tech-gray: #222;
+            --border-glow: rgba(243, 230, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            cursor: crosshair;
         }
-        
+
         body {
-            background-color: #0c0d0d;
-            color: #e0e0e0;
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
         }
-        
-        /* Navbar Styles */
+
+        /* --- Background Scanlines Effect --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 200;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* --- Cyberpunk Navbar --- */
         .navbar {
-            background: radial-gradient(circle 400px at 50% -50%, #1a1b1b, #0c0d0d);
-            border-bottom: 1px solid #202222;
-            padding: 1.5rem 2rem;
+            padding: 1rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 2px solid var(--tech-gray);
+            background: rgba(0,0,0,0.8);
+            text-transform: uppercase;
         }
-        
+
         .logo {
-            font-size: 1.8rem;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            background: linear-gradient(45deg, #ffffff, #aaaaaa);
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            letter-spacing: 5px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
         }
-        
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ffffff;
-            animation: pulse 2s infinite;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-link {
-            color: #aaaaaa;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-link:hover {
-            color: #ffffff;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #ffffff, transparent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .contact-btn {
-            background: linear-gradient(45deg, #3a3b3b, #1a1b1b);
-            border: 1px solid #2c2c2c;
-            color: #ffffff;
-            padding: 0.7rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-btn:hover {
-            background: linear-gradient(45deg, #444444, #2a2b2b);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-        
+
+        /* --- Main Content Layout --- */
         .container {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1100px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
-        
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .bento-item {
-            border-radius: 12px;
-            padding: 1.5rem;
+
+        /* --- The "Card" inspired by the image --- */
+        .cyber-card {
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .bento-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .profile-card {
-            grid-column: span 1;
-            grid-row: span 2;
-            background: radial-gradient(circle 280px at 0% 0%, #444444, #0c0d0d);
-            border: solid 1px #202222;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .profile-image:hover {
-            transform: scale(1.05);
-        }
-        
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ffffff, #aaaaaa);
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .profile-title {
-            font-size: 1rem;
-            color: #aaaaaa;
-            margin-bottom: 1.5rem;
-        }
-        
-        .profile-location {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #888888;
-            font-size: 0.9rem;
-        }
-        
-        .philosophy-card {
-            grid-column: span 2;
-            background: radial-gradient(circle 400px at 100% 0%, #2a2b2b, #0c0d0d);
-            border: solid 1px #202222;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #ffffff, transparent);
-        }
-        
-        .philosophy-text {
-            line-height: 1.6;
-            color: #cccccc;
-        }
-        
-        .highlight {
-            color: #ffffff;
-            font-weight: 500;
-        }
-        
-        .expertise-card {
-            grid-column: span 1;
-            background: radial-gradient(circle 200px at 0% 100%, #333434, #0c0d0d);
-            border: solid 1px #202222;
-        }
-        
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-        
-        .skill-item {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-        
-        .skill-item:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
-        
-        .stats-card {
-            grid-column: span 1;
-            background: radial-gradient(circle 200px at 100% 100%, #3a3b3b, #0c0d0d);
-            border: solid 1px #202222;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .stats-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ffffff, #aaaaaa);
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stats-label {
-            font-size: 0.9rem;
-            color: #aaaaaa;
-        }
-        
-        .quote-card {
-            grid-column: span 2;
-            background: radial-gradient(circle 300px at 50% 100%, #2e2f2f, #0c0d0d);
-            border: solid 1px #202222;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .quote-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #dddddd;
-            font-style: italic;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .quote-text::before {
-            content: '"';
-            position: absolute;
-            left: 0;
-            top: -0.5rem;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .animated-dot {
-            width: 5px;
-            aspect-ratio: 1;
-            position: absolute;
-            background-color: #fff;
-            box-shadow: 0 0 10px #ffffff;
-            border-radius: 100px;
-            z-index: 2;
-            right: 10%;
-            top: 10%;
-            animation: moveDot 6s linear infinite;
-        }
-        
-        @keyframes moveDot {
-            0%, 100% { top: 10%; right: 10%; }
-            25% { top: 10%; right: calc(100% - 35px); }
-            50% { top: calc(100% - 30px); right: calc(100% - 35px); }
-            75% { top: calc(100% - 30px); right: 10%; }
-        }
-        
-        .ray {
-            width: 220px;
-            height: 45px;
-            border-radius: 100px;
-            position: absolute;
-            background-color: #c7c7c7;
-            opacity: 0.4;
-            box-shadow: 0 0 50px #fff;
-            filter: blur(10px);
-            transform-origin: 10%;
-            top: 0%;
-            left: 0;
-            transform: rotate(40deg);
-            z-index: 1;
-        }
-        
-        .line {
+            height: 450px;
             width: 100%;
-            height: 1px;
+            background-size: cover;
+            background-position: center;
+            border-left: 5px solid var(--neon-yellow);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            transition: 0.4s;
+            filter: grayscale(0.4);
+        }
+
+        .cyber-card:hover {
+            filter: grayscale(0);
+            box-shadow: 0 0 30px var(--border-glow);
+        }
+
+        /* HUD Brackets (the corners) */
+        .cyber-card::after {
+            content: "";
             position: absolute;
-            background-color: #2c2c2c;
+            top: 10px; right: 10px; bottom: 10px; left: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none;
         }
-        
-        .topl {
-            top: 10%;
-            background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%);
+
+        .card-overlay {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.9) 20%, transparent 70%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
         }
-        
-        .bottoml {
-            bottom: 10%;
+
+        /* Main Big Title (COWBOY, HONOR, etc) */
+        .cyber-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 6rem;
+            margin: 0;
+            line-height: 1;
+            transform: rotate(-3deg);
+            opacity: 0.9;
         }
-        
-        .leftl {
-            left: 10%;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(180deg, #747474 30%, #222424 70%);
+
+        .yellow-text { color: var(--neon-yellow); text-shadow: 3px 3px 0px #000; }
+        .pink-text { color: var(--neon-pink); text-shadow: 3px 3px 0px #000; }
+
+        .point-no-return {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--neon-yellow);
+            width: fit-content;
         }
-        
-        .rightl {
-            right: 10%;
-            width: 1px;
-            height: 100%;
+
+        /* Tech Details Labels */
+        .tech-data {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            font-size: 0.6rem;
+            color: #aaa;
+            z-index: 3;
         }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
+
+        .tech-data span {
+            color: var(--neon-yellow);
+            margin-right: 15px;
         }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        .date-stamp {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 0.8rem;
+            text-align: right;
+            border-right: 2px solid var(--neon-pink);
+            padding-right: 10px;
         }
-        
-        .pulse {
-            animation: pulse 2s infinite;
+
+        /* --- Member Custom Colors --- */
+        .card-cowboy { background-image: url('https://i.pinimg.com/1200x/55/e6/33/55e633348a61cdd696250da4aa78b1cd.jpg'); }
+        .card-honor { background-image: url('https://i.pinimg.com/736x/2c/18/0a/2c180a83ff459a9a5d4c83d1a485b2a0.jpg'); border-left-color: var(--neon-pink); }
+
+        /* Animation for glitch */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
-        
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                right: 0;
-                background: radial-gradient(circle 400px at 50% 0%, #1a1b1b, #0c0d0d);
-                padding: 1rem 2rem;
-                border-bottom: 1px solid #202222;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .bento-item {
-                grid-column: span 1 !important;
-            }
-        }
+        .glitch-hover:hover { animation: glitch 0.2s infinite; }
+
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+
     <nav class="navbar">
-        <div class="logo">
-            <span>Arcade</span>
-            <div class="logo-dot"></div>
-        </div>
-        
-        <button class="mobile-menu-btn">☰</button>
-        
-        <div class="nav-links">
-            <a href="https://arcade.name.ng/index.html" class="nav-link">Home</a>
-            <a href="https://arcade.name.ng/projects.html " class="nav-link">Services</a>
-            <a href="https://arcade.name.ng/projects.html " class="nav-link">Projects</a>
-            <a href="https://arcade.name.ng/About.html " class="nav-link">About</a>
-            <a href="https://gigx267.github.io/Arcade-Security-/ " class="nav-link">Security</a>
-            <button class="contact-btn">Contact</button>
-        </div>
+        <div class="logo">ARCADE // STUDIO</div>
+        <div style="font-size: 0.7rem; color: #666;">MONITORING_SYSTEM_V.2.0.77</div>
     </nav>
-    
-    <!-- Main Content -->
+
     <div class="container">
-        <div class="bento-grid">
-            <!-- Profile Card -->
-            <div class="bento-item profile-card">
-                <div class="animated-dot"></div>
-                <div class="ray"></div>
-                <img src="https://avatars.githubusercontent.com/u/120751990?v=4 " alt="" class="profile-image floating">
-                <h1 class="profile-name">Kelechi</h1>
-                <p class="profile-title">  Web Developer & Cybersecurity Specialist </p>
-                <p class="profile-location">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Abuja, Nigeria
-                </p>
-                <div class="line topl"></div>
-                <div class="line leftl"></div>
-                <div class="line bottoml"></div>
-                <div class="line rightl"></div>
+        
+        <div class="cyber-card card-cowboy">
+            <div class="card-overlay">
+                <p class="point-no-return">Founder </p>
+                <h1 class="cyber-title yellow-text glitch-hover">Kelechi</h1>
+                <p style="color: #fff; font-size: 0.8rem; margin-top: 10px;">WEB DEVELOPER & CYBERSECURITY SPECIALIST</p>
             </div>
-            
-
-  <!-- Profile Card -->
-            <div class="bento-item profile-card">
-                <div class="animated-dot"></div>
-                <div class="ray"></div>
-                <img src="https://i.pinimg.com/1200x/40/41/c9/4041c974b7ea003399aca3eec6ed2326.jpg" alt="Kelechi" class="profile-image floating">
-                <h1 class="profile-name">Samuel  Egwu </h1>
-                <p class="profile-title"> App Developer & Ai Solutions Programmer </p>
-                <p class="profile-location">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Abuja, Nigeria
-                </p>
-                <div class="line topl"></div>
-                <div class="line leftl"></div>
-                <div class="line bottoml"></div>
-                <div class="line rightl"></div>
+            <div class="date-stamp">
+                The Leader  <br>
             </div>
-
-
-<div class="bento-item profile-card">
-                <div class="animated-dot"></div>
-                <div class="ray"></div>
-                <img src="https://avatars.githubusercontent.com/u/69150232?v=4" alt="Kelechi" class="profile-image floating">
-                <h1 class="profile-name"> Jewel Eniola</h1>
-                <p class="profile-title"> Web Developer & User Interface Specalist  </p>
-                <p class="profile-location">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Abuja, Nigeria
-                </p>
-                <div class="line topl"></div>
-                <div class="line leftl"></div>
-                <div class="line bottoml"></div>
-                <div class="line rightl"></div>
-            </div>
-
-
-            <!-- Philosophy Card -->
-            <div class="bento-item philosophy-card">
-                <h2 class="section-title">We are Arcade Studio </h2>
-                <p class="philosophy-text">
-                    We believe in a hands-on, collaborative approach to every project. By combining technical
-                     expertise with creative passion, we don't just build products; we craft digital experiences 
-                     that are intelligent, adaptive, and truly user-centric. Our work is a perfect fusion of timeless 
-                     aesthetics and forward-thinking
-                     technology, ensuring your brand stands out in a crowded digital landscape.
-                </p>
-                <p class="philosophy-text" style="margin-top: 1rem;">
-                     <span class="highlight">human creativity remains the core</span> As a leading software development and animation powerhouse, our core strength lies in our people—a collective of talented software developers, animators, and cybersecurity specialists. We are united by a common goal: to bring your vision to life through a comprehensive suite of services built on a foundation of cutting-edge technology and robust security.
-                </p>
-            </div>
-            
-            <!-- Expertise Card -->
-            <div class="bento-item expertise-card">
-                <h2 class="section-title">Technical Expertise</h2>
-                <p class="philosophy-text">I specialize in full-stack development with a focus on creating robust, scalable solutions.</p>
-                
-                <div class="skills-list">
-                    <div class="skill-item pulse">JavaScript</div>
-                    <div class="skill-item pulse">HTML/CSS</div>
-                    <div class="skill-item pulse">Node.js</div>
-                    <div class="skill-item pulse">PHP</div>
-                    <div class="skill-item pulse">Vue.js</div>
-                    <div class="skill-item pulse">Bootstrap</div>
-                    <div class="skill-item pulse">Shopify</div>
-                    <div class="skill-item pulse">Flutter</div>
-<div class="skill-item pulse">Swift (iOS)</div>
-<div class="skill-item pulse">Kotlin (Android)</div>
-<div class="skill-item pulse">Python</div>
-<div class="skill-item pulse">TensorFlow</div>
-<div class="skill-item pulse">PyTorch</div>
-<div class="skill-item pulse">Firewalls & IDS</div>
-<div class="skill-item pulse">Threat Modeling</div>
-<div class="skill-item pulse">Vulnerability Assessment</div>
-<div class="skill-item pulse">Penetration Testing</div>
-                    <div class="skill-item pulse">Wordpress</div>
-                    <div class="skill-item pulse">CMS Platforms</div>
-                    <div class="skill-item pulse">UI/UX Design</div>
-                </div>
-            </div>
-            
-            <!-- Stats Card 1 -->
-            <div class="bento-item stats-card">
-                <div class="animated-dot"></div>
-                <div class="stats-value">$80K+</div>
-                <div class="stats-label">Saved for clients</div>
-                <div class="line topl"></div>
-                <div class="line bottoml"></div>
-            </div>
-            
-            <!-- Stats Card 2 -->
-            <div class="bento-item stats-card">
-                <div class="ray"></div>
-                <div class="stats-value">40+</div>
-                <div class="stats-label">Projects delivered</div>
-                <div class="line topl"></div>
-                <div class="line bottoml"></div>
-            </div>
-            
-            <!-- Quote Card -->
-            <div class="bento-item quote-card">
-                <h2 class="section-title">Our  Vision</h2>
-                <p class="quote-text">
-                    To be the leading force in Nigeria's Next Programming Powerhouse, where every project we 
-                    undertake is a testament to our commitment to excellence, creativity, and security. We aim to empower businesses with cutting-edge solutions that 
-                    not only meet their needs but also inspire and engage their audiences. We are Abuja's premier digital partner, renowned for crafting intelligent and impactful solutions   
-                </p>
-            </div>
-            
-            <!-- Services Card -->
-            <div class="bento-item" style="grid-column: span 3; background: radial-gradient(circle 400px at 50% 0%, #3a3b3b, #0c0d0d); border: solid 1px #202222; padding: 2rem;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">Services I Offer</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💻</div>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Programming</h3>
-                        <p style="font-size: 0.9rem; color: #aaaaaa;">Custom web applications tailored to your needs</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔧</div>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Maintenance</h3>
-                        <p style="font-size: 0.9rem; color: #aaaaaa;">Ongoing support and updates</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Integration</h3>
-                        <p style="font-size: 0.9rem; color: #aaaaaa;">Seamless third-party connections</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Security</h3>
-                        <p style="font-size: 0.9rem; color: #aaaaaa;">Protection for your digital assets</p>
-                    </div>
-                </div>
+            <div class="tech-data">
+                <span>MONITORING: DAY 002</span> <span>LOCAL: FCT_NGA</span> <span>STATUS: ACTIVE</span>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Mobile menu toggle
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
+        <div class="cyber-card card-honor">
+            <div class="card-overlay">
+                <p class="point-no-return">Backend Developer</p>
+                <h1 class="cyber-title pink-text glitch-hover">Samuel</h1>
+                <p style="color: #fff; font-size: 0.8rem; margin-top: 10px;">AI SOLUTIONS PROGRAMMER</p>
+            </div>
+            <div class="date-stamp">
+                The brains <br>behind the code
+            </div>
+            <div class="tech-data">
+                <span>SYSTEM: ARCADE_OS</span> <span>LOCAL: ABJ_NGA</span> <span>ENCRYPTION: LEVEL 9</span>
+            </div>
+        </div>
+
+        </div>
+<div class="cyber-card card-plan">
+    <div class="card-overlay">
+        <p class="point-no-return">INTERFACE PROTOCOL</p>
+        <h1 class="cyber-title orange-text glitch-hover">Jewel</h1>
+        <p class="role-text">UI/UX & WEB ARCHITECT</p>
+    </div>
+    <div class="date-stamp"><br> UI EXPERT </div>
+    <div class="tech-data">
+        <span>GRID: ACTIVE</span> <span>LATENCY: 2ms</span> <span>TYPE: DESIGNER</span>
+    </div>
+</div>
+
+<div class="cyber-card card-robot">
+    <div class="card-overlay">
+        <div class="tech-hex-icons">⬢ ⬡ ⬢</div>
+        <h1 class="cyber-title purple-text glitch-hover">Precious</h1>
+        <p class="role-text">FRONTEND REACT ENTHUSIAST</p>
+    </div>
+    <div class="date-stamp"> The Dreamer </div>
+    <div class="tech-data">
+        <span>CORE: REACT.JS</span> <span>BUILD: V.18.2</span> <span>LOCAL: UYO_NGA</span>
+    </div>
+</div>
+<div class="cyber-card card-media">
+    <div class="card-overlay">
+        <p class="point-no-return">NETWORK BROADCAST</p>
+        <h1 class="cyber-title green-text glitch-hover">Kater</h1>
+        <p class="role-text">DIGITAL MARKETER & SOCIAL MEDIA SPECIALIST</p>
+    </div>
+    <div class="date-stamp">THE INFLUENCE<br>Growth Strategist</div>
+    <div class="tech-data">
+        <span>REACH: GLOBAL</span> <span>ALGO: OPTIMIZED</span> <span>LOCAL: ABJ_NGA</span>
+    </div>
+</div>
+<style>/* Netrunner Emerald Palette for Kater */
+.card-media { 
+    background-image: url('https://i.pinimg.com/1200x/53/e6/60/53e660cd5a17e8b9fb8940c958e81a85.jpg'); 
+    border-left-color: #00ff88; 
+}
+
+.green-text { 
+    color: #00ff88; 
+    text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0, 255, 136, 0.4); 
+} </style>
+<div class="cyber-card card-ruiner">
+    <div class="card-overlay">
+        <p class="point-no-return">DATABASE BREACH</p>
+        <h1 class="cyber-title blue-text glitch-hover">Hosea</h1>
+        <p class="role-text">SQL & PYTHON DEVELOPER</p>
+    </div>
+    <div class="date-stamp">SECURED<br> Database Developer </div>
+    <div class="tech-data">
+        <span>QUERY: OPTIMIZED</span> <span>DATA: ENCRYPTED</span> <span>SQL: ACTIVE</span>
+    </div>
+</div>
+<style> /* Specific Card Backgrounds */
+.card-plan { 
+    background-image: url('https://i.pinimg.com/736x/fb/8c/8d/fb8c8d807e239a8168d05fa5a5b1359a.jpg'); 
+    border-left-color: #ff8800; 
+}
+.card-robot { 
+    background-image: url('https://i.pinimg.com/736x/0c/95/dc/0c95dccf36195aca0e6fd4f842a3fb46.jpg'); 
+    border-left-color: #bc00ff; 
+}
+.card-ruiner { 
+    background-image: url('https://i.pinimg.com/736x/6c/31/99/6c31993cbfdc4dedc6fa9a3a3023bb03.jpg'); 
+    border-left-color: #00d4ff; 
+}
+
+/* Color Palette for Titles */
+.orange-text { color: #ff8800; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(255,136,0,0.4); }
+.purple-text { color: #bc00ff; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(188,0,255,0.4); }
+.blue-text { color: #00d4ff; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0,212,255,0.4); }
+
+/* Decorative Elements */
+.role-text {
+    color: #fff;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    background: rgba(255,255,255,0.1);
+    width: fit-content;
+    padding: 2px 8px;
+}
+
+.tech-hex-icons {
+    color: rgba(188,0,255,0.8);
+    font-size: 1.2rem;
+    margin-bottom: -10px;
+}
+
+/* Subtle Hover Shift */
+.cyber-card:hover .cyber-title {
+    transform: rotate(-1deg) scale(1.05);
+    transition: 0.2s ease-in-out;
+}</style> 
 </body>
 </html>
