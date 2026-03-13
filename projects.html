@@ -1,295 +1,792 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Projects</title>
-    <link rel="icon" type="image/x-icon" href="pp (2).png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="pp (2).png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #111;
+            --accent: #00ffcc;
+            --accent-glow: #ff00ff;
+            --text: #e0e0e0;
+            --overlay: rgba(0,0,0,0.75);
+        }
+
         body {
-            font-family: fantasy;
-            background-color: #222222;
-            color: white;
-        }
-
-       
-
-        .dropdown {
-            float: left;
-            overflow: hidden;
-        }
-
-        .dropdown .dropbtn {
-            font-size: 16px;  
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            font-family: inherit;
             margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        .navbar a:hover, .dropdown:hover .dropbtn {
-            background-color: rgb(218, 179, 79);
+        /* Cyberpunk Navbar */
+        .cyberpunk-navbar {
+            background: #0a0a0a;
+            border-bottom: 2px solid var(--accent-glow);
+            box-shadow: 0 0 20px rgba(255,0,255,0.4),
+                        0 0 40px rgba(0,255,204,0.25);
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
+        .cyberpunk-logo {
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--accent);
         }
 
-        .dropdown-content a {
-            float: none;
-            color: black;
-            padding: 12px 16px;
+        .cyberpunk-link {
+            color: white;
+            font-weight: 600;
             text-decoration: none;
-            display: block;
-            text-align: left;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
 
-        .dropdown-content a:hover {
-            background-color: #ddd;
+        .cyberpunk-link:hover {
+            color: var(--accent-glow);
+            text-shadow: 0 0 12px var(--accent-glow);
+            background: rgba(255,0,255,0.1);
         }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
+        .cyberpunk-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
         }
 
+        .cyberpunk-hamburger .line {
+            width: 28px;
+            height: 3px;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 992px) {
+            .cyberpunk-nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10,10,10,0.98);
+                flex-direction: column;
+                padding: 1.5rem;
+                border-top: 1px solid var(--accent-glow);
+            }
+
+            .cyberpunk-nav-links.active {
+                display: flex;
+            }
+
+            .cyberpunk-hamburger {
+                display: flex;
+            }
+
+            .cyberpunk-hamburger.active .line:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            .cyberpunk-hamburger.active .line:nth-child(2) { opacity: 0; }
+            .cyberpunk-hamburger.active .line:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+
+        /* Project Cards */
         .project-card {
-            height: 300px;
-            margin-bottom: 30px;
+            height: 320px;
             position: relative;
+            border-radius: 12px;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            background: var(--card-bg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 16px 40px rgba(0,255,204,0.2);
         }
 
-        .project-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .project-card img {
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 1;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.08);
         }
 
         .project-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 20px;
-            z-index: 2;
+            inset: auto 0 0 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, var(--overlay), transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
         .project-title {
-            color: white;
-            font-size: 1.5em;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 0.8rem 0;
+            text-shadow: 0 2px 6px black;
+        }
+
+        .btn-project {
             font-weight: 600;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px black;
+            border: none;
+            background: var(--accent);
+            color: black;
+            box-shadow: 0 0 12px rgba(0,255,204,0.5);
+            transition: all 0.3s;
         }
 
-        .container {
-            padding-top: 30px;
-            padding-bottom: 50px;
+        .btn-project:hover {
+            background: var(--accent-glow);
+            color: white;
+            box-shadow: 0 0 20px rgba(255,0,255,0.6);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 768px) {
-            .project-card {
-                height: 250px;
-            }
-            
-            .project-title {
-                font-size: 1.2em;
-            }
+        h1.display-5 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent);
+            letter-spacing: 2px;
         }
 
         @media (max-width: 576px) {
             .project-card {
-                height: 200px;
+                height: 260px;
+            }
+            .project-title {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
+
+<!-- Navbar -->
 <nav class="cyberpunk-navbar">
-    <div class="cyberpunk-logo">
-        <span class="glow"></span>PROJECTS 
-    </div>
-    <div class="cyberpunk-nav-links">
-        <a href="https://arcade.name.ng/index.html " class="cyberpunk-link neon-button">HOME</a>
-        <a href="https://arcade.name.ng/Projects.html " class="cyberpunk-link neon-button">PROJECTS</a>
-        <a href="https://arcade.name.ng/About.html " class="cyberpunk-link neon-button">ABOUT</a>
-         <a href="https://gigx267.github.io/Arcade-Security-/ " class="cyberpunk-link neon-button">Security</a>
-        <a href="https://arcade.name.ng/founder/Found.html " class="cyberpunk-link neon-button">Team </a>
-                
-        <a href="https://arcade.name.ng/contact.html" class="cyberpunk-link neon-button">CONTACT</a>
-    </div>
-    <div class="cyberpunk-hamburger">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <div class="cyberpunk-logo">PROJECTS</div>
+
+            <div class="cyberpunk-nav-links d-flex gap-3">
+                <a href="https://arcade.name.ng/index.html" class="cyberpunk-link">HOME</a>
+                <a href="https://arcade.name.ng/Projects.html" class="cyberpunk-link">PROJECTS</a>
+                <a href="https://arcade.name.ng/About.html" class="cyberpunk-link">ABOUT</a>
+                <a href="https://gigx267.github.io/Arcade-Security-/" class="cyberpunk-link">SECURITY</a>
+                <a href="https://arcade.name.ng/founder/Found.html" class="cyberpunk-link">TEAM</a>
+                <a href="https://arcade.name.ng/contact.html" class="cyberpunk-link">CONTACT</a>
+            </div>
+
+            <div class="cyberpunk-hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
     </div>
 </nav>
 
-<style>
-    /* Cyberpunk Navbar Styles */
-    .cyberpunk-navbar {
-        background-color: #0a0a0a;
-        border-bottom: 2px solid #ff00ff;
-        box-shadow: 0 0 15px rgba(255, 0, 255, 0.5),
-                    0 0 30px rgba(0, 255, 255, 0.3);
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        z-index: 1000;
-        font-family: 'Rajdhani', 'Orbitron', sans-serif;
-    }
+<!-- Main Content -->
+<div class="container py-5">
+    <h1 class="display-5 text-center mb-5">Our Projects</h1>
 
-    .cyberpunk-logo {
-        color: #00ffcc;
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-shadow: 0 0 5px #00ffcc,
-                     0 0 10px #00ffcc;
-    }
+    <div class="row g-4">
+        <!-- Example card structure – repeat for each project -->
 
-    .glow {
-        animation: flicker 3s infinite alternate;
-    }
+        <div class="col-md-4 col-sm-6">
+            <div class="project-card">
+                <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/20273225/file/original-3a75afa65e174f3e6f65dd941f884a65.png?resize=2048x1320" alt="Theatre Ariel">
+                <div class="project-overlay">
+                    <h3 class="project-title">Theatre Ariel</h3>
+                    <a href="https://www.theatreariel.org/" class="btn btn-project btn-sm">View Project</a>
+                </div>
+            </div>
+        </div>
 
-    @keyframes flicker {
-        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-            text-shadow: 0 0 5px #00ffcc,
-                         0 0 10px #00ffcc,
-                         0 0 20px #00ffcc;
-        }
-        20%, 24%, 55% {
-            text-shadow: none;
-        }
-    }
+        <div class="col-md-4 col-sm-6">
+            <div class="project-card">
+                <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/44063367/file/original-01e2283dd44d528329d8ea0e60820fd5.jpg?resize=2048x2395" alt="Dotty Music Foundation">
+                <div class="project-overlay">
+                    <h3 class="project-title">Dotty Music Foundation</h3>
+                    <a href="https://dottymusicfoundation.org/" class="btn btn-project btn-sm">View Project</a>
+                </div>
+            </div>
+        </div>
 
-    .cyberpunk-nav-links {
-        display: flex;
-        gap: 25px;
-    }
+        <div class="col-md-4 col-sm-6">
+            <div class="project-card">
+                <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/22869465/file/original-04167c1ab503d348f434d317e28b65f0.png?resize=2048x770" alt="Celeste Suites">
+                <div class="project-overlay">
+                    <h3 class="project-title">Celeste Suites</h3>
+                    <a href="https://www.celestesuites.com.ng/" class="btn btn-project btn-sm">View Project</a>
+                </div>
+            </div>
+        </div>
 
-    .cyberpunk-link {
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.1rem;
-        font-weight: 600;
-        letter-spacing: 1px;
-        position: relative;
-        padding: 5px 10px;
-        transition: all 0.3s ease;
-    }
+    
+<div class="row g-4">
 
-    .neon-button {
-        text-shadow: 0 0 5px currentColor;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/20273225/file/original-3a75afa65e174f3e6f65dd941f884a65.png?resize=2048x1320&vertical=center" alt="Theatre Ariel">
+            <div class="project-overlay">
+                <h3 class="project-title">Theatre Ariel</h3>
+                <a href="https://www.theatreariel.org/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    .neon-button:hover {
-        color: #ff00ff;
-        text-shadow: 0 0 10px #ff00ff,
-                     0 0 20px #ff00ff;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/44063367/file/original-01e2283dd44d528329d8ea0e60820fd5.jpg?resize=2048x2395&vertical=center" alt="Dotty Music Foundation">
+            <div class="project-overlay">
+                <h3 class="project-title">Dotty Music Foundation</h3>
+                <a href="https://dottymusicfoundation.org/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    .neon-button::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #00ffcc;
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.3s ease;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/22869465/file/original-04167c1ab503d348f434d317e28b65f0.png?resize=2048x770&vertical=center" alt="Celeste Suites">
+            <div class="project-overlay">
+                <h3 class="project-title">Celeste Suites</h3>
+                <a href="https://www.celestesuites.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    .neon-button:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-        box-shadow: 0 0 10px #00ffcc,
-                    0 0 20px #00ffcc;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/45603715/file/a72984bb5ed30b15e57d3f8d9cefc154.jpg?crop=0x748-2000x2248&format=webp&resize=640x480&vertical=center" alt="Brand North">
+            <div class="project-overlay">
+                <h3 class="project-title">Brand North</h3>
+                <a href="https://brandnorth.ca/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    .cyberpunk-hamburger {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/15252726/file/original-ca76bdd1ac9583ef675a4393e6ec445f.png?crop=341x651-2491x2263&format=webp&resize=640x480&vertical=center" alt="Health4yu">
+            <div class="project-overlay">
+                <h3 class="project-title">Health4yu</h3>
+                <a href="https://www.health4yu.org/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    .cyberpunk-hamburger .line {
-        width: 30px;
-        height: 3px;
-        background-color: #00ffcc;
-        box-shadow: 0 0 5px #00ffcc;
-        transition: all 0.3s ease;
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42335166/file/original-7e2541861aec4cd992187ab242720fa3.gif" alt="Hack Security Arcade">
+            <div class="project-overlay">
+                <h3 class="project-title">Hack Security Arcade</h3>
+                <a href="https://gigx267.github.io/Arcade-Security-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        .cyberpunk-nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: rgba(10, 10, 10, 0.95);
-            flex-direction: column;
-            padding: 20px;
-            gap: 15px;
-            border-bottom: 2px solid #ff00ff;
-            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.3);
-        }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/16124814/file/original-732dd0094070d5b60c262d5045875a91.jpg?resize=2048x965&vertical=center" alt="Luxury Signature">
+            <div class="project-overlay">
+                <h3 class="project-title">Luxury Signature</h3>
+                <a href="http://www.luxurysignature.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-        .cyberpunk-nav-links.active {
-            display: flex;
-        }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/7919720/file/original-88c02ba73ab163f807dfc12a02bf5cbf.jpg?resize=1504x1128&vertical=center" alt="Nura Help">
+            <div class="project-overlay">
+                <h3 class="project-title">Nura Help</h3>
+                <a href="https://nurahelp.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-        .cyberpunk-hamburger {
-            display: flex;
-        }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/15519623/file/original-717d42c11d3b48c2baacc9da9cbc16aa.jpg?resize=2048x1536&vertical=center" alt="Copsa">
+            <div class="project-overlay">
+                <h3 class="project-title">Copsa</h3>
+                <a href="https://www.copsakc.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-        .cyberpunk-hamburger.active .line:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://i.pinimg.com/1200x/ed/65/1a/ed651a257983b185f98c89526c4f39cf.jpg" alt="DOA Perfumes & Cosmetics">
+            <div class="project-overlay">
+                <h3 class="project-title">DOA Perfumes & Cosmetics</h3>
+                <a href="https://doaperfumescosmetics.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-        .cyberpunk-hamburger.active .line:nth-child(2) {
-            opacity: 0;
-        }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42505587/file/original-3ad0563482e1fdcfce3e6e8d1478b844.jpg?format=webp&resize=640x480&vertical=center" alt="Aurelum Group">
+            <div class="project-overlay">
+                <h3 class="project-title">Aurelum Group</h3>
+                <a href="https://aurelumgroup.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-        .cyberpunk-hamburger.active .line:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-    }
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/15969446/file/original-6359ab82e88dd2336fcb887f76f6f04b.png?resize=1200x848&vertical=center" alt="Dine & Pack">
+            <div class="project-overlay">
+                <h3 class="project-title">Dine & Pack</h3>
+                <a href="https://www.dineandpack.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
 
-    /* Add this to your head for the cyberpunk font */
-    /* <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet"> */
-</style>
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/17420737/file/original-cd508748cb8de0bed5a24dc50756afcc.jpg?resize=2048x1534&vertical=center" alt="PESEWANI.TECH">
+            <div class="project-overlay">
+                <h3 class="project-title">PESEWANI.TECH</h3>
+                <a href="https://pesewani.tech/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/17905713/file/original-2efe55d943cb4ec5e0fac7563ab37640.jpg?crop=165x116-1391x1036&format=webp&resize=640x480&vertical=center" alt="Black Limitless">
+            <div class="project-overlay">
+                <h3 class="project-title">Black Limitless</h3>
+                <a href="https://www.blacklimitless.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/27482203/file/original-e865b67abfa86eca6416d9ec87d6d409.gif" alt="Trinity Medical Courier">
+            <div class="project-overlay">
+                <h3 class="project-title">Trinity Medical Courier</h3>
+                <a href="https://trinitymedicalcourier.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42509626/file/original-c902c83a28d7e291735c215d55ab16c8.jpg?format=webp&resize=640x480&vertical=center" alt="Mind Way Mobiles">
+            <div class="project-overlay">
+                <h3 class="project-title">Mind Way Mobiles</h3>
+                <a href="https://www.mindwaymobiles.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/23981658/file/original-0d97f2d9036a202326ce5f0aa99d1498.png?resize=752x564&vertical=center" alt="Osaronno Fashion">
+            <div class="project-overlay">
+                <h3 class="project-title">Osaronno Fashion</h3>
+                <a href="https://www.osaronnofashion.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42037061/file/original-340650e2d1e06fd5a487121300f6d196.gif" alt="Health4Yu Germany">
+            <div class="project-overlay">
+                <h3 class="project-title">Health4Yu Germany</h3>
+                <a href="https://www.health4yu.de/index.html" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/4474859/file/original-934bd1c3b37d738685c0b36c6f1499bd.jpg?resize=2048x2048&vertical=center" alt="Paschal Ugwu">
+            <div class="project-overlay">
+                <h3 class="project-title">Paschal Ugwu</h3>
+                <a href="https://paschalugwu.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://i.pinimg.com/736x/d9/d8/39/d9d83992a61d1a68d4e310497362f770.jpg" alt="Project 100">
+            <div class="project-overlay">
+                <h3 class="project-title">Project 100</h3>
+                <a href="https://www.project100.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your local images if hosted properly -->
+    <!--
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="v5.jpg" alt="Agrigain Ventures">
+            <div class="project-overlay">
+                <h3 class="project-title">Agrigain Ventures</h3>
+                <a href="https://www.agrigain.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42559516/file/original-8053565152fe8ca0c45882e620bd7df7.jpg?resize=1648x2000&vertical=center" alt="Aso Clothing">
+            <div class="project-overlay">
+                <h3 class="project-title">Aso Clothing</h3>
+                <a href="https://asoshop.co/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/18046533/file/original-c918185775689651d58882c0e5ea1ce9.jpg?format=webp&resize=640x480&vertical=center" alt="Princess Store">
+            <div class="project-overlay">
+                <h3 class="project-title">Princess Store</h3>
+                <a href="https://www.princess-shop-abuja.name.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/9359374/file/original-73891f44a4de74343106c4138ac82fed.jpg?format=webp&resize=640x480&vertical=center" alt="Pryme Konet">
+            <div class="project-overlay">
+                <h3 class="project-title">Pryme Konet</h3>
+                <a href="https://www.prymekonetproduction.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/3794986/file/original-19f212f0d82d898d1c5d2b893eee1529.png?format=webp&resize=640x480&vertical=center" alt="Stretchbuy">
+            <div class="project-overlay">
+                <h3 class="project-title">Stretchbuy</h3>
+                <a href="https://stretchbuy.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/43765465/file/original-639553e5a78a351f275617c6f3c107e5.jpg?resize=1504x1128&vertical=center" alt="Chidimma Nwafor">
+            <div class="project-overlay">
+                <h3 class="project-title">Chidimma Nwafor</h3>
+                <a href="https://chidimmanwafor.name.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/6007999/file/original-36f36986d7567754992f45a23fb984d9.png?resize=1504x1504&vertical=center" alt="Trader List">
+            <div class="project-overlay">
+                <h3 class="project-title">Trader List</h3>
+                <a href="http://www.traderlist.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/31905610/file/original-b04180cb7e385e5481d1e7c6e91f0861.png?format=webp&resize=640x480&vertical=center" alt="Mjs Touch">
+            <div class="project-overlay">
+                <h3 class="project-title">Mjs Touch</h3>
+                <a href="https://gigx267.github.io/MJstouch_Luxury/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/14167300/file/original-7c85c43e92d8a2ecf2d5b3272cb21d04.jpg?resize=2048x1365&vertical=center" alt="Forks & Spoons">
+            <div class="project-overlay">
+                <h3 class="project-title">Forks & Spoons</h3>
+                <a href="https://forksandspoons.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/13157459/file/original-3891daca7107551f6decce8326078c04.gif" alt="Re Imagineed Education">
+            <div class="project-overlay">
+                <h3 class="project-title">Re Imagineed Education</h3>
+                <a href="https://www.re-imagineed.org/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/10928093/file/original-8d51431cfa1e2a93f8fe979d93605652.jpg?resize=1504x1036&vertical=center" alt="Ice By Flexzy">
+            <div class="project-overlay">
+                <h3 class="project-title">Ice By Flexzy</h3>
+                <a href="https://gigx267.github.io/Icebyflexy2025-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/30572020/file/original-bc546f394d5993454796707fe5db8115.jpg?format=webp&resize=640x480&vertical=center" alt="LuxuryCity Technologies">
+            <div class="project-overlay">
+                <h3 class="project-title">LuxuryCity Technologies</h3>
+                <a href="https://luxurycitylimited.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/28412903/file/original-deda10f36affb39780ef54a6aced0ee4.jpg?format=webp&resize=800x600&vertical=center" alt="Wonder Mouth">
+            <div class="project-overlay">
+                <h3 class="project-title">Wonder Mouth</h3>
+                <a href="https://wondermouth.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42961457/file/original-082da30617e9537435593400c5d93d88.jpg?resize=1504x636&vertical=center" alt="PJ Realty Homes">
+            <div class="project-overlay">
+                <h3 class="project-title">PJ Realty Homes</h3>
+                <a href="https://pjrealtyhomes.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/25826801/file/original-a86c763c2de478ae90eef11737394454.jpg?format=webp&resize=640x480&vertical=center" alt="Inseekan">
+            <div class="project-overlay">
+                <h3 class="project-title">Inseekan</h3>
+                <a href="https://www.inseekan.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="ek (4).jpg" alt="Better Health Naija">
+            <div class="project-overlay">
+                <h3 class="project-title">Better Health Naija</h3>
+                <a href="https://www.betterhealthnaija.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/27113404/file/original-8f80898e03e96a5ba4d104f78b712be0.jpg?resize=1504x1504&vertical=center" alt="Chill & Stay Apartments">
+            <div class="project-overlay">
+                <h3 class="project-title">Chill & Stay Apartments</h3>
+                <a href="https://www.chillandstay.com.ng/Lagos.html" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/13091128/file/original-7acef7f5b032e240148188cd41039198.jpg?resize=2048x1352&vertical=center" alt="Creciendo Juntos">
+            <div class="project-overlay">
+                <h3 class="project-title">Creciendo Juntos</h3>
+                <a href="https://gigx267.github.io/Creciendo-Juntos/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/17432168/file/original-165eb324f5630ef1e6301fb9f1292e2a.jpg?format=webp&resize=800x600&vertical=center" alt="Pop Church">
+            <div class="project-overlay">
+                <h3 class="project-title">Pop Church</h3>
+                <a href="https://gigx267.github.io/The-Pop-Church-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/17301683/file/original-cce3a649e9dfaf7cecc31c9d26509b0c.jpg?resize=1200x1600&vertical=center" alt="Signora">
+            <div class="project-overlay">
+                <h3 class="project-title">Signora</h3>
+                <a href="https://gigx267.github.io/Signora-beauty-2024-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/29866547/file/original-f24a7a284ba83b4f3c6d84adac4c5388.jpg?format=webp&resize=640x480&vertical=center" alt="Heart Of Agatha">
+            <div class="project-overlay">
+                <h3 class="project-title">Heart Of Agatha</h3>
+                <a href="https://gigx267.github.io/Heart-of-Agatha-org/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/21855979/file/original-6e2e0e5b41d13c1812949a1ff52a8442.jpg?format=webp&resize=640x480&vertical=center" alt="Digital Rubki Cube">
+            <div class="project-overlay">
+                <h3 class="project-title">Digital Rubki Cube</h3>
+                <a href="https://gigx267.github.io/Digital-Rubki-Cube/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/35739688/file/original-783f2094cee7a688f1dcd3711ced2bd4.png?resize=1504x1128&vertical=center" alt="Yukis Kukies">
+            <div class="project-overlay">
+                <h3 class="project-title">Yukis Kukies</h3>
+                <a href="https://www.yukiskukies.com/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/34871428/file/original-3750042fb2e6394d260a35e1f5a9879a.jpg?format=webp&resize=640x480&vertical=center" alt="Ur Welcome">
+            <div class="project-overlay">
+                <h3 class="project-title">Ur Welcome</h3>
+                <a href="https://gigx267.github.io/UR-Welcome/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/27004893/file/original-a285fd0885c23e6caf311b0859047f26.png?resize=1504x1128&vertical=center" alt="Dainel Angels">
+            <div class="project-overlay">
+                <h3 class="project-title">Dainel Angels</h3>
+                <a href="https://gigx267.github.io/DAINEL-Angels-Lauch-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/35449370/file/original-3b9bcaf4a2c69d2034aa7e106efdaf16.jpg?resize=2048x1619&vertical=center" alt="Sereno Apartments">
+            <div class="project-overlay">
+                <h3 class="project-title">Sereno Apartments</h3>
+                <a href="https://serenoapartments.com.ng/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/35750496/file/original-ad42affb2deb78158b8f4d74d60c56b3.jpg?format=webp&resize=640x480&vertical=center" alt="Cosmo Base">
+            <div class="project-overlay">
+                <h3 class="project-title">Cosmo Base</h3>
+                <a href="https://gigx267.github.io/COSMO-BASE-CONSORTIUM-LIMITE/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/42025933/file/original-4efc38d2a8fc24b3f50135519e52e300.jpg?format=webp&resize=640x480&vertical=center" alt="Pj Hairs">
+            <div class="project-overlay">
+                <h3 class="project-title">Pj Hairs</h3>
+                <a href="https://gigx267.github.io/Updated-PJ-hair-/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/10403418/file/original-df977ebf6fbd06f5c5467cf1287203bd.jpg?resize=2034x1145&vertical=center" alt="Home Feel">
+            <div class="project-overlay">
+                <h3 class="project-title">Home Feel</h3>
+                <a href="https://gigx267.github.io/The-HomeFeel/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/16203028/file/original-2619c7e3c6baf51080070522e7a3aed9.jpg?resize=1200x1200&vertical=center" alt="Nnamz-Synergy">
+            <div class="project-overlay">
+                <h3 class="project-title">Nnamz-Synergy</h3>
+                <a href="https://gigx267.github.io/Nnamz-Synergy/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/7785551/file/original-35c651abc9a039e30f1069a2092f39bf.jpg?format=webp&resize=640x480&vertical=center" alt="Treats By Mimi">
+            <div class="project-overlay">
+                <h3 class="project-title">Treats By Mimi</h3>
+                <a href="https://gigx267.github.io/Treats-by-mimi/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="project-card">
+            <img loading="lazy" decoding="async" src="https://cdn.dribbble.com/userupload/13335265/file/original-b1086f49a876975c5be66e9684c9b61d.jpg?crop=245x73-1131x738&format=webp&resize=640x480&vertical=center" alt="Scholars Shelf">
+            <div class="project-overlay">
+                <h3 class="project-title">Scholars Shelf</h3>
+                <a href="https://gigx267.github.io/Scholars-Shelf/" class="btn btn-project btn-sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <script>
     // Mobile menu toggle
@@ -297,914 +794,23 @@
         this.classList.toggle('active');
         document.querySelector('.cyberpunk-nav-links').classList.toggle('active');
     });
-</script>
-  <style>
-    :root {
-    --bg-color: #121212;
-    --card-color: #1e1e1e;
-    --text-color: #e0e0e0;
-    --accent-color: #00e676; /* A vibrant green for accents */
-    --border-color: #333;
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    --font-family: 'Poppins', sans-serif;
-    --border-radius: 12px;
-}
 
-/* Ensure you have a font like Poppins linked in your HTML for the best look */
-/* Example: <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> */
-
-body {
-    margin: 0;
-    font-family: var(--font-family);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-
-.navbar {
-    background: var(--card-color);
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 12px var(--shadow-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.logo {
-    color: var(--accent-color);
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
-}
-
-.logo:hover {
-    color: var(--text-color);
-}
-
-.nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links li a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.5rem;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.nav-links li a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links li a:hover {
-    color: var(--accent-color);
-}
-
-.nav-links li a:hover::after,
-.nav-links li a.active::after {
-    width: 100%;
-}
-
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 22px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 1001;
-}
-
-.mobile-menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: var(--text-color);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.mobile-nav {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: -100%; /* Start off-screen */
-    width: 300px;
-    max-width: 80%;
-    height: 100%;
-    background-color: var(--card-color);
-    padding: 2rem;
-    box-sizing: border-box;
-    transition: left 0.4s ease-in-out;
-    z-index: 999;
-    box-shadow: 4px 0 12px var(--shadow-color);
-    border-right: 1px solid var(--border-color);
-}
-
-.mobile-nav.active {
-    left: 0;
-}
-
-.mobile-nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
-    transition: color 0.3s ease;
-}
-
-.mobile-nav a:last-child {
-    border-bottom: none;
-}
-
-.mobile-nav a:hover {
-    color: var(--accent-color);
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    z-index: 998;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-}
-
-.overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-/* Bento box-style adjustments */
-.navbar-container {
-    border-radius: var(--border-radius);
-    background: var(--card-color);
-    padding: 1rem 2rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--border-color);
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .mobile-menu-toggle {
-        display: flex;
-    }
-    .navbar {
-        padding: 1rem;
-    }
-    .navbar-container {
-        padding: 1rem;
-        border-radius: 0; /* Remove border-radius on small screens for full width */
-        box-shadow: none;
-        border: none;
-    }
-}
-  </style>
-
-  <script> 
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const overlay = document.querySelector('.overlay');
-
-        mobileMenuToggle.addEventListener('click', function() {
-            mobileMenuToggle.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        overlay.addEventListener('click', function() {
-            mobileMenuToggle.classList.remove('active');
-            mobileNav.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-    });
-
-
-
-  </script>
-
-<div class="container">
-    <div class="row">
-        <!-- Navigation -->
-  <div class="col-md-4 col-sm-6 mb-4">
-            
-    
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/20273225/file/original-3a75afa65e174f3e6f65dd941f884a65.png?resize=2048x1320&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Theatre Ariel</h3>
-                    <a class="btn btn-success btn-sm" href="https://www.theatreariel.org/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-    <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url(' https://cdn.dribbble.com/userupload/44063367/file/original-01e2283dd44d528329d8ea0e60820fd5.jpg?resize=2048x2395&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Dotty Music
-Foundation  </h3>
-                    <a class="btn btn-success btn-sm" href="https://dottymusicfoundation.org/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/22869465/file/original-04167c1ab503d348f434d317e28b65f0.png?resize=2048x770&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Celeste Suites </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.celestesuites.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/45603715/file/a72984bb5ed30b15e57d3f8d9cefc154.jpg?crop=0x748-2000x2248&format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Brand North </h3>
-                    <a class="btn btn-danger btn-sm" href="https://brandnorth.ca/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/15252726/file/original-ca76bdd1ac9583ef675a4393e6ec445f.png?crop=341x651-2491x2263&format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Health4yu </h3>
-                    <a class="btn btn-secondary btn-sm" href="https://www.health4yu.org/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42335166/file/original-7e2541861aec4cd992187ab242720fa3.gif')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Hack Security  Arcade  </h3>
-                    <a class="btn btn-secondary btn-sm" href="https://gigx267.github.io/Arcade-Security-/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/16124814/file/original-732dd0094070d5b60c262d5045875a91.jpg?resize=2048x965&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Luxury Signature</h3>
-                    <a class="btn btn-secondary btn-sm" href="http://www.luxurysignature.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-
-   
-
-
-
-        
-   <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/7919720/file/original-88c02ba73ab163f807dfc12a02bf5cbf.jpg?resize=1504x1128&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Nura Help </h3>
-                    <a class="btn btn-success btn-sm" href="https://nurahelp.com/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-   <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/15519623/file/original-717d42c11d3b48c2baacc9da9cbc16aa.jpg?resize=2048x1536&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Copsa</h3>
-                    <a class="btn btn-danger btn-sm" href="https://www.copsakc.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-       
-
-
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://i.pinimg.com/1200x/ed/65/1a/ed651a257983b185f98c89526c4f39cf.jpg')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> DOA Prefumes & Cosmetics  </h3>
-                    <a class="btn btn-danger btn-sm" href="https://doaperfumescosmetics.com/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-<div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42505587/file/original-3ad0563482e1fdcfce3e6e8d1478b844.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Aurelum Group  </h3>
-                    <a class="btn btn-danger btn-sm" href="https://aurelumgroup.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/15969446/file/original-6359ab82e88dd2336fcb887f76f6f04b.png?resize=1200x848&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Dine & Pack</h3>
-                    <a class="btn btn-success btn-sm" href="https://www.dineandpack.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-      <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/17420737/file/original-cd508748cb8de0bed5a24dc50756afcc.jpg?resize=2048x1534&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> PESEWANI.TECH</h3>
-                    <a class="btn btn-success btn-sm" href="https://pesewani.tech/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/17905713/file/original-2efe55d943cb4ec5e0fac7563ab37640.jpg?crop=165x116-1391x1036&format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">  Black Limitless  </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.blacklimitless.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/27482203/file/original-e865b67abfa86eca6416d9ec87d6d409.gif')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Trinity Medical Courier </h3>
-                    <a class="btn btn-success btn-sm" href="https://trinitymedicalcourier.com/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42509626/file/original-c902c83a28d7e291735c215d55ab16c8.jpg?format=webp&resize=640x480&vertical=center ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Mind Way Mobiles</h3>
-                    <a class="btn btn-success btn-sm" href="https://www.mindwaymobiles.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-
-
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/23981658/file/original-0d97f2d9036a202326ce5f0aa99d1498.png?resize=752x564&vertical=center ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Osaronno Fashion </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.osaronnofashion.com.ng/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42037061/file/original-340650e2d1e06fd5a487121300f6d196.gif')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Health4Yu Germany  </h3>
-                    <a class="btn btn-danger btn-sm" href="https://www.health4yu.de/index.html" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-  
-<div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/4474859/file/original-934bd1c3b37d738685c0b36c6f1499bd.jpg?resize=2048x2048&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Paschal Ugwu</h3>
-                    <a class="btn btn-success btn-sm" href="https://paschalugwu.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://i.pinimg.com/736x/d9/d8/39/d9d83992a61d1a68d4e310497362f770.jpg ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Project 100  </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.project100.com.ng/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('v5.jpg')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Agrigain Ventures</h3>
-                    <a class="btn btn-success btn-sm" href="https://www.agrigain.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42559516/file/original-8053565152fe8ca0c45882e620bd7df7.jpg?resize=1648x2000&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Aso Clothing  </h3>
-                    <a class="btn btn-success btn-sm" href="https://asoshop.co/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-         
-           <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/18046533/file/original-c918185775689651d58882c0e5ea1ce9.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Princess Store </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.princess-shop-abuja.name.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
- 
-
-
-        <!-- Project 4 -->
-       <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/9359374/file/original-73891f44a4de74343106c4138ac82fed.jpg?format=webp&resize=640x480&vertical=center ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Pryme Konet </h3>
-                    <a class="btn btn-secondary btn-sm" href=" https://www.prymekonetproduction.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- Project 2 -->
-      
-        <!-- Project 2 -->
-       
-        
-        <!-- Project 3 -->
-      
-           <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/3794986/file/original-19f212f0d82d898d1c5d2b893eee1529.png?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Stretchbuy </h3>
-                    <a class="btn btn-danger btn-sm" href="https://stretchbuy.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- Project 4 -->
-       
-
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/43765465/file/original-639553e5a78a351f275617c6f3c107e5.jpg?resize=1504x1128&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Chidimma Nwafor  </h3>
-                    <a class="btn btn-success btn-sm" href="https://chidimmanwafor.name.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/6007999/file/original-36f36986d7567754992f45a23fb984d9.png?resize=1504x1504&vertical=center ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Trader List </h3>
-                    <a class="btn btn-success btn-sm" href="http://www.traderlist.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-      
-    
-        
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/31905610/file/original-b04180cb7e385e5481d1e7c6e91f0861.png?format=webp&resize=640x480&vertical=center ')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Mjs Touch  </h3>
-                    <a class="btn btn-success btn-sm" href="https://gigx267.github.io/MJstouch_Luxury/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-            <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/14167300/file/original-7c85c43e92d8a2ecf2d5b3272cb21d04.jpg?resize=2048x1365&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Forks & Spoons</h3>
-                    <a class="btn btn-success btn-sm" href="https://forksandspoons.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- Project 3 -->
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/13157459/file/original-3891daca7107551f6decce8326078c04.gif')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Re Imagineed Education</h3>
-                    <a class="btn btn-secondary btn-sm" href="https://www.re-imagineed.org/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/10928093/file/original-8d51431cfa1e2a93f8fe979d93605652.jpg?resize=1504x1036&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Ice By Flexzy</h3>
-                    <a class="btn btn-danger btn-sm" href="https://gigx267.github.io/Icebyflexy2025-/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-      
-           <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/30572020/file/original-bc546f394d5993454796707fe5db8115.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">LuxuryCity Technologies </h3>
-                    <a class="btn btn-success btn-sm" href="https://luxurycitylimited.com/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/28412903/file/original-deda10f36affb39780ef54a6aced0ee4.jpg?format=webp&resize=800x600&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Wonder Mouth </h3>
-                    <a class="btn btn-warning btn-sm" href="https://wondermouth.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42961457/file/original-082da30617e9537435593400c5d93d88.jpg?resize=1504x636&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> PJ Realty Homes </h3>
-                    <a class="btn btn-success btn-sm" href="https://pjrealtyhomes.com/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-
- <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/25826801/file/original-a86c763c2de478ae90eef11737394454.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title"> Inseekan </h3>
-                    <a class="btn btn-success btn-sm" href="https://www.inseekan.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('ek (4).jpg')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Better Health Naija</h3>
-                    <a class="btn btn-danger btn-sm" href="https://www.betterhealthnaija.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- Project 5 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/27113404/file/original-8f80898e03e96a5ba4d104f78b712be0.jpg?resize=1504x1504&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Chill & Stay Apartments</h3>
-                    <a class="btn btn-success btn-sm" href="https://www.chillandstay.com.ng/Lagos.html" role="button">View</a>
-                </div>
-            </div>
-        </div>
-         
-        <!-- Project 1 -->
-        
-
-       
-     <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/13091128/file/original-7acef7f5b032e240148188cd41039198.jpg?resize=2048x1352&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Creciendo Juntos</h3>
-                    <a class="btn btn-secondary btn-sm" href="https://gigx267.github.io/Creciendo-Juntos/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 20 -->
-    
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-<div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/17432168/file/original-165eb324f5630ef1e6301fb9f1292e2a.jpg?format=webp&resize=800x600&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Pop Church </h3>
-                    <a class="btn btn-secondary btn-sm" href="https://gigx267.github.io/The-Pop-Church-/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 21 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/17301683/file/original-cce3a649e9dfaf7cecc31c9d26509b0c.jpg?resize=1200x1600&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Signora</h3>
-                    <a class="btn btn-success btn-sm" href="https://gigx267.github.io/Signora-beauty-2024-/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-
-  <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/29866547/file/original-f24a7a284ba83b4f3c6d84adac4c5388.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Heart Of Agatha  </h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/Heart-of-Agatha-org/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-       
-        
-        <!-- Project 33 -->
-       
-           <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/21855979/file/original-6e2e0e5b41d13c1812949a1ff52a8442.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Digital Rubki Cube </h3>
-                    <a class="btn btn-success btn-sm" href=" https://gigx267.github.io/Digital-Rubki-Cube/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-        
-             <!-- Project 6 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/35739688/file/original-783f2094cee7a688f1dcd3711ced2bd4.png?resize=1504x1128&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Yukis Kukies</h3>
-                    <a class="btn btn-warning btn-sm" href="https://www.yukiskukies.com/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-       
-        
-        <!-- Project 8 -->
-     
-
-        
-        <!-- Project 4 -->
-        
-        <!-- Project 5 -->
-      
-    <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/34871428/file/original-3750042fb2e6394d260a35e1f5a9879a.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Ur Welcome </h3>
-                    <a class="btn btn-success btn-sm" href="https://gigx267.github.io/UR-Welcome/ " role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 9 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/27004893/file/original-a285fd0885c23e6caf311b0859047f26.png?resize=1504x1128&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Dainel Angels</h3>
-                    <a class="btn btn-success btn-sm" href="https://gigx267.github.io/DAINEL-Angels-Lauch-/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 10 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/35449370/file/original-3b9bcaf4a2c69d2034aa7e106efdaf16.jpg?resize=2048x1619&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Sereno Apartments</h3>
-                    <a class="btn btn-success btn-sm" href="https://serenoapartments.com.ng/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-         <!-- Project 1 -->
-      <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/35750496/file/original-ad42affb2deb78158b8f4d74d60c56b3.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Cosmo Base   </h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/COSMO-BASE-CONSORTIUM-LIMITE/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- Project 11 -->
-      <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/42025933/file/original-4efc38d2a8fc24b3f50135519e52e300.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Pj Hairs    </h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/Updated-PJ-hair-/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 12 -->
-
-
-
-
-
-
-
-
-        
-       
-        
-        <!-- Project 13 -->
-       
-     
-        
-        <!-- Project 15 -->
-      
-        
-     
-        
-        <!-- Project 17 -->
-    
-        
-        <!-- Project 18 -->
-      
-        <!-- Project 19 -->
-   
-        
-        <!-- Project 22 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/10403418/file/original-df977ebf6fbd06f5c5467cf1287203bd.jpg?resize=2034x1145&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Home Feel</h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/The-HomeFeel/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 23 -->
-      
-        
-       
-        
-        
-        
-        
-        <!-- Project 27 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/16203028/file/original-2619c7e3c6baf51080070522e7a3aed9.jpg?resize=1200x1200&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Nnamz-Synergy</h3>
-                    <a class="btn btn-secondary btn-sm" href="https://gigx267.github.io/Nnamz-Synergy/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Project 28 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/7785551/file/original-35c651abc9a039e30f1069a2092f39bf.jpg?format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Treats By Mimi</h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/Treats-by-mimi/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-        
-         <!-- Project 28 -->
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="project-card">
-                <div class="project-bg" style="background-image: url('https://cdn.dribbble.com/userupload/13335265/file/original-b1086f49a876975c5be66e9684c9b61d.jpg?crop=245x73-1131x738&format=webp&resize=640x480&vertical=center')"></div>
-                <div class="project-overlay">
-                    <h3 class="project-title">Scholars Shelf </h3>
-                    <a class="btn btn-warning btn-sm" href="https://gigx267.github.io/Scholars-Shelf/" role="button">View</a>
-                </div>
-            </div>
-        </div>
-       
-        <!-- Project 34 -->
-       
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-<script>
-    // Animation for project cards on scroll
+    // GSAP scroll animation for cards
     gsap.utils.toArray(".project-card").forEach((card, i) => {
         gsap.from(card, {
             scrollTrigger: {
                 trigger: card,
-                start: "top 80%",
+                start: "top 85%",
                 toggleActions: "play none none none"
             },
             opacity: 0,
-            y: 50,
-            duration: 0.8,
-            delay: i * 0.1
+            y: 60,
+            duration: 0.9,
+            ease: "power3.out",
+            delay: i * 0.08
         });
     });
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
