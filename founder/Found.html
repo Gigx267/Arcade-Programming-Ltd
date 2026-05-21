@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Studio | Team Code</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;500&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- Design Tokens / Variables --- */
         :root {
             --neon-yellow: #f3e600;
             --neon-pink: #ff0055;
+            --neon-orange: #ff8800;
+            --neon-purple: #bc00ff;
+            --neon-blue: #00d4ff;
+            --neon-green: #00ff88;
             --dark-bg: #050505;
             --tech-gray: #222;
             --border-glow: rgba(243, 230, 0, 0.3);
         }
 
+        /* --- Global Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -26,9 +34,10 @@
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Background Scanlines Effect --- */
+        /* --- Ambient Scanlines Effect --- */
         body::before {
             content: " ";
             display: block;
@@ -43,65 +52,71 @@
 
         /* --- Cyberpunk Navbar --- */
         .navbar {
-            padding: 1rem 3rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--tech-gray);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.9);
             text-transform: uppercase;
         }
 
         .logo {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: var(--neon-yellow);
             text-shadow: 0 0 10px var(--neon-yellow);
+            font-size: 1.1rem;
         }
 
-        /* --- Main Content Layout --- */
+        /* --- Main Layout Container --- */
         .container {
             max-width: 1100px;
             margin: 40px auto;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 35px;
         }
 
-        /* --- The "Card" inspired by the image --- */
+        /* --- Cyber Components: Team Cards --- */
         .cyber-card {
             position: relative;
-            height: 450px;
+            min-height: 420px;
             width: 100%;
             background-size: cover;
             background-position: center;
-            border-left: 5px solid var(--neon-yellow);
+            border-left: 6px solid var(--neon-yellow);
             overflow: hidden;
             display: flex;
             align-items: center;
-            transition: 0.4s;
-            filter: grayscale(0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            filter: grayscale(0.3);
         }
 
         .cyber-card:hover {
             filter: grayscale(0);
             box-shadow: 0 0 30px var(--border-glow);
+            transform: translateY(-2px);
         }
 
-        /* HUD Brackets (the corners) */
+        /* HUD Frame Corners */
         .cyber-card::after {
             content: "";
             position: absolute;
-            top: 10px; right: 10px; bottom: 10px; left: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
+            top: 12px; right: 12px; bottom: 12px; left: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             pointer-events: none;
+            z-index: 1;
         }
 
+        /* Contrast Gradient Over Images */
         .card-overlay {
             position: absolute;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(0,0,0,0.9) 20%, transparent 70%);
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(90deg, rgba(5, 5, 5, 0.95) 25%, rgba(5, 5, 5, 0.7) 50%, transparent 90%);
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -109,203 +124,228 @@
             z-index: 2;
         }
 
-        /* Main Big Title (COWBOY, HONOR, etc) */
+        /* --- Typography Engine --- */
         .cyber-title {
             font-family: 'Permanent Marker', cursive;
-            font-size: 6rem;
-            margin: 0;
-            line-height: 1;
-            transform: rotate(-3deg);
-            opacity: 0.9;
-        }
-
-        .yellow-text { color: var(--neon-yellow); text-shadow: 3px 3px 0px #000; }
-        .pink-text { color: var(--neon-pink); text-shadow: 3px 3px 0px #000; }
-
-        .point-no-return {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            color: #fff;
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--neon-yellow);
+            font-size: 5.5rem;
+            margin: 5px 0;
+            line-height: 0.95;
+            transform: rotate(-2.5deg);
+            transition: transform 0.2s ease-in-out;
             width: fit-content;
         }
 
-        /* Tech Details Labels */
+        .cyber-card:hover .cyber-title {
+            transform: rotate(-1deg) scale(1.03);
+        }
+
+        /* Dynamic Text Colors & Neon Flares */
+        .yellow-text { color: var(--neon-yellow); text-shadow: 3px 3px 0px #000; }
+        .pink-text { color: var(--neon-pink); text-shadow: 3px 3px 0px #000; }
+        .orange-text { color: var(--neon-orange); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(255,136,0,0.3); }
+        .purple-text { color: var(--neon-purple); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(188,0,255,0.3); }
+        .blue-text { color: var(--neon-blue); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0,212,255,0.3); }
+        .green-text { color: var(--neon-green); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0, 255, 136, 0.3); }
+
+        .point-no-return {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--neon-yellow);
+            width: fit-content;
+            text-transform: uppercase;
+        }
+
+        .role-text {
+            color: #fff;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            letter-spacing: 1.5px;
+            background: rgba(255, 255, 255, 0.08);
+            width: fit-content;
+            padding: 4px 10px;
+            text-transform: uppercase;
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- HUD System Labels --- */
         .tech-data {
             position: absolute;
             bottom: 20px;
             left: 40px;
-            font-size: 0.6rem;
-            color: #aaa;
+            font-size: 0.65rem;
+            color: #888;
             z-index: 3;
+            letter-spacing: 1px;
         }
 
         .tech-data span {
-            color: var(--neon-yellow);
+            color: #aaa;
             margin-right: 15px;
+        }
+        
+        .tech-data strong {
+            color: #fff;
+            font-weight: 500;
         }
 
         .date-stamp {
             position: absolute;
-            top: 20px;
+            top: 25px;
             right: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-align: right;
-            border-right: 2px solid var(--neon-pink);
-            padding-right: 10px;
+            border-right: 3px solid var(--neon-pink);
+            padding-right: 12px;
+            color: #ccc;
+            letter-spacing: 1px;
+            z-index: 3;
+            text-transform: uppercase;
+            line-height: 1.4;
         }
 
-        /* --- Member Custom Colors --- */
-        .card-cowboy { background-image: url('https://i.pinimg.com/1200x/55/e6/33/55e633348a61cdd696250da4aa78b1cd.jpg'); }
-        .card-honor { background-image: url('https://i.pinimg.com/736x/2c/18/0a/2c180a83ff459a9a5d4c83d1a485b2a0.jpg'); border-left-color: var(--neon-pink); }
+        .tech-hex-icons {
+            color: rgba(188, 0, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
 
-        /* Animation for glitch */
+        /* --- Individual Card Declarations --- */
+        .card-cowboy { background-image: url('https://i.pinimg.com/1200x/55/e6/33/55e633348a61cdd696250da4aa78b1cd.jpg'); border-left-color: var(--neon-yellow); }
+        .card-robot   { background-image: url('https://i.pinimg.com/736x/0c/95/dc/0c95dccf36195aca0e6fd4f842a3fb46.jpg'); border-left-color: var(--neon-purple); }
+        .card-honor   { background-image: url('https://i.pinimg.com/736x/2c/18/0a/2c180a83ff459a9a5d4c83d1a485b2a0.jpg'); border-left-color: var(--neon-pink); }
+        .card-plan    { background-image: url('https://i.pinimg.com/736x/fb/8c/8d/fb8c8d807e239a8168d05fa5a5b1359a.jpg'); border-left-color: var(--neon-orange); }
+        .card-media   { background-image: url('https://i.pinimg.com/1200x/53/e6/60/53e660cd5a17e8b9fb8940c958e81a85.jpg'); border-left-color: var(--neon-green); }
+        .card-ruiner  { background-image: url('https://i.pinimg.com/736x/6c/31/99/6c31993cbfdc4dedc6fa9a3a3023bb03.jpg'); border-left-color: var(--neon-blue); }
+
+        /* Animation System */
         @keyframes glitch {
             0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
+            20% { transform: translate(-2px, 1px) }
+            40% { transform: translate(-1px, -1px) }
+            60% { transform: translate(1px, 2px) }
+            80% { transform: translate(2px, -1px) }
             100% { transform: translate(0) }
         }
-        .glitch-hover:hover { animation: glitch 0.2s infinite; }
+        .glitch-hover:hover { animation: glitch 0.25s linear infinite; }
 
+        /* --- Mobile Optimization Rule --- */
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem; flex-direction: column; gap: 8px; text-align: center; }
+            .container { margin: 20px auto; gap: 20px; }
+            .cyber-card { min-height: 320px; }
+            .card-overlay { padding: 20px; background: linear-gradient(180deg, rgba(5,5,5,0.95) 40%, rgba(5,5,5,0.7) 100%); }
+            .cyber-title { font-size: 3.2rem; }
+            .date-stamp { display: none; } /* Hide tracking labels on tiny viewports to keep space clear */
+            .tech-data { left: 20px; bottom: 15px; font-size: 0.55rem; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Main Navigation Bar -->
     <nav class="navbar">
         <div class="logo">ARCADE // STUDIO</div>
-        <div style="font-size: 0.7rem; color: #666;">MONITORING_SYSTEM_V.2.0.77</div>
+        <div style="font-size: 0.7rem; color: #666; letter-spacing: 1px;">MONITORING_SYSTEM_V.2.0.77</div>
     </nav>
 
+    <!-- Main Cards Grid Wrapper -->
     <div class="container">
         
+        <!-- Member 01: Kelechi -->
         <div class="cyber-card card-cowboy">
             <div class="card-overlay">
-                <p class="point-no-return">Founder </p>
+                <p class="point-no-return" style="border-color: var(--neon-yellow);">Founder</p>
                 <h1 class="cyber-title yellow-text glitch-hover">Kelechi</h1>
-                <p style="color: #fff; font-size: 0.8rem; margin-top: 10px;">WEB DEVELOPER & CYBERSECURITY SPECIALIST</p>
+                <p class="role-text">Web Developer & Cybersecurity Specialist</p>
             </div>
             <div class="date-stamp">
-                The Leader  <br>
+                The Leader <br> Team Alpha
             </div>
             <div class="tech-data">
-                <span>MONITORING: DAY 002</span> <span>LOCAL: FCT_NGA</span> <span>STATUS: ACTIVE</span>
+                <span>MONITORING: <strong>DAY 002</strong></span> <span>LOCAL: <strong>FCT_NGA</strong></span> <span>STATUS: <strong>ACTIVE</strong></span>
             </div>
         </div>
-<div class="cyber-card card-robot">
-    <div class="card-overlay">
-        <div class="tech-hex-icons">⬢ ⬡ ⬢</div>
-        <h1 class="cyber-title purple-text glitch-hover">Co-Founder & Project Manager </h1>
-        <p class="role-text"> Jeremiah .C.Chubeze</p>
-    </div>
-    <div class="date-stamp"> The Dreamer </div>
-    <div class="tech-data">
-        <span>CORE: PM </span> <span>BUILD: V.18.2</span> <span>Abuja </span>
-    </div>
-</div>
+
+        <!-- Member 02: Jeremiah -->
+        <div class="cyber-card card-robot">
+            <div class="card-overlay">
+                <div class="tech-hex-icons">⬢ ⬡ ⬢</div>
+                <p class="point-no-return" style="border-color: var(--neon-purple);">Management</p>
+                <h1 class="cyber-title purple-text glitch-hover">Jeremiah</h1>
+                <p class="role-text">Jeremiah .C. Chubeze</p>
+            </div>
+            <div class="date-stamp">
+                Co-Founder & <br> Project Manager
+            </div>
+            <div class="tech-data">
+                <span>CORE: <strong>PM</strong></span> <span>BUILD: <strong>V.18.2</strong></span> <span>LOCAL: <strong>Abuja</strong></span>
+            </div>
+        </div>
+
+        <!-- Member 03: Samuel -->
         <div class="cyber-card card-honor">
             <div class="card-overlay">
-                <p class="point-no-return">Backend Developer</p>
+                <p class="point-no-return" style="border-color: var(--neon-pink);">Engineering</p>
                 <h1 class="cyber-title pink-text glitch-hover">Samuel</h1>
-                <p style="color: #fff; font-size: 0.8rem; margin-top: 10px;">AI SOLUTIONS PROGRAMMER</p>
+                <p class="role-text">Backend Developer & AI Solutions Programmer</p>
             </div>
             <div class="date-stamp">
-                The brains <br>behind the code
+                The brains <br> behind the code
             </div>
             <div class="tech-data">
-                <span>SYSTEM: ARCADE_OS</span> <span>LOCAL: ABJ_NGA</span> <span>ENCRYPTION: LEVEL 9</span>
+                <span>SYSTEM: <strong>ARCADE_OS</strong></span> <span>LOCAL: <strong>ABJ_NGA</strong></span> <span>ENCRYPTION: <strong>LEVEL 9</strong></span>
             </div>
         </div>
 
+        <!-- Member 04: Jewel -->
+        <div class="cyber-card card-plan">
+            <div class="card-overlay">
+                <p class="point-no-return" style="border-color: var(--neon-orange);">Interface Protocol</p>
+                <h1 class="cyber-title orange-text glitch-hover">Jewel</h1>
+                <p class="role-text">UI/UX & Web Architect</p>
+            </div>
+            <div class="date-stamp">
+                Design <br> UI Expert
+            </div>
+            <div class="tech-data">
+                <span>GRID: <strong>ACTIVE</strong></span> <span>LATENCY: <strong>2ms</strong></span> <span>TYPE: <strong>DESIGNER</strong></span>
+            </div>
         </div>
-<div class="cyber-card card-plan">
-    <div class="card-overlay">
-        <p class="point-no-return">INTERFACE PROTOCOL</p>
-        <h1 class="cyber-title orange-text glitch-hover">Jewel</h1>
-        <p class="role-text">UI/UX & WEB ARCHITECT</p>
+
+        <!-- Member 05: Kater -->
+        <div class="cyber-card card-media">
+            <div class="card-overlay">
+                <p class="point-no-return" style="border-color: var(--neon-green);">Network Broadcast</p>
+                <h1 class="cyber-title green-text glitch-hover">Kater</h1>
+                <p class="role-text">Digital Marketer & Social Media Specialist</p>
+            </div>
+            <div class="date-stamp">
+                THE INFLUENCE <br> Growth Strategist
+            </div>
+            <div class="tech-data">
+                <span>REACH: <strong>GLOBAL</strong></span> <span>ALGO: <strong>OPTIMIZED</strong></span> <span>LOCAL: <strong>ABJ_NGA</strong></span>
+            </div>
+        </div>
+
+        <!-- Member 06: Hosea -->
+        <div class="cyber-card card-ruiner">
+            <div class="card-overlay">
+                <p class="point-no-return" style="border-color: var(--neon-blue);">Database Breach</p>
+                <h1 class="cyber-title blue-text glitch-hover">Hosea</h1>
+                <p class="role-text">SQL & Python Developer</p>
+            </div>
+            <div class="date-stamp">
+                SECURED <br> Database Developer
+            </div>
+            <div class="tech-data">
+                <span>QUERY: <strong>OPTIMIZED</strong></span> <span>DATA: <strong>ENCRYPTED</strong></span> <span>SQL: <strong>ACTIVE</strong></span>
+            </div>
+        </div>
+
     </div>
-    <div class="date-stamp"><br> UI EXPERT </div>
-    <div class="tech-data">
-        <span>GRID: ACTIVE</span> <span>LATENCY: 2ms</span> <span>TYPE: DESIGNER</span>
-    </div>
-</div>
 
-
-<div class="cyber-card card-media">
-    <div class="card-overlay">
-        <p class="point-no-return">NETWORK BROADCAST</p>
-        <h1 class="cyber-title green-text glitch-hover">Kater</h1>
-        <p class="role-text">DIGITAL MARKETER & SOCIAL MEDIA SPECIALIST</p>
-    </div>
-    <div class="date-stamp">THE INFLUENCE<br>Growth Strategist</div>
-    <div class="tech-data">
-        <span>REACH: GLOBAL</span> <span>ALGO: OPTIMIZED</span> <span>LOCAL: ABJ_NGA</span>
-    </div>
-</div>
-<style>/* Netrunner Emerald Palette for Kater */
-.card-media { 
-    background-image: url('https://i.pinimg.com/1200x/53/e6/60/53e660cd5a17e8b9fb8940c958e81a85.jpg'); 
-    border-left-color: #00ff88; 
-}
-
-.green-text { 
-    color: #00ff88; 
-    text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0, 255, 136, 0.4); 
-} </style>
-<div class="cyber-card card-ruiner">
-    <div class="card-overlay">
-        <p class="point-no-return">DATABASE BREACH</p>
-        <h1 class="cyber-title blue-text glitch-hover">Hosea</h1>
-        <p class="role-text">SQL & PYTHON DEVELOPER</p>
-    </div>
-    <div class="date-stamp">SECURED<br> Database Developer </div>
-    <div class="tech-data">
-        <span>QUERY: OPTIMIZED</span> <span>DATA: ENCRYPTED</span> <span>SQL: ACTIVE</span>
-    </div>
-</div>
-<style> /* Specific Card Backgrounds */
-.card-plan { 
-    background-image: url('https://i.pinimg.com/736x/fb/8c/8d/fb8c8d807e239a8168d05fa5a5b1359a.jpg'); 
-    border-left-color: #ff8800; 
-}
-.card-robot { 
-    background-image: url('https://i.pinimg.com/736x/0c/95/dc/0c95dccf36195aca0e6fd4f842a3fb46.jpg'); 
-    border-left-color: #bc00ff; 
-}
-.card-ruiner { 
-    background-image: url('https://i.pinimg.com/736x/6c/31/99/6c31993cbfdc4dedc6fa9a3a3023bb03.jpg'); 
-    border-left-color: #00d4ff; 
-}
-
-/* Color Palette for Titles */
-.orange-text { color: #ff8800; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(255,136,0,0.4); }
-.purple-text { color: #bc00ff; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(188,0,255,0.4); }
-.blue-text { color: #00d4ff; text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0,212,255,0.4); }
-
-/* Decorative Elements */
-.role-text {
-    color: #fff;
-    font-size: 0.8rem;
-    margin-top: 10px;
-    letter-spacing: 2px;
-    background: rgba(255,255,255,0.1);
-    width: fit-content;
-    padding: 2px 8px;
-}
-
-.tech-hex-icons {
-    color: rgba(188,0,255,0.8);
-    font-size: 1.2rem;
-    margin-bottom: -10px;
-}
-
-/* Subtle Hover Shift */
-.cyber-card:hover .cyber-title {
-    transform: rotate(-1deg) scale(1.05);
-    transition: 0.2s ease-in-out;
-}</style> 
 </body>
 </html>
