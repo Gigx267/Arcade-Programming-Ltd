@@ -1060,59 +1060,289 @@
 </script>
 </body>
 </html>
-<!-- Background Music Player -->
-<audio id="bgMusic" loop>
+<!-- Background Music Element -->
+<audio id="bgMusic" loop preload="auto">
     <source src="mm.mp3" type="audio/mpeg">
     <source src="mm.mp3" type="audio/ogg">
     Your browser does not support the audio element.
 </audio>
 
+<!-- Cyberpunk HUD Audio Interface -->
+<div id="cyberPlayer" class="cyber-hud paused">
+    <!-- Terminal Overlay (Scanlines effect) -->
+    <div class="scanlines"></div>
+    
+    <!-- Top System Header -->
+    <div class="hud-header">
+        <span class="hud-tag">SYS.AUDIO // v2.04</span>
+        <span class="hud-status-dot"></span>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="hud-body">
+        <!-- Animated Equalizer Bars -->
+        <div class="cyber-equalizer">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+        </div>
+
+        <!-- Track & Status Info -->
+        <div class="hud-info">
+            <div id="hudTrackName" class="track-title">AUDIO_STREAM.RAW</div>
+            <div id="hudStatusText" class="status-text">[ SYSTEM PAUSED ]</div>
+        </div>
+
+        <!-- Action Trigger Button -->
+        <button id="hudToggleBtn" class="hud-btn" aria-label="Toggle Audio">
+            <span class="btn-glitch-bg"></span>
+            <span id="hudBtnIcon" class="btn-text">PLAY</span>
+        </button>
+    </div>
+
+    <!-- Decorative Corner Brackets -->
+    <div class="corner top-left"></div>
+    <div class="corner bottom-right"></div>
+</div>
+
+<style>
+/* --- CYBERPUNK THEME VARIABLES --- */
+:root {
+    --cyber-cyan: #00f3ff;
+    --cyber-magenta: #ff0055;
+    --cyber-dark: #080a0f;
+    --cyber-panel: rgba(12, 16, 25, 0.92);
+    --cyber-gray: #4a596d;
+    --cyber-font: 'Courier New', Courier, monospace;
+}
+
+/* Base Widget Container */
+.cyber-hud {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10000;
+    width: 290px;
+    background: var(--cyber-panel);
+    border: 1px solid var(--cyber-cyan);
+    /* Sci-Fi Chamfered Cut Corners */
+    clip-path: polygon(
+        0 12px, 
+        12px 0, 
+        100% 0, 
+        100% calc(100% - 12px), 
+        calc(100% - 12px) 100%, 
+        0 100%
+    );
+    padding: 12px;
+    box-shadow: 
+        0 0 15px rgba(0, 243, 255, 0.2),
+        inset 0 0 15px rgba(0, 243, 255, 0.05);
+    font-family: var(--cyber-font);
+    color: var(--cyber-cyan);
+    user-select: none;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.cyber-hud:hover {
+    box-shadow: 
+        0 0 25px rgba(0, 243, 255, 0.4),
+        inset 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+/* CRT Scanline Effect */
+.scanlines {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.35) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Top Metadata Header */
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.25);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+
+.hud-tag {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--cyber-gray);
+    font-weight: bold;
+}
+
+.hud-status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--cyber-magenta);
+    box-shadow: 0 0 8px var(--cyber-magenta);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Body Layout */
+.hud-body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Audio Frequency Visualizer */
+.cyber-equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 24px;
+    width: 25px;
+}
+
+.eq-bar {
+    flex: 1;
+    background: var(--cyber-cyan);
+    height: 20%;
+    box-shadow: 0 0 5px var(--cyber-cyan);
+    transition: height 0.2s ease;
+}
+
+/* Information Block */
+.hud-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.track-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-text {
+    font-size: 9px;
+    color: var(--cyber-gray);
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+/* Sci-Fi Action Button */
+.hud-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--cyber-cyan);
+    color: var(--cyber-cyan);
+    padding: 6px 12px;
+    font-family: var(--cyber-font);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.hud-btn:hover {
+    background: var(--cyber-cyan);
+    color: var(--cyber-dark);
+    box-shadow: 0 0 10px var(--cyber-cyan);
+}
+
+/* Decorative UI Corners */
+.corner {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border: 1px solid var(--cyber-cyan);
+}
+
+.corner.top-left { top: 2px; left: 2px; border-right: none; border-bottom: none; }
+.corner.bottom-right { bottom: 2px; right: 2px; border-left: none; border-top: none; }
+
+/* Dynamic States (PLAYING) */
+.cyber-hud.playing .hud-status-dot {
+    background-color: var(--cyber-cyan);
+    box-shadow: 0 0 8px var(--cyber-cyan);
+}
+
+.cyber-hud.playing .status-text {
+    color: var(--cyber-cyan);
+}
+
+.cyber-hud.playing .eq-bar {
+    animation: cyberEq 0.8s infinite alternate ease-in-out;
+}
+
+.cyber-hud.playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+.cyber-hud.playing .eq-bar:nth-child(2) { animation-delay: 0.4s; }
+.cyber-hud.playing .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+.cyber-hud.playing .eq-bar:nth-child(4) { animation-delay: 0.5s; }
+.cyber-hud.playing .eq-bar:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes cyberEq {
+    0% { height: 15%; }
+    50% { height: 100%; background: var(--cyber-magenta); box-shadow: 0 0 5px var(--cyber-magenta); }
+    100% { height: 35%; }
+}
+</style>
+
 <script>
-    // Wait for the page to fully load
-    window.addEventListener('load', function() {
-        const bgMusic = document.getElementById('bgMusic');
-        
-        // Try to play the music automatically
-        const playPromise = bgMusic.play();
-        
-        // Handle autoplay restrictions
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log("Autoplay prevented:", error);
-                // Create a fallback play button
-                createMusicControls();
-            });
+window.addEventListener('DOMContentLoaded', () => {
+    const bgMusic = document.getElementById('bgMusic');
+    const player = document.getElementById('cyberPlayer');
+    const btn = document.getElementById('hudToggleBtn');
+    const btnIcon = document.getElementById('hudBtnIcon');
+    const statusText = document.getElementById('hudStatusText');
+
+    // UI Sync Function
+    function setAudioState(isPlaying) {
+        if (isPlaying) {
+            player.classList.remove('paused');
+            player.classList.add('playing');
+            btnIcon.textContent = 'MUTE';
+            statusText.textContent = '[ SYS.ONLINE ]';
+        } else {
+            player.classList.remove('playing');
+            player.classList.add('paused');
+            btnIcon.textContent = 'PLAY';
+            statusText.textContent = '[ SYS.PAUSED ]';
+        }
+    }
+
+    // Toggle Play / Pause
+    btn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            setAudioState(true);
+        } else {
+            bgMusic.pause();
+            setAudioState(false);
         }
     });
-    
-    // Create visible controls if autoplay is blocked
-    function createMusicControls() {
-        const musicControls = document.createElement('div');
-        musicControls.id = 'music-controls';
-        musicControls.innerHTML = `
-            <button id="playMusicBtn">▶ Play Background Music</button>
-            <button id="muteMusicBtn">🔇 Mute</button>
-        `;
-        musicControls.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10000;
-            background: rgba(10, 20, 22, 0.9);
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--teal-primary);
-        `;
-        
-        document.body.appendChild(musicControls);
-        
-        document.getElementById('playMusicBtn').addEventListener('click', function() {
-            document.getElementById('bgMusic').play();
-            musicControls.style.display = 'none';
-        });
-        
-        document.getElementById('muteMusicBtn').addEventListener('click', function() {
-            musicControls.style.display = 'none';
+
+    // Handle Browser Autoplay Policy
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            setAudioState(true);
+        }).catch(() => {
+            // Autoplay blocked: fall back to paused state awaiting manual click
+            setAudioState(false);
         });
     }
+});
 </script>
