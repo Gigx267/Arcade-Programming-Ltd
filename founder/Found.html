@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Studio | Team Code</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;500&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <title>Arcade Studio | Cyber Grid</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Design Tokens / Variables --- */
+        /* --- Color Tokens & Cyber Base --- */
         :root {
-            --neon-yellow: #f3e600;
-            --neon-pink: #ff0055;
-            --neon-orange: #ff8800;
-            --neon-purple: #bc00ff;
-            --neon-blue: #00d4ff;
-            --neon-green: #00ff88;
-            --dark-bg: #050505;
-            --tech-gray: #222;
-            --border-glow: rgba(243, 230, 0, 0.3);
+            --neon-blue: #00f0ff;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff66;
+            --neon-orange: #ff5500;
+            --neon-yellow: #ffee00;
+            --bg-dark: #060814;
+            --card-border-glow: rgba(0, 240, 255, 0.4);
         }
 
-        /* --- Global Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -30,322 +28,433 @@
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: #fff;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            /* Cyber Ambient City Background */
+            background-image: 
+                linear-gradient(to bottom, rgba(6, 8, 20, 0.75), rgba(6, 8, 20, 0.92)),
+                url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
-        /* --- Ambient Scanlines Effect --- */
+        /* Ambient Scanlines */
         body::before {
-            content: " ";
-            display: block;
+            content: "";
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 200;
-            background-size: 100% 2px, 3px 100%;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+            background-size: 100% 4px;
+            z-index: 90;
             pointer-events: none;
+            opacity: 0.6;
         }
 
-        /* --- Cyberpunk Navbar --- */
+        /* --- Cyber Top Navbar --- */
         .navbar {
-            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--tech-gray);
-            background: rgba(0, 0, 0, 0.9);
-            text-transform: uppercase;
+            padding: 1.2rem 3rem;
+            background: rgba(6, 8, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: var(--neon-yellow);
-            text-shadow: 0 0 10px var(--neon-yellow);
-            font-size: 1.1rem;
-        }
-
-        /* --- Main Layout Container --- */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-
-        /* --- Cyber Components: Team Cards --- */
-        .cyber-card {
-            position: relative;
-            min-height: 420px;
-            width: 100%;
-            background-size: cover;
-            background-position: center;
-            border-left: 6px solid var(--neon-yellow);
-            overflow: hidden;
+            font-weight: 900;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-            filter: grayscale(0.3);
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--neon-pink);
+        }
+
+        .system-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1.5px;
+        }
+
+        /* --- Main 3x2 Grid System --- */
+        .grid-container {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Individual Anime Streetwear Cards --- */
+        .cyber-card {
+            position: relative;
+            height: 520px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid var(--card-accent, var(--neon-blue));
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            
+            /* Initial Entrance Animation States */
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+        }
+
+        .cyber-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .cyber-card:hover {
-            filter: grayscale(0);
-            box-shadow: 0 0 30px var(--border-glow);
-            transform: translateY(-2px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px var(--card-glow, rgba(0, 240, 255, 0.4));
         }
 
-        /* HUD Frame Corners */
+        /* Cyber Glass HUD Top Bar Overlay */
+        .hud-header {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(6, 8, 20, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 10px 15px;
+            border-radius: 4px;
+            border-left: 3px solid var(--card-accent, var(--neon-blue));
+            z-index: 5;
+            min-width: 170px;
+        }
+
+        .hud-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .hud-header p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .hud-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--card-accent, var(--neon-blue));
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        /* Bold Graphic Typography (Matching Double Dragon Club Artwork) */
+        .bold-number {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 0.85;
+            color: #ffffff;
+            text-shadow: 4px 4px 0px var(--card-accent, var(--neon-blue)), -2px -2px 0px #000;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .bold-number .sub-text {
+            display: block;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-shadow: none;
+            color: #fff;
+            margin-top: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .top-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: var(--card-accent, var(--neon-blue));
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 2px;
+            z-index: 5;
+            letter-spacing: 1px;
+        }
+
+        /* Hover Scanning Frame Effect */
         .cyber-card::after {
             content: "";
             position: absolute;
-            top: 12px; right: 12px; bottom: 12px; left: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 8px;
+            border-radius: 4px;
             pointer-events: none;
-            z-index: 1;
+            transition: all 0.3s ease;
         }
 
-        /* Contrast Gradient Over Images */
-        .card-overlay {
+        .cyber-card:hover::after {
+            border-color: var(--card-accent, var(--neon-blue));
+            box-shadow: inset 0 0 15px var(--card-glow, rgba(0, 240, 255, 0.2));
+        }
+
+        /* Laser Sweep Animation on Hover */
+        .laser-sweep {
             position: absolute;
-            width: 100%; 
+            top: -100%;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(5, 5, 5, 0.95) 25%, rgba(5, 5, 5, 0.7) 50%, transparent 90%);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 2;
+            background: linear-gradient(to bottom, transparent, var(--card-glow, rgba(0, 240, 255, 0.3)), transparent);
+            z-index: 4;
+            pointer-events: none;
         }
 
-        /* --- Typography Engine --- */
-        .cyber-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 5.5rem;
-            margin: 5px 0;
-            line-height: 0.95;
-            transform: rotate(-2.5deg);
-            transition: transform 0.2s ease-in-out;
-            width: fit-content;
+        .cyber-card:hover .laser-sweep {
+            animation: sweep 0.8s ease-in-out infinite;
         }
 
-        .cyber-card:hover .cyber-title {
-            transform: rotate(-1deg) scale(1.03);
+        @keyframes sweep {
+            0% { top: -100%; }
+            100% { top: 100%; }
         }
 
-        /* Dynamic Text Colors & Neon Flares */
-        .yellow-text { color: var(--neon-yellow); text-shadow: 3px 3px 0px #000; }
-        .pink-text { color: var(--neon-pink); text-shadow: 3px 3px 0px #000; }
-        .orange-text { color: var(--neon-orange); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(255,136,0,0.3); }
-        .purple-text { color: var(--neon-purple); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(188,0,255,0.3); }
-        .blue-text { color: var(--neon-blue); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0,212,255,0.3); }
-        .green-text { color: var(--neon-green); text-shadow: 3px 3px 0px #000, 0 0 15px rgba(0, 255, 136, 0.3); }
-
-        .point-no-return {
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            color: #fff;
-            margin-bottom: 8px;
-            border-bottom: 2px solid var(--neon-yellow);
-            width: fit-content;
-            text-transform: uppercase;
+        /* --- Individual Card Color Themes & Images --- */
+        .card-1 {
+            --card-accent: var(--neon-blue);
+            --card-glow: rgba(0, 240, 255, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/736x/ba/3e/bf/ba3ebf56505b0d53ca50e7e40e7edbf6.jpg ');
         }
 
-        .role-text {
-            color: #fff;
-            font-size: 0.85rem;
-            margin-top: 12px;
-            letter-spacing: 1.5px;
-            background: rgba(255, 255, 255, 0.08);
-            width: fit-content;
-            padding: 4px 10px;
-            text-transform: uppercase;
-            border-left: 2px solid rgba(255, 255, 255, 0.3);
+        .card-2 {
+            --card-accent: var(--neon-green);
+            --card-glow: rgba(0, 255, 102, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/736x/0c/95/dc/0c95dccf36195aca0e6fd4f842a3fb46.jpg');
         }
 
-        /* --- HUD System Labels --- */
-        .tech-data {
-            position: absolute;
-            bottom: 20px;
-            left: 40px;
-            font-size: 0.65rem;
-            color: #888;
-            z-index: 3;
-            letter-spacing: 1px;
+        .card-3 {
+            --card-accent: var(--neon-pink);
+            --card-glow: rgba(255, 0, 127, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/736x/2c/18/0a/2c180a83ff459a9a5d4c83d1a485b2a0.jpg');
         }
 
-        .tech-data span {
-            color: #aaa;
-            margin-right: 15px;
-        }
-        
-        .tech-data strong {
-            color: #fff;
-            font-weight: 500;
+        .card-4 {
+            --card-accent: var(--neon-purple);
+            --card-glow: rgba(157, 0, 255, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/1200x/26/c6/24/26c62450103ebe5ba924f375b2c2e269.jpg');
         }
 
-        .date-stamp {
-            position: absolute;
-            top: 25px;
-            right: 40px;
-            font-size: 0.75rem;
-            text-align: right;
-            border-right: 3px solid var(--neon-pink);
-            padding-right: 12px;
-            color: #ccc;
-            letter-spacing: 1px;
-            z-index: 3;
-            text-transform: uppercase;
-            line-height: 1.4;
+        .card-5 {
+            --card-accent: var(--neon-orange);
+            --card-glow: rgba(255, 85, 0, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/736x/ba/8f/e6/ba8fe667169070854f5f0c171a0afad2.jpg');
         }
 
-        .tech-hex-icons {
-            color: rgba(188, 0, 255, 0.8);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
+        .card-6 {
+            --card-accent: var(--neon-yellow);
+            --card-glow: rgba(255, 238, 0, 0.5);
+            background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
+                url('https://i.pinimg.com/736x/7f/b2/e8/7fb2e84fe67dfb4b7417dfdbd57bfe5c.jpg');
         }
 
-        /* --- Individual Card Declarations --- */
-        .card-cowboy { background-image: url('https://i.pinimg.com/1200x/55/e6/33/55e633348a61cdd696250da4aa78b1cd.jpg'); border-left-color: var(--neon-yellow); }
-        .card-robot   { background-image: url('https://i.pinimg.com/736x/0c/95/dc/0c95dccf36195aca0e6fd4f842a3fb46.jpg'); border-left-color: var(--neon-purple); }
-        .card-honor   { background-image: url('https://i.pinimg.com/736x/2c/18/0a/2c180a83ff459a9a5d4c83d1a485b2a0.jpg'); border-left-color: var(--neon-pink); }
-        .card-plan    { background-image: url('https://i.pinimg.com/736x/fb/8c/8d/fb8c8d807e239a8168d05fa5a5b1359a.jpg'); border-left-color: var(--neon-orange); }
-        .card-media   { background-image: url('https://i.pinimg.com/1200x/53/e6/60/53e660cd5a17e8b9fb8940c958e81a85.jpg'); border-left-color: var(--neon-green); }
-        .card-ruiner  { background-image: url('https://i.pinimg.com/736x/6c/31/99/6c31993cbfdc4dedc6fa9a3a3023bb03.jpg'); border-left-color: var(--neon-blue); }
-
-        /* Animation System */
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 1px) }
-            40% { transform: translate(-1px, -1px) }
-            60% { transform: translate(1px, 2px) }
-            80% { transform: translate(2px, -1px) }
-            100% { transform: translate(0) }
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        .glitch-hover:hover { animation: glitch 0.25s linear infinite; }
 
-        /* --- Mobile Optimization Rule --- */
-        @media (max-width: 768px) {
-            .navbar { padding: 1rem; flex-direction: column; gap: 8px; text-align: center; }
-            .container { margin: 20px auto; gap: 20px; }
-            .cyber-card { min-height: 320px; }
-            .card-overlay { padding: 20px; background: linear-gradient(180deg, rgba(5,5,5,0.95) 40%, rgba(5,5,5,0.7) 100%); }
-            .cyber-title { font-size: 3.2rem; }
-            .date-stamp { display: none; } /* Hide tracking labels on tiny viewports to keep space clear */
-            .tech-data { left: 20px; bottom: 15px; font-size: 0.55rem; }
+        @media (max-width: 650px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Navigation Bar -->
+    <!-- Cyberpunk Header Bar -->
     <nav class="navbar">
-        <div class="logo">ARCADE // STUDIO</div>
-        <div style="font-size: 0.7rem; color: #666; letter-spacing: 1px;">MONITORING_SYSTEM_V.2.0.77</div>
+        <div class="logo">ARCADE <span>//</span> STUDIO</div>
+        <div class="system-status">SYSTEM: ARCADE_OS_V.2.0.77_DDCC_34</div>
     </nav>
 
-    <!-- Main Cards Grid Wrapper -->
-    <div class="container">
-        
-        <!-- Member 01: Kelechi -->
-        <div class="cyber-card card-cowboy">
-            <div class="card-overlay">
-                <p class="point-no-return" style="border-color: var(--neon-yellow);">Founder</p>
-                <h1 class="cyber-title yellow-text glitch-hover">Kelechi</h1>
-                <p class="role-text">Web Developer & Cybersecurity Specialist</p>
+    <!-- 3x2 Streetwear Anime Roster Grid -->
+    <main class="grid-container">
+
+        <!-- Card 1: Kelechi -->
+        <div class="cyber-card card-1">
+            <div class="laser-sweep"></div>
+            <div class="top-tag">Hacker + Leader </div>
+            <div class="hud-header">
+                <h3>Kelechi</h3>
+                <p>Founder</p>
+                <div class="hud-meta">
+                    Web Developement <br>
+                  Project Management / Cyber Secuirty 
+                </div>
             </div>
-            <div class="date-stamp">
-                The Leader <br> Team Alpha
+            <div class="bold-number">1</div>
+        </div>
+
+        <!-- Card 2: Jeremiah C -->
+        <div class="cyber-card card-2">
+            <div class="laser-sweep"></div>
+            <div class="top-tag">  Growth Strategist</div>
+            <div class="hud-header">
+                <h3>Jeremiah C</h3>
+                <p> Management</p>
+                <div class="hud-meta">
+             Architectural Decision-Making <br>
+                Strategy & Analytics
+                </div>
             </div>
-            <div class="tech-data">
-                <span>MONITORING: <strong>DAY 002</strong></span> <span>LOCAL: <strong>FCT_NGA</strong></span> <span>STATUS: <strong>ACTIVE</strong></span>
+            <div class="bold-number">2</div>
+        </div>
+
+        <!-- Card 3: Samuel -->
+        <div class="cyber-card card-3">
+            <div class="laser-sweep"></div>
+            <div class="top-tag"> The Brains </div>
+            <div class="hud-header">
+                <h3>Samuel</h3>
+                <p> Backend Developer & AI Programmer</p>
+                <div class="hud-meta">
+                  System Design & APIs  <br>
+                   AI Architecture & Integration
+                </div>
+            </div>
+            <div class="bold-number">3</div>
+        </div>
+
+        <!-- Card 4: Harrison -->
+        <div class="cyber-card card-4">
+            <div class="laser-sweep"></div>
+            <div class="top-tag"> Design
+UI Expert</div>
+            <div class="hud-header">
+                <h3>Eniola  </h3>
+                <p>Frontend Developer</p>
+                <div class="hud-meta">
+                 UI/UX & Web Architect <br>Interface Protocol
+                  
+                </div>
+            </div>
+            <div class="bold-number">
+                4
+                <span class="sub-text"> </span>
             </div>
         </div>
 
-        <!-- Member 02: Jeremiah -->
-        <div class="cyber-card card-robot">
-            <div class="card-overlay">
-                <div class="tech-hex-icons">⬢ ⬡ ⬢</div>
-                <p class="point-no-return" style="border-color: var(--neon-purple);">Management</p>
-                <h1 class="cyber-title purple-text glitch-hover">Jeremiah  C </h1>
-                <p class="role-text"> <br> Marketer  </p>
+        <!-- Card 5: Kater -->
+        <div class="cyber-card card-5">
+            <div class="laser-sweep"></div>
+            <div class="top-tag"> System Architect</div>
+            <div class="hud-header">
+                <h3>
+
+JAMES
+HARRISON </h3>
+                <p>Web3 Infrastructure Engineer </p>
+                <div class="hud-meta">AI + Web3 Integration
+                  <br>Smart Contract Developer
+                 
+                </div>
             </div>
-            <div class="date-stamp">
-                 The Executor 
+            <div class="bold-number">5</div>
+        </div>
+
+        <!-- Card 6: Benedict -->
+        <div class="cyber-card card-6">
+            <div class="laser-sweep"></div>
+            <div class="top-tag">Technical Depth </div>
+            <div class="hud-header">
+                <h3>Benedict</h3>
+                <p>Backend Developer</p>
+                <div class="hud-meta">
+                 Database Management & Data Engineering  <br>
+                  System Design, Security & APIs
+                </div>
             </div>
-            <div class="tech-data">
-                <span>CORE: <strong>PM</strong></span> <span>BUILD: <strong>V.18.2</strong></span> <span>LOCAL: <strong>Abuja</strong></span>
+            <div class="bold-number">
+                6
+                <span class="sub-text"></span>
             </div>
         </div>
 
-        <!-- Member 03: Samuel -->
-        <div class="cyber-card card-honor">
-            <div class="card-overlay">
-                <p class="point-no-return" style="border-color: var(--neon-pink);">Engineering</p>
-                <h1 class="cyber-title pink-text glitch-hover">Samuel</h1>
-                <p class="role-text">Backend Developer & AI Solutions Programmer</p>
-            </div>
-            <div class="date-stamp">
-                The brains <br> behind the code
-            </div>
-            <div class="tech-data">
-                <span>SYSTEM: <strong>ARCADE_OS</strong></span> <span>LOCAL: <strong>ABJ_NGA</strong></span> <span>ENCRYPTION: <strong>LEVEL 9</strong></span>
-            </div>
-        </div>
+    </main>
 
-        <!-- Member 04: Jewel -->
-        <div class="cyber-card card-plan">
-            <div class="card-overlay">
-                <p class="point-no-return" style="border-color: var(--neon-orange);">Interface Protocol</p>
-                <h1 class="cyber-title orange-text glitch-hover">Jewel</h1>
-                <p class="role-text">UI/UX & Web Architect</p>
-            </div>
-            <div class="date-stamp">
-                Design <br> UI Expert
-            </div>
-            <div class="tech-data">
-                <span>GRID: <strong>ACTIVE</strong></span> <span>LATENCY: <strong>2ms</strong></span> <span>TYPE: <strong>DESIGNER</strong></span>
-            </div>
-        </div>
+    <!-- JavaScript for Staggered Entrance Animations & Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.cyber-card');
 
-        <!-- Member 05: Kater -->
-        <div class="cyber-card card-media">
-            <div class="card-overlay">
-                <p class="point-no-return" style="border-color: var(--neon-green);">Network Broadcast</p>
-                <h1 class="cyber-title green-text glitch-hover">Kater</h1>
-                <p class="role-text">Digital Marketer & Social Media Specialist</p>
-            </div>
-            <div class="date-stamp">
-                THE INFLUENCE <br> Growth Strategist
-            </div>
-            <div class="tech-data">
-                <span>REACH: <strong>GLOBAL</strong></span> <span>ALGO: <strong>OPTIMIZED</strong></span> <span>LOCAL: <strong>ABJ_NGA</strong></span>
-            </div>
-        </div>
+            // Staggered Entrance Animation
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 120); // 120ms delay between cards
+            });
 
-        <!-- Member 06: Hosea -->
-        <div class="cyber-card card-ruiner">
-            <div class="card-overlay">
-                <p class="point-no-return" style="border-color: var(--neon-blue);">Database Breach</p>
-                <h1 class="cyber-title blue-text glitch-hover">Benedict</h1>
-                <p class="role-text">Backend Developer</p>
-            </div>
-            <div class="date-stamp">
-                SECURED <br> Database Developer
-            </div>
-            <div class="tech-data">
-                <span>QUERY: <strong>OPTIMIZED</strong></span> <span>DATA: <strong>ENCRYPTED</strong></span> <span>SQL: <strong>ACTIVE</strong></span>
-            </div>
-        </div>
+            // Dynamic Mouse Tilt/Glow Micro-interaction
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
 
-    </div>
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+                });
 
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
