@@ -54,18 +54,26 @@
             opacity: 0.6;
         }
 
-        /* --- Cyber Top Navbar --- */
+        /* --- Integrated Cyber Top Navbar --- */
         .navbar {
+            background: rgba(6, 8, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 3rem;
-            background: rgba(6, 8, 20, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 1rem 2rem;
         }
 
         .logo {
@@ -75,9 +83,15 @@
             letter-spacing: 2px;
             color: var(--neon-blue);
             text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 18px var(--neon-blue), 0 0 30px rgba(0, 240, 255, 0.8);
         }
 
         .logo span {
@@ -86,9 +100,156 @@
 
         .system-status {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.7rem;
+            color: rgba(0, 240, 255, 0.7);
             letter-spacing: 1.5px;
+            padding: 4px 10px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 4px;
+            margin-left: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #d0f7ff;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 6px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 8px var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Hamburger Button */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            outline: none;
+            z-index: 1002;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--neon-blue);
+            border-radius: 2px;
+            box-shadow: 0 0 6px var(--neon-blue);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background-color: var(--neon-pink);
+            box-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        .mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background-color: var(--neon-pink);
+            box-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        /* Mobile Menu Drawer */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(6, 8, 20, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: 2px solid var(--neon-blue);
+            box-shadow: -10px 0 30px rgba(0, 240, 255, 0.2);
+            padding: 90px 30px 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            z-index: 1001;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--neon-blue);
+            padding-left: 10px;
+            text-shadow: 0 0 10px var(--neon-blue);
+            border-bottom-color: var(--neon-blue);
+        }
+
+        /* Backdrop Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* --- Main 3x2 Grid System --- */
@@ -168,7 +329,7 @@
             line-height: 1.3;
         }
 
-        /* Bold Graphic Typography (Matching Double Dragon Club Artwork) */
+        /* Bold Graphic Typography */
         .bold-number {
             position: absolute;
             bottom: 20px;
@@ -252,7 +413,7 @@
             --card-accent: var(--neon-blue);
             --card-glow: rgba(0, 240, 255, 0.5);
             background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
-                url('https://i.pinimg.com/736x/ba/3e/bf/ba3ebf56505b0d53ca50e7e40e7edbf6.jpg ');
+                url('https://i.pinimg.com/736x/ba/3e/bf/ba3ebf56505b0d53ca50e7e40e7edbf6.jpg');
         }
 
         .card-2 {
@@ -295,27 +456,72 @@
             .grid-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .system-status {
+                display: none;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-toggle {
+                display: flex;
+            }
         }
 
         @media (max-width: 650px) {
             .grid-container {
                 grid-template-columns: 1fr;
             }
-            .navbar {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 5px;
+            .navbar-container {
+                padding: 0.8rem 1.2rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cyberpunk Header Bar -->
+    <!-- Blended Navigation Header -->
     <nav class="navbar">
-        <div class="logo">ARCADE <span>//</span> STUDIO</div>
-        <div class="system-status">SYSTEM: ARCADE_OS_V.2.0.77_DDCC_34</div>
-    </nav>
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">
+                ARCADE <span>//</span> STUDIO
+            </a>
+
+            <div class="system-status">SYS: ARCADE_OS_V2.0.77</div>
+            
+            <ul class="nav-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="/About.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                <li><a href="Arcadeblog.html">Blog</a></li>
+                <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
+            </ul>
+                        
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-expanded="false" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>        
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="https://arcade.name.ng/index.html">Home</a>
+        <a href="/About.html">About Us</a>
+        <a href="https://arcade.name.ng/projects.html">Projects</a>
+        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a> 
+        <a href="Arcadeblog.html">Blog</a>
+        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
+        <a href="https://arcade.name.ng/contact.html">Contact</a>
+    </div>        
+
+    <!-- Mobile Overlay -->
+    <div class="overlay" id="overlay"></div>
 
     <!-- 3x2 Streetwear Anime Roster Grid -->
     <main class="grid-container">
@@ -323,13 +529,13 @@
         <!-- Card 1: Kelechi -->
         <div class="cyber-card card-1">
             <div class="laser-sweep"></div>
-            <div class="top-tag">Hacker + Leader </div>
+            <div class="top-tag">Hacker + Leader</div>
             <div class="hud-header">
                 <h3>Kelechi</h3>
                 <p>Founder</p>
                 <div class="hud-meta">
-                    Web Developement <br>
-                  Project Management / Cyber Secuirty 
+                    Web Development <br>
+                    Project Management / Cyber Security 
                 </div>
             </div>
             <div class="bold-number">1</div>
@@ -338,13 +544,13 @@
         <!-- Card 2: Jeremiah C -->
         <div class="cyber-card card-2">
             <div class="laser-sweep"></div>
-            <div class="top-tag">  Growth Strategist</div>
+            <div class="top-tag">Growth Strategist</div>
             <div class="hud-header">
                 <h3>Jeremiah C</h3>
-                <p> Management</p>
+                <p>Management</p>
                 <div class="hud-meta">
-             Architectural Decision-Making <br>
-                Strategy & Analytics
+                    Architectural Decision-Making <br>
+                    Strategy & Analytics
                 </div>
             </div>
             <div class="bold-number">2</div>
@@ -353,50 +559,43 @@
         <!-- Card 3: Samuel -->
         <div class="cyber-card card-3">
             <div class="laser-sweep"></div>
-            <div class="top-tag"> The Brains </div>
+            <div class="top-tag">The Brains</div>
             <div class="hud-header">
                 <h3>Samuel</h3>
-                <p> Backend Developer & AI Programmer</p>
+                <p>Backend Developer & AI Programmer</p>
                 <div class="hud-meta">
-                  System Design & APIs  <br>
-                   AI Architecture & Integration
+                    System Design & APIs <br>
+                    AI Architecture & Integration
                 </div>
             </div>
             <div class="bold-number">3</div>
         </div>
 
-        <!-- Card 4: Harrison -->
+        <!-- Card 4: Eniola -->
         <div class="cyber-card card-4">
             <div class="laser-sweep"></div>
-            <div class="top-tag"> Design
-UI Expert</div>
+            <div class="top-tag">Design UI Expert</div>
             <div class="hud-header">
-                <h3>Eniola  </h3>
+                <h3>Eniola</h3>
                 <p>Frontend Developer</p>
                 <div class="hud-meta">
-                 UI/UX & Web Architect <br>Interface Protocol
-                  
+                    UI/UX & Web Architect <br>
+                    Interface Protocol
                 </div>
             </div>
-            <div class="bold-number">
-                4
-                <span class="sub-text"> </span>
-            </div>
+            <div class="bold-number">4</div>
         </div>
 
-        <!-- Card 5: Kater -->
+        <!-- Card 5: James Harrison -->
         <div class="cyber-card card-5">
             <div class="laser-sweep"></div>
-            <div class="top-tag"> System Architect</div>
+            <div class="top-tag">System Architect</div>
             <div class="hud-header">
-                <h3>
-
-JAMES
-HARRISON </h3>
-                <p>Web3 Infrastructure Engineer </p>
-                <div class="hud-meta">AI + Web3 Integration
-                  <br>Smart Contract Developer
-                 
+                <h3>JAMES HARRISON</h3>
+                <p>Web3 Infrastructure Engineer</p>
+                <div class="hud-meta">
+                    AI + Web3 Integration <br>
+                    Smart Contract Developer
                 </div>
             </div>
             <div class="bold-number">5</div>
@@ -405,36 +604,55 @@ HARRISON </h3>
         <!-- Card 6: Benedict -->
         <div class="cyber-card card-6">
             <div class="laser-sweep"></div>
-            <div class="top-tag">Technical Depth </div>
+            <div class="top-tag">Technical Depth</div>
             <div class="hud-header">
                 <h3>Benedict</h3>
                 <p>Backend Developer</p>
                 <div class="hud-meta">
-                 Database Management & Data Engineering  <br>
-                  System Design, Security & APIs
+                    Database Management & Data Engineering <br>
+                    System Design, Security & APIs
                 </div>
             </div>
-            <div class="bold-number">
-                6
-                <span class="sub-text"></span>
-            </div>
+            <div class="bold-number">6</div>
         </div>
 
     </main>
 
-    <!-- JavaScript for Staggered Entrance Animations & Interactivity -->
+    <!-- JavaScript for Menu Toggle, Staggered Entrance & Hover Tilt -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.cyber-card');
+            // --- Mobile Menu Handler ---
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('overlay');
+            const mobileLinks = mobileNav.querySelectorAll('a');
 
-            // Staggered Entrance Animation
+            function toggleMenu() {
+                const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+                mobileToggle.setAttribute('aria-expanded', !isExpanded);
+                mobileNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+
+            function closeMenu() {
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+
+            mobileToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // --- Staggered Entrance Animation ---
+            const cards = document.querySelectorAll('.cyber-card');
             cards.forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
-                }, index * 120); // 120ms delay between cards
+                }, index * 120);
             });
 
-            // Dynamic Mouse Tilt/Glow Micro-interaction
+            // --- Dynamic Mouse Tilt Micro-interaction ---
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
