@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -669,6 +670,134 @@
             color: rgba(224, 247, 252, 0.6);
         }
 
+        /* ── Featured Projects ── */
+        .featured-projects-section {
+            padding: 5rem 2rem;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--hud-border);
+            border-bottom: 1px solid var(--hud-border);
+        }
+
+        .featured-projects-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .featured-projects-container .section-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .featured-projects-container .section-title {
+            margin-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            color: var(--neon-pink);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            min-width: 0;
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--neon-yellow);
+            transform: translateY(-8px);
+            box-shadow: 0 0 24px rgba(255, 238, 0, 0.25);
+        }
+
+        .project-image-wrapper {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: #020408;
+        }
+
+        .project-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            filter: grayscale(25%) contrast(115%);
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0) contrast(110%);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            background: linear-gradient(transparent 15%, rgba(5, 8, 17, 0.96) 100%);
+        }
+
+        .project-title {
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .project-desc {
+            color: var(--text-main);
+            line-height: 1.45;
+            margin-bottom: 1rem;
+        }
+
+        .btn-project {
+            align-self: flex-start;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 0.65rem 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+
+        .btn-project:hover {
+            color: #000;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+        }
+
+        .projects-cta-wrapper {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .featured-projects-section { padding: 3.5rem 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-image-wrapper { height: 280px; }
+        }
+
         /* ── Responsive ── */
         @media (max-width: 992px) {
             .content-container {
@@ -1004,7 +1133,142 @@
             </div>
         </div>
     </section>
+<!-- ─── FEATURED PROJECTS ─── -->
 
+    <div class="featured-projects-container">
+        <div class="section-header">
+            <h2 class="section-title">Featured <span class="text-gradient">Projects</span></h2>
+            <p class="section-subtitle">// SELECTED WORKS FROM OUR VAULT</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Theatre Ariel -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/fc/5d/d5/fc5dd5b314f6204090b358dbb6f048c8.jpg" alt="Theatre Ariel">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Theatre Ariel</h3>
+                        <p class="project-desc">A professional cultural platform designed with high-authority branding and a modern user interface.</p>
+                        <a href="https://www.theatreariel.org/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dotty Music -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/6e/d1/cf/6ed1cfe50aaf0f81c020f5e51248fe61.jpg" alt="Dotty Music Foundation">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Dotty Music</h3>
+                        <p class="project-desc">Empowering the next generation of talent through a vibrant, community-focused music portal.</p>
+                        <a href="https://dottymusicfoundation.org/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paschal Ugwu -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/cc/4a/ad/cc4aad7ec5808f61d24ff3a0caefba8d.jpg" alt="Paschal Ugwu">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Paschal Ugwu</h3>
+                        <p class="project-desc">Minimalist fine-art portfolio showcasing creative direction and photography.</p>
+                        <a href="https://paschalugwu.com/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stretchbuy -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/1200x/4b/9f/e6/4b9fe6bfe6d3d5ea9b715b15bd656a11.jpg" alt="Stretchbuy">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Stretchbuy</h3>
+                        <p class="project-desc">Redefining retail access through flexible, design-forward e-commerce solutions.</p>
+                        <a href="https://stretchbuy.com.ng/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chidimma Nwafor -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/1200x/bb/65/c8/bb65c86350168ae341b454dae112ef79.jpg" alt="Chidimma Nwafor">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Chidimma Nwafor</h3>
+                        <p class="project-desc">Premium professional portfolio emphasizing high-vibe personal branding.</p>
+                        <a href="https://chidimmanwafor.name.ng/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-cta-wrapper">
+            <a href="https://arcade.name.ng/projects.html" class="cta cta-primary projects-view-all">Browse Full Vault →</a>
+        </div>
+    </div>
+</section><section class="featured-projects-section">
+    <div class="featured-projects-container">
+       
+
+        <div class="projects-grid">
+            <!-- Jamelia Aesthetics -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/fe/75/a8/fe75a8ba8a08b29434c2c2870ebcc6d4.jpg" alt="Jamelia Aesthetics">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Jamelia Aesthetics</h3>
+                        <p class="project-desc">Nigeria's premier destination for non-surgical aesthetic procedures, restoring skin vitality and sculpting your ideal profile in Wuse 2, Abuja.</p>
+                        <a href="http://jameliaaesthetic.com/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abuja Protocol Academy -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/75/a7/b6/75a7b63318f44f27a8054b01a1c19c2f.jpg" alt="Abuja Protocol Academy">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Abuja Protocol Academy</h3>
+                        <p class="project-desc">Nigeria's leading institution focused on professional protocol, etiquette, and soft skills training for government officials, business professionals, and youth leaders.</p>
+                        <a href="https://abujaprotocolacademy.com.ng/index.html" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Her Study Network -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/1200x/87/9d/1c/879d1cec4b8ee4b6a7c59638bcd18c42.jpg" alt="Her Study Network">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Her Study Network</h3>
+                        <p class="project-desc">An elegant sanctuary where women gather to study Scripture, pray with intention, and bring faith into daily life.</p>
+                        <a href="http://herstudynetwork.com.ng/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Celeste Suites -->
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img loading="lazy" src="https://i.pinimg.com/736x/da/14/42/da144274e069189a18273799a52054ef.jpg" alt="Celeste Suites">
+                    <div class="project-overlay">
+                        <h3 class="project-title">Celeste Suites</h3>
+                        <p class="project-desc">Luxury hospitality UI designed for seamless bookings and high-end guest experiences.</p>
+                        <a href="https://www.celestesuites.com.ng/" class="btn-project" target="_blank" rel="noopener">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-cta-wrapper">
+            <a href="https://arcade.name.ng/projects.html" class="cta cta-primary projects-view-all">Browse Full Vault →</a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FEATURED PROJECTS ─── -->
+<section class="featured-projects-section">
     <!-- ─── WHY CHOOSE US ─── -->
     <section class="why-choose-us">
         <div class="container">
