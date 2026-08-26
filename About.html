@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47MB9NV5P5">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-47MB9NV5P5');
+    </script>
+    <meta name="p:domain_verify" content="2a33f53220fc04775c15ba00f5c4ae58" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade  | About Page</title>
+    <title>About Arcade Studio | Cyberpunk Web Architect & Digital Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* ── Root Variables ── */
+        :root {
+            --bg-dark: #050811;
+            --neon-yellow: #ffee00;
+            --neon-pink: #ff0055;
+            --neon-cyan: #00f0ff;
+            --panel-bg: rgba(10, 16, 26, 0.85);
+            --hud-border: rgba(0, 240, 255, 0.3);
+            --text-main: #e0f7fc;
+            --terminal-green: #00ff41;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,568 +39,1628 @@
         }
 
         body {
-            background-color: #0a0a1a;
-            color: #00f7ff;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
-            perspective: 1000px;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            animation: pageBoot 1.2s ease-out both;
+            transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
         }
 
-        /* Cyberpunk Glitch Intro */
+        /* ── Intro / Terminal ── */
         .intro-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            inset: 0;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             background: #000;
-            z-index: 1000;
-            flex-direction: column;
+            z-index: 10001;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .intro-container.is-complete {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .terminal-text {
-            font-family: 'Courier New', monospace;
-            font-size: 1.5rem;
-            color: #00ff41;
-            text-shadow: 0 0 5px #00ff41;
-            line-height: 1.6;
-            max-width: 800px;
-            padding: 20px;
+            max-width: 820px;
+            padding: 2rem 2.5rem;
+            color: var(--terminal-green);
+            font: 600 1.1rem/1.9 'Courier New', monospace;
+            text-shadow: 0 0 8px var(--terminal-green);
+            white-space: pre-wrap;
+            word-break: break-word;
+            border-left: 3px solid var(--terminal-green);
+            padding-left: 2rem;
+            min-height: 260px;
         }
 
-        .cursor {
+        .terminal-text .line {
+            opacity: 0;
+            animation: typeLine 0.08s steps(1) forwards;
+        }
+
+        .terminal-text .line.done {
+            opacity: 1;
+        }
+
+        .terminal-text .cursor-blink {
             display: inline-block;
             width: 10px;
-            height: 20px;
-            background: #00ff41;
-            animation: blink 1s infinite;
+            height: 1.1em;
+            vertical-align: middle;
+            background: var(--terminal-green);
+            animation: blink 1s steps(2, start) infinite;
+            margin-left: 2px;
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            50% {
+                opacity: 0;
+            }
         }
 
-        /* Main Content */
-        .container {
-            position: relative;
-            min-height: 100vh;
-            padding-top: 100vh; /* Push content below intro */
+        @keyframes typeLine {
+            0% {
+                opacity: 0;
+                transform: translateX(-4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        section {
-            min-height: 100vh;
-            padding: 100px 10%;
+        /* ── Canvas / Grid ── */
+        #canvas-container,
+        .grid-lines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        #canvas-container {
+            z-index: 0;
+            opacity: 0.6;
+        }
+        #canvas-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .grid-lines {
+            z-index: 0;
+            background:
+                linear-gradient(rgba(0, 240, 255, .07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, .07) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .navbar,
+        .page-header,
+        main,
+        .footer {
             position: relative;
             z-index: 2;
         }
 
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            background: linear-gradient(90deg, #00f7ff, #ff00f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+        body.is-exiting {
+            opacity: 0;
+            transform: scale(1.035);
+            filter: blur(8px) saturate(1.5);
+            pointer-events: none;
         }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #ff00f7;
-            text-shadow: 0 0 10px rgba(255, 0, 247, 0.5);
+        /* ── Animations ── */
+        .navbar {
+            animation: hudDrop 0.8s cubic-bezier(.16, 1, .3, 1) 0.15s both;
+        }
+        .page-header {
+            animation: headerReveal 1s cubic-bezier(.16, 1, .3, 1) 0.3s both;
+        }
+        .about-hero {
+            animation: contentRise 0.9s cubic-bezier(.16, 1, .3, 1) 0.5s both;
+        }
+        .mission-card,
+        .value-card,
+        .stat-item {
+            animation: cardDeploy 0.75s cubic-bezier(.16, 1, .3, 1) both;
+        }
+        .mission-card:nth-child(1),
+        .value-card:nth-child(1),
+        .stat-item:nth-child(1) {
+            animation-delay: 0.65s;
+        }
+        .mission-card:nth-child(2),
+        .value-card:nth-child(2),
+        .stat-item:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+        .mission-card:nth-child(3),
+        .value-card:nth-child(3),
+        .stat-item:nth-child(3) {
+            animation-delay: 0.95s;
+        }
+        .value-card:nth-child(4),
+        .stat-item:nth-child(4) {
+            animation-delay: 1.1s;
+        }
+        .stats-grid,
+        .values-section,
+        .footer {
+            animation: contentRise 0.9s cubic-bezier(.16, 1, .3, 1) 0.65s both;
         }
 
-        p {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            max-width: 800px;
+        @keyframes pageBoot {
+            from {
+                opacity: 0;
+                background-position: 50% 45%, 0 0, 0 0;
+            }
+            to {
+                opacity: 1;
+                background-position: 50% 50%, 0 0, 0 0;
+            }
+        }
+        @keyframes hudDrop {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes headerReveal {
+            from {
+                opacity: 0;
+                transform: translateX(-45px) skewX(-8deg);
+                clip-path: inset(0 100% 0 0);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) skewX(0);
+                clip-path: inset(0 0 0 0);
+            }
+        }
+        @keyframes contentRise {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes cardDeploy {
+            from {
+                opacity: 0;
+                transform: perspective(700px) rotateX(18deg) translateY(30px) scale(.96);
+            }
+            to {
+                opacity: 1;
+                transform: perspective(700px) rotateX(0) translateY(0) scale(1);
+            }
         }
 
-        .neon-text {
-            color: #00f7ff;
-            text-shadow: 0 0 5px #00f7ff, 0 0 10px #00f7ff;
-        }
-
-        /* Three.js Canvas */
-        #canvas-container {
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 1; 
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        /* Cyberpunk UI Elements */
-        .cyber-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: transparent;
-            color: #00f7ff;
-            border: 2px solid #00f7ff;
-            font-size: 1.2rem;
+        /* ── Navigation HUD ── */
+        .navbar {
+            background: rgba(5, 8, 17, 0.9);
+            border-bottom: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--neon-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 238, 0, 0.6);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::before {
+            content: "// SYS.LOC_01";
+            position: absolute;
+            top: -10px;
+            left: 0;
+            font-size: 0.5rem;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
+            padding: 0.5rem 0.8rem;
+            position: relative;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon-yellow);
+            background: rgba(0, 240, 255, 0.1);
+            text-shadow: 0 0 8px var(--neon-yellow);
+            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            padding: 0.5rem;
             cursor: pointer;
+            transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle:hover,
+        .mobile-menu-toggle[aria-expanded="true"] {
+            background: rgba(0, 240, 255, 0.12);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+        }
+        .mobile-menu-toggle[aria-expanded="true"] {
+            transform: rotate(90deg);
+        }
+        .mobile-menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: var(--neon-cyan);
+            margin: 4px 0;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        /* ── Buttons ── */
+        .btn,
+        .cta {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.9rem 2rem;
+            background: transparent;
+            color: var(--neon-yellow);
+            border: 1px solid var(--neon-yellow);
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
             position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(255, 238, 0, 0.1);
+        }
+
+        .btn:hover,
+        .cta-primary:hover {
+            background: var(--neon-yellow);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 238, 0, 0.6);
+        }
+
+        .cta-secondary {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+        .cta-secondary:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        }
+
+        /* ── Page Header ── */
+        .page-header {
+            max-width: 1400px;
+            margin: 7rem auto 2rem;
+            padding: 2rem 2rem 1rem;
+            position: relative;
+            border-bottom: 1px solid var(--hud-border);
+        }
+
+        .page-header::after {
+            content: "// IDENTITY_MATRIX v2.4";
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            background: var(--bg-dark);
+            color: var(--neon-pink);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border: 1px solid var(--neon-pink);
+            letter-spacing: 2px;
+        }
+
+        .page-header h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 4.5rem;
+            color: var(--neon-yellow);
+            text-transform: uppercase;
+            line-height: 0.9;
+            text-shadow: 3px 3px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan);
+            letter-spacing: 2px;
+        }
+
+        .page-header .subhead {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        /* ── About Hero ── */
+        .about-hero {
+            max-width: 1400px;
+            margin: 1rem auto 3rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            border-left: 3px solid var(--neon-cyan);
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-hero-text .highlight {
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        .about-hero-media {
+            position: relative;
+            border: 1px solid var(--neon-pink);
+            height: 360px;
             overflow: hidden;
-            transition: all 0.3s;
-            margin-top: 20px;
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.2);
+            animation: neonPulse 4s ease-in-out infinite;
         }
 
-        .cyber-button:hover {
-            background: rgba(0, 247, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
-            transform: translateY(-2px);
-        }
-
-        .cyber-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .about-hero-media img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.4), transparent);
-            transition: 0.5s;
+            object-fit: cover;
+            filter: contrast(125%) saturate(120%);
         }
 
-        .cyber-button:hover::before {
-            left: 100%;
+        .about-hero-media .glitch-tag {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(5, 8, 17, 0.85);
+            border: 1px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            padding: 4px 12px;
+            letter-spacing: 2px;
         }
 
-        /* Glitch Effect */
-        .glitch {
+        /* ── Mission ── */
+        .mission-section {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            padding: 2rem 1.5rem;
+            position: relative;
+            clip-path: polygon(0 0, 95% 0, 100% 10%, 100% 100%, 5% 100%, 0 90%);
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(255, 238, 0, 0.15);
+            transform: translateY(-6px);
+        }
+
+        .mission-card .card-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-pink);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        .mission-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .mission-card p {
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* ── Stats ── */
+        .stats-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            padding: 3rem 2rem;
             position: relative;
         }
 
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
+        .stats-grid::before {
+            content: "// SYSTEM_METRICS";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -10px;
+            left: 20px;
+            background: var(--bg-dark);
+            color: var(--neon-pink);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border: 1px solid var(--neon-pink);
+            letter-spacing: 2px;
         }
 
-        .glitch::before {
-            color: #ff00f7;
-            animation: glitch-effect 3s infinite;
-            z-index: -1;
+        .stat-item {
+            text-align: center;
         }
 
-        .glitch::after {
-            color: #00ff41;
-            animation: glitch-effect 2s infinite reverse;
-            z-index: -2;
+        .stat-item .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px rgba(255, 238, 0, 0.3);
         }
 
-        @keyframes glitch-effect {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
+        .stat-item .label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
         }
 
-        /* Grid Lines */
-        .grid-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
+        /* ── Values ── */
+        .values-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+        .values-section .section-label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--hud-border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.15);
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            flex-shrink: 0;
+            width: 48px;
+            text-align: center;
+        }
+
+        .value-content h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+        }
+
+        .value-content p {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: #020408;
+            border-top: 1px solid var(--neon-cyan);
+            padding: 4rem 2rem 2rem;
+            color: var(--text-main);
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 238, 0, 0.5);
+        }
+
+        .footer-about {
+            margin: 1rem 0;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .footer-heading {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            border: 1px solid var(--hud-border);
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-social a:hover {
+            color: var(--neon-yellow);
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(224, 247, 252, 0.6);
+        }
+
+        @keyframes neonPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(0, 240, 255, 0.15);
             }
-            
-            h2 {
+            50% {
+                box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
+            }
+        }
+
+        @keyframes navItemIn {
+            from {
+                opacity: 0;
+                transform: translateX(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ── Music Controls ── */
+        #music-controls {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(5, 8, 17, 0.92);
+            padding: 10px 14px;
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+            backdrop-filter: blur(6px);
+        }
+
+        #music-controls button {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+        }
+
+        #music-controls button:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+        }
+
+        #music-controls .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+            animation: dotPulse 2s ease-in-out infinite;
+            margin-right: 4px;
+        }
+
+        #music-controls .status-dot.muted {
+            background: #ff4444;
+            box-shadow: 0 0 10px #ff4444;
+            animation: none;
+            opacity: 0.5;
+        }
+
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mission-section {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mission-section .mission-card:last-child {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-hero {
+                grid-template-columns: 1fr;
+            }
+            .about-hero-media {
+                height: 260px;
+            }
+            .page-header h1 {
+                font-size: 3.2rem;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                padding: 0.75rem 1rem;
+                background: rgba(5, 8, 17, 0.98);
+                border-bottom: 1px solid var(--neon-cyan);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+                visibility: hidden;
+                opacity: 0;
+                transform: translateY(-10px);
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+                z-index: 999;
+            }
+
+            .nav-links.is-open {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .nav-links li {
+                animation: navItemIn 0.3s ease both;
+            }
+            .nav-links li:nth-child(2) {
+                animation-delay: 0.04s;
+            }
+            .nav-links li:nth-child(3) {
+                animation-delay: 0.08s;
+            }
+            .nav-links li:nth-child(4) {
+                animation-delay: 0.12s;
+            }
+            .nav-links li:nth-child(5) {
+                animation-delay: 0.16s;
+            }
+            .nav-links li:nth-child(6) {
+                animation-delay: 0.20s;
+            }
+            .nav-links li:nth-child(7) {
+                animation-delay: 0.24s;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.85rem 0.8rem;
+                white-space: normal;
+            }
+
+            .page-header {
+                margin-top: 5rem;
+                padding: 1.5rem 1rem 1rem;
+            }
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+            .about-hero {
+                padding: 0 1rem;
+            }
+            .about-hero-text p {
+                font-size: 1rem;
+                padding-left: 1rem;
+            }
+            .mission-section {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            .mission-section .mission-card:last-child {
+                grid-column: span 1;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                padding: 2rem 1rem;
+            }
+            .stat-item .number {
+                font-size: 2.2rem;
+            }
+            .values-section {
+                padding: 0 1rem;
+            }
+            .value-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .footer-social {
+                justify-content: flex-start;
+            }
+            #music-controls {
+                bottom: 16px;
+                right: 16px;
+                padding: 8px 12px;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            #music-controls button {
+                font-size: 0.55rem;
+                padding: 4px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
                 font-size: 1.8rem;
             }
-            
-            p {
-                font-size: 1.2rem;
+            .page-header .subhead {
+                font-size: 0.8rem;
+            }
+            .about-hero-media {
+                height: 190px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                padding: 1.5rem 0.8rem;
+            }
+            .stat-item .number {
+                font-size: 1.8rem;
+            }
+            .stat-item .label {
+                font-size: 0.65rem;
+            }
+            .navbar {
+                padding: 0.4rem 0.8rem;
+            }
+            .logo {
+                font-size: 1.1rem;
+            }
+            .logo::before {
+                font-size: 0.35rem;
+                top: -6px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Cyberpunk Glitch Intro -->
-    <div class="intro-container">
-        <div class="terminal-text" id="terminal">
-            > SYSTEM INITIALIZING...<br>
-            > LOADING [ARCADE] PROFILE...<br>
-            > WELCOME TO THE FUTURE OF SOFTWARE.<br>
-            > ARCADE Nigeria: Pioneering cutting-edge software, pushing digital boundaries
-            > <span class="cursor"></span>
+
+    <!-- ─── INTRO TERMINAL ─── -->
+    <div class="intro-container" id="introContainer" aria-label="System initialization">
+        <div class="terminal-text" id="terminalText"><span class="cursor-blink"></span></div>
+    </div>
+
+    <!-- ─── CANVAS BACKGROUND ─── -->
+    <div id="canvas-container" aria-hidden="true"></div>
+    <div class="grid-lines" aria-hidden="true"></div>
+
+    <!-- ─── AUDIO ─── -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="mm.mp3" type="audio/mpeg">
+        <source src="mmm.mp3" type="audio/ogg">
+    </audio>
+
+    <!-- ─── NAV ─── -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+            <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
+
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="https://arcade.name.ng/index.html" role="menuitem">Home</a></li>
+                <li role="none"><a href="/About.html" role="menuitem" class="active">About</a></li>
+                <li role="none"><a href="https://arcade.name.ng/projects.html" role="menuitem">Projects</a></li>
+                <li role="none"><a href="https://gigx267.github.io/Arcade-Security-/" role="menuitem">Cybersecurity</a></li>
+                <li role="none"><a href="Arcadeblog.html" role="menuitem">Blog</a></li>
+                <li role="none"><a href="https://arcade.name.ng/founder/Found.html" role="menuitem">Team</a></li>
+                <li role="none"><a href="https://arcade.name.ng/contact.html" role="menuitem">Contact</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-expanded="false" aria-label="Toggle navigation menu" aria-controls="navLinks">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-    </div>
+    </nav>
 
-    <!-- Three.js Canvas Container -->
-    <div id="canvas-container"></div>
+    <!-- ─── PAGE HEADER ─── -->
+    <header class="page-header">
+        <h1>ABOUT // ARCADE</h1>
+        <p class="subhead">◈ Identity Matrix ◈ Architecture ◈ Cyber Systems</p>
+    </header>
 
-    <!-- Grid Lines Background -->
-    <div class="grid-lines"></div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <section id="boundaries">
-            <h1 class="glitch" data-text="Pushing Boundaries">Pushing Boundaries</h1>
-            <p class="neon-text">We specialize in developing <span class="glitch" data-text="cutting-edge">cutting-edge</span> software solutions that push the very boundaries of technology, constantly exploring uncharted territories in the digital landscape.</p>
-            <div id="particles-js"></div>
+    <main>
+        <!-- ─── ABOUT HERO ─── -->
+        <section class="about-hero">
+            <div class="about-hero-text">
+                <p>
+                    <span class="highlight">Arcade Studio</span> is a Nigerian software development and animation powerhouse with enterprise-grade cybersecurity expertise. We engineer dark, high-aesthetic web interfaces, custom mobile applications, and immersive motion architecture for forward-thinking brands across the globe.
+                </p>
+                <p>
+                    Born in Abuja, we fuse <span class="highlight">cyberpunk visual language</span> with robust engineering discipline. Every project is a statement — a fusion of art, code, and hardened security.
+                </p>
+                <a class="cta cta-primary" href="https://arcade.name.ng/contact.html">Join the Grid</a>
+            </div>
+            <div class="about-hero-media">
+                <img src="https://cdn.dribbble.com/userupload/22027979/file/original-9e3ffdc91b024500b934edbb482ded2a.gif" alt="Arcade Studio Cyberpunk Identity">
+                <div class="glitch-tag">// IDENTITY_ACTIVE</div>
+            </div>
         </section>
 
-        <section id="global">
-            <h2>Global Expansion</h2>
-            <p>From our headquarters in Nigeria, we've rapidly expanded our reach, collaborating with clients and partners across the globe.</p>
-            <div id="globe-container" style="width: 100%; height: 500px; margin: 50px 0;"></div>
+        <!-- ─── DIGITAL FRONTIER ─── -->
+        <section class="values-section" aria-label="Digital frontier">
+            <div class="section-label">// DIGITAL FRONTIER // SYSTEM CAPABILITIES</div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">✦</div>
+                    <div class="value-content">
+                        <h4>Emerging Technology</h4>
+                        <p>We turn AI, automation, and connected systems into practical digital experiences built for tomorrow.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✦</div>
+                    <div class="value-content">
+                        <h4>Global by Design</h4>
+                        <p>From Nigeria to the world, our architecture is created to scale across markets, devices, and cultures.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="frontier">
-            <h2>The Digital Frontier</h2>
-            <p>Our expertise spans across emerging technologies that define the future:</p>
-            <div id="tech-cube" style="width: 300px; height: 300px; margin: 50px auto;"></div>
-            <a href="contact.html">
-                <button class="cyber-button">JOIN THE REVOLUTION</button>
-            </a>
+        <!-- ─── MISSION ─── -->
+        <section class="mission-section">
+            <div class="mission-card">
+                <span class="card-number">01</span>
+                <h3>Mission</h3>
+                <p>To architect immersive digital experiences that push the boundaries of design, performance, and security — empowering brands to dominate their digital landscape.</p>
+            </div>
+            <div class="mission-card">
+                <span class="card-number">02</span>
+                <h3>Vision</h3>
+                <p>To become Africa's most influential cybernetic design studio — where art, engineering, and threat intelligence converge to shape the future of the web.</p>
+            </div>
+            <div class="mission-card">
+                <span class="card-number">03</span>
+                <h3>Core Ethos</h3>
+                <p>Relentless innovation, transparent collaboration, and uncompromising security. We build systems that are as beautiful as they are bulletproof.</p>
+            </div>
         </section>
-    </div>
 
-    <!-- Three.js and other libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
-    
+        <!-- ─── STATS ─── -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="number" data-count="47">47+</div>
+                    <div class="label">Projects Deployed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" data-count="12">12</div>
+                    <div class="label">Active Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" data-count="100">100%</div>
+                    <div class="label">Security Compliance</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" data-count="4.9">4.9★</div>
+                    <div class="label">Client Rating</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── VALUES ─── -->
+        <section class="values-section">
+            <div class="section-label">// CORE PRINCIPLES // THE ARCADE CODE</div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">◈</div>
+                    <div class="value-content">
+                        <h4>Design as Weapon</h4>
+                        <p>We believe design is a strategic asset. Every pixel is engineered to command attention, evoke emotion, and drive action.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">◈</div>
+                    <div class="value-content">
+                        <h4>Security by Default</h4>
+                        <p>Security isn't an afterthought — it's baked into every layer of our architecture. From code to deployment, we protect your digital assets.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">◈</div>
+                    <div class="value-content">
+                        <h4>Radical Transparency</h4>
+                        <p>We operate with open communication, clear pricing, and collaborative workflows. No hidden fees, no black-box engineering.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">◈</div>
+                    <div class="value-content">
+                        <h4>Future-Forward Engineering</h4>
+                        <p>We don't just build for today. Our systems are designed to scale, adapt, and remain relevant as technology evolves.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span class="footer-logo-text">Arcade Studio</span>
+                </div>
+                <p class="footer-about">Engineering high-aesthetic web systems, digital animations, and security infrastructure for forward-thinking global brands.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="ph ph-twitter-logo"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+                    <a href="#" aria-label="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-heading">// Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                    <li><a href="https://arcade.name.ng/about.html">About Us</a></li>
+                    <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                    <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-heading">// Capabilities</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Web Architecture</a></li>
+                    <li><a href="#">Mobile Applications</a></li>
+                    <li><a href="#">Motion Animation</a></li>
+                    <li><a href="#">Cyber Defense</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-heading">// Terminal Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+2349061407613">+234 906 140 7613</a></li>
+                    <li><a href="https://arcade.name.ng/contact.html">Dispatch Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Arcade Studio. All System Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ─── PHOSPHOR ICONS ─── -->
+    <script src="https://unpkg.com/@phosphor-icons/web">
+    </script>
+
+    <!-- ─── MAIN SCRIPTS ─── -->
     <script>
-        // Intro Animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const terminal = document.getElementById('terminal');
-            const lines = [
-                "> SYSTEM INITIALIZING...",
-                "> LOADING [ARCADE] PROFILE...",
-                "> WELCOME TO THE FUTURE OF AFRICA SOFTWARE.",
-                "> INITIALIZING CYBERSPACE CONNECTION...",
-                "> SYSTEM READY."
+        (function() {
+            'use strict';
+
+            // ─── 1. TERMINAL BOOT SEQUENCE ───
+            const introContainer = document.getElementById('introContainer');
+            const terminalEl = document.getElementById('terminalText');
+
+            const bootLines = [
+                '> INITIALIZING ARCADE STUDIO SYSTEM v2.4 ...',
+                '> LOADING IDENTITY MATRIX ...',
+                '> ESTABLISHING SECURE CHANNEL ...',
+                '> CYBERPUNK ENGINE ACTIVE.',
+                '> WELCOME TO THE GRID, OPERATOR.',
+                '',
+                '     █████╗ ██████╗  ██████╗ █████╗ ██████╗ ███████╗',
+                '    ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝',
+                '    ███████║██████╔╝██║     ███████║██║  ██║█████╗  ',
+                '    ██╔══██║██╔══██╗██║     ██╔══██║██║  ██║██╔══╝  ',
+                '    ██║  ██║██║  ██║╚██████╗██║  ██║██████╔╝███████╗',
+                '    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝',
+                '',
+                '> SYSTEM READY. AWAITING INPUT ...'
             ];
-            
-            let currentLine = 0;
-            let currentChar = 0;
-            let terminalText = "";
-            
-            function typeWriter() {
-                if (currentLine < lines.length) {
-                    if (currentChar < lines[currentLine].length) {
-                        terminalText += lines[currentLine].charAt(currentChar);
-                        terminal.innerHTML = terminalText + '<span class="cursor"></span>';
-                        currentChar++;
-                        setTimeout(typeWriter, Math.random() * 50 + 20);
+
+            let lineIndex = 0;
+            let charIndex = 0;
+            let isComplete = false;
+
+            function typeNextLine() {
+                if (lineIndex >= bootLines.length) {
+                    // All lines done → finish intro
+                    isComplete = true;
+                    setTimeout(function() {
+                        introContainer.classList.add('is-complete');
+                        // Start background music after intro
+                        initAudio();
+                    }, 600);
+                    return;
+                }
+
+                const lineText = bootLines[lineIndex];
+                const lineWrapper = document.createElement('div');
+                lineWrapper.className = 'line';
+                terminalEl.insertBefore(lineWrapper, terminalEl.querySelector('.cursor-blink'));
+
+                let cursor = terminalEl.querySelector('.cursor-blink');
+                if (cursor) cursor.style.display = 'none';
+
+                let idx = 0;
+                function typeChar() {
+                    if (idx < lineText.length) {
+                        lineWrapper.textContent += lineText.charAt(idx);
+                        idx++;
+                        setTimeout(typeChar, 18 + Math.random() * 22);
                     } else {
-                        terminalText += "<br>";
-                        terminal.innerHTML = terminalText + '<span class="cursor"></span>';
-                        currentLine++;
-                        currentChar = 0;
-                        setTimeout(typeWriter, 500);
+                        lineWrapper.classList.add('done');
+                        // show cursor again after a pause
+                        setTimeout(function() {
+                            let c = terminalEl.querySelector('.cursor-blink');
+                            if (c) c.style.display = 'inline-block';
+                            lineIndex++;
+                            setTimeout(typeNextLine, 160);
+                        }, 120);
                     }
-                } else {
-                    // Intro complete, fade out and start main content
-                    gsap.to(".intro-container", {
-                        opacity: 0,
-                        duration: 1,
-                        ease: "power2.inOut",
-                        onComplete: () => {
-                            document.querySelector(".intro-container").style.display = "none";
-                            initThreeJS();
-                            initGlobe();
-                            initTechCube();
+                }
+                typeChar();
+            }
+
+            // start the boot sequence after a brief delay
+            setTimeout(typeNextLine, 400);
+
+            // ─── 2. CANVAS PARTICLE NETWORK ───
+            const container = document.getElementById('canvas-container');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 110;
+            const CONNECTION_DIST = 130;
+            const MAX_SPEED = 0.55;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * MAX_SPEED * 2;
+                    this.vy = (Math.random() - 0.5) * MAX_SPEED * 2;
+                    this.radius = 1.8 + Math.random() * 2.2;
+                    this.hue = 190 + Math.random() * 30; // cyan-blue range
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                    // gentle drift
+                    this.vx += (Math.random() - 0.5) * 0.03;
+                    this.vy += (Math.random() - 0.5) * 0.03;
+                    const sp = Math.hypot(this.vx, this.vy);
+                    if (sp > MAX_SPEED) {
+                        this.vx = (this.vx / sp) * MAX_SPEED;
+                        this.vy = (this.vy / sp) * MAX_SPEED;
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${this.hue}, 90%, 65%, 0.7)`;
+                    ctx.fill();
+                    // glow
+                    ctx.shadowColor = `hsla(${this.hue}, 90%, 70%, 0.35)`;
+                    ctx.shadowBlur = 12;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < CONNECTION_DIST) {
+                            const alpha = 1 - (dist / CONNECTION_DIST);
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(0, 220, 255, ${alpha * 0.25})`;
+                            ctx.lineWidth = 0.6 + alpha * 0.8;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (const p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                drawConnections();
+                requestAnimationFrame(animateParticles);
+            }
+
+            resize();
+            initParticles();
+            animateParticles();
+
+            window.addEventListener('resize', function() {
+                resize();
+                // reposition particles within new bounds
+                for (const p of particles) {
+                    p.x = Math.min(p.x, width);
+                    p.y = Math.min(p.y, height);
+                }
+            });
+
+            // ─── 3. MOBILE NAV ───
+            const toggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (toggle && navLinks) {
+                function toggleMenu(forceState) {
+                    const isOpen = forceState !== undefined ? forceState : !navLinks.classList.contains('is-open');
+                    navLinks.classList.toggle('is-open', isOpen);
+                    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                }
+
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleMenu();
+                });
+
+                navLinks.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            toggleMenu(false);
                         }
                     });
-                }
-            }
-            
-            setTimeout(typeWriter, 1000);
-        });
-
-        // Three.js Particle System
-        function initThreeJS() {
-            const container = document.getElementById('canvas-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(renderer.domElement);
-            
-            // Create particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particleCount = 2000;
-            
-            const posArray = new Float32Array(particleCount * 3);
-            
-            for(let i = 0; i < particleCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10;
-            }
-            
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0x00f7ff,
-                transparent: true,
-                opacity: 0.8,
-                blending: THREE.AdditiveBlending
-            });
-            
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-            
-            camera.position.z = 3;
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                particlesMesh.rotation.x += 0.0005;
-                particlesMesh.rotation.y += 0.001;
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
-        // Interactive Globe
-        function initGlobe() {
-            const container = document.getElementById('globe-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-            
-            // Create globe
-            const geometry = new THREE.SphereGeometry(2, 64, 64);
-            const material = new THREE.MeshBasicMaterial({
-                color: 0x00f7ff,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.7
-            });
-            
-            const globe = new THREE.Mesh(geometry, material);
-            scene.add(globe);
-            
-            // Add connection points (Nigeria and other major cities)
-            const cities = [
-                { name: "Lagos", lat: 6.5244, lng: 3.3792, size: 0.1, color: 0xff00f7 },
-                { name: "New York", lat: 40.7128, lng: -74.0060, size: 0.08, color: 0x00ff41 },
-                { name: "London", lat: 51.5074, lng: -0.1278, size: 0.08, color: 0x00ff41 },
-                { name: "Tokyo", lat: 35.6762, lng: 139.6503, size: 0.08, color: 0x00ff41 },
-                { name: "San Francisco", lat: 37.7749, lng: -122.4194, size: 0.08, color: 0x00ff41 }
-            ];
-            
-            cities.forEach(city => {
-                const phi = (90 - city.lat) * (Math.PI / 180);
-                const theta = (city.lng + 180) * (Math.PI / 180);
-                
-                const x = -Math.sin(phi) * Math.cos(theta) * 2.1;
-                const y = Math.cos(phi) * 2.1;
-                const z = Math.sin(phi) * Math.sin(theta) * 2.1;
-                
-                const pointGeometry = new THREE.SphereGeometry(city.size, 16, 16);
-                const pointMaterial = new THREE.MeshBasicMaterial({ color: city.color });
-                const point = new THREE.Mesh(pointGeometry, pointMaterial);
-                
-                point.position.set(x, y, z);
-                scene.add(point);
-                
-                // Create connection line from Lagos to other cities
-                if (city.name !== "Lagos") {
-                    const lagos = cities.find(c => c.name === "Lagos");
-                    const lagosPhi = (90 - lagos.lat) * (Math.PI / 180);
-                    const lagosTheta = (lagos.lng + 180) * (Math.PI / 180);
-                    
-                    const lagosX = -Math.sin(lagosPhi) * Math.cos(lagosTheta) * 2.1;
-                    const lagosY = Math.cos(lagosPhi) * 2.1;
-                    const lagosZ = Math.sin(lagosPhi) * Math.sin(lagosTheta) * 2.1;
-                    
-                    const curve = new THREE.CubicBezierCurve3(
-                        new THREE.Vector3(lagosX, lagosY, lagosZ),
-                        new THREE.Vector3(lagosX + (x - lagosX) * 0.3, lagosY + (y - lagosY) * 0.3 + 0.5, lagosZ + (z - lagosZ) * 0.3),
-                        new THREE.Vector3(x + (lagosX - x) * 0.3, y + (lagosY - y) * 0.3 + 0.5, z + (lagosZ - z) * 0.3),
-                        new THREE.Vector3(x, y, z)
-                    );
-                    
-                    const points = curve.getPoints(50);
-                    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-                    const lineMaterial = new THREE.LineBasicMaterial({ 
-                        color: 0x00f7ff,
-                        transparent: true,
-                        opacity: 0.5
-                    });
-                    
-                    const line = new THREE.Line(lineGeometry, lineMaterial);
-                    scene.add(line);
-                }
-            });
-            
-            camera.position.z = 5;
-            
-            // Add controls
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableZoom = false;
-            controls.enablePan = false;
-            controls.autoRotate = true;
-            controls.autoRotateSpeed = 0.5;
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            });
-        }
-
-        // Tech Cube
-        function initTechCube() {
-            const container = document.getElementById('tech-cube');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-            
-            // Create cube
-            const geometry = new THREE.BoxGeometry(2, 2, 2);
-            const edges = new THREE.EdgesGeometry(geometry);
-            const line = new THREE.LineSegments(
-                edges,
-                new THREE.LineBasicMaterial({ color: 0x00f7ff, transparent: true, opacity: 0.8 })
-            );
-            scene.add(line);
-            
-            // Add floating tech words
-            const techWords = ["AI", "Blockchain", "Quantum", "Cybersecurity", "Metaverse", "IoT"];
-            const wordMeshes = [];
-            
-            techWords.forEach((word, i) => {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.width = 256;
-                canvas.height = 128;
-                
-                context.font = "Bold 40px Rajdhani";
-                context.fillStyle = i === 0 ? "#ff00f7" : "#00f7ff";
-                context.textAlign = "center";
-                context.textBaseline = "middle";
-                context.fillText(word, canvas.width / 2, canvas.height / 2);
-                
-                const texture = new THREE.CanvasTexture(canvas);
-                const material = new THREE.SpriteMaterial({ 
-                    map: texture,
-                    transparent: true
                 });
-                
-                const sprite = new THREE.Sprite(material);
-                sprite.scale.set(1, 0.5, 1);
-                
-                // Position words around the cube
-                const angle = (i / techWords.length) * Math.PI * 2;
-                const radius = 1.5;
-                sprite.position.x = Math.cos(angle) * radius;
-                sprite.position.y = Math.sin(angle) * radius;
-                sprite.position.z = 0;
-                
-                scene.add(sprite);
-                wordMeshes.push(sprite);
-            });
-            
-            camera.position.z = 5;
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                line.rotation.x += 0.005;
-                line.rotation.y += 0.01;
-                
-                // Rotate words around the cube
-                wordMeshes.forEach((word, i) => {
-                    const angle = (i / techWords.length) * Math.PI * 2 + Date.now() * 0.0005;
-                    const radius = 1.5;
-                    word.position.x = Math.cos(angle) * radius;
-                    word.position.y = Math.sin(angle) * radius;
-                    word.position.z = Math.sin(Date.now() * 0.001 + i) * radius;
-                });
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            });
-        }
 
-        // Scroll animations
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.utils.toArray("section").forEach((section, i) => {
-                if (i > 0) {
-                    gsap.from(section, {
-                        scrollTrigger: {
-                            trigger: section,
-                            start: "top 80%",
-                            toggleActions: "play none none none"
-                        },
-                        opacity: 0,
-                        y: 50,
-                        duration: 1
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        const isClickInside = navLinks.contains(e.target) || toggle.contains(e.target);
+                        if (!isClickInside && navLinks.classList.contains('is-open')) {
+                            toggleMenu(false);
+                        }
+                    }
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+                        toggleMenu(false);
+                        toggle.focus();
+                    }
+                });
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && navLinks.classList.contains('is-open')) {
+                        toggleMenu(false);
+                    }
+                });
+            }
+
+            // ─── 4. AUDIO with controls ───
+            const bgMusic = document.getElementById('bgMusic');
+            let audioReady = false;
+            let musicControls = null;
+
+            function initAudio() {
+                if (!bgMusic) return;
+
+                // create persistent controls
+                if (!document.getElementById('music-controls')) {
+                    const ctrl = document.createElement('div');
+                    ctrl.id = 'music-controls';
+                    ctrl.innerHTML = `
+                            <span class="status-dot" id="audioStatusDot"></span>
+                            <button id="audioPlayBtn">▶ PLAY</button>
+                            <button id="audioMuteBtn">🔇 MUTE</button>
+                        `;
+                    document.body.appendChild(ctrl);
+                    musicControls = ctrl;
+
+                    const playBtn = document.getElementById('audioPlayBtn');
+                    const muteBtn = document.getElementById('audioMuteBtn');
+                    const dot = document.getElementById('audioStatusDot');
+
+                    let isPlaying = false;
+                    let isMuted = false;
+
+                    function updateUI() {
+                        if (dot) {
+                            dot.className = 'status-dot' + (isMuted ? ' muted' : '');
+                        }
+                        if (playBtn) {
+                            playBtn.textContent = isPlaying ? '⏸ PAUSE' : '▶ PLAY';
+                        }
+                    }
+
+                    function togglePlay() {
+                        if (isPlaying) {
+                            bgMusic.pause();
+                            isPlaying = false;
+                        } else {
+                            bgMusic.play().catch(function(e) {
+                                console.warn('Playback error:', e);
+                            });
+                            isPlaying = true;
+                        }
+                        updateUI();
+                    }
+
+                    function toggleMute() {
+                        isMuted = !isMuted;
+                        bgMusic.muted = isMuted;
+                        updateUI();
+                    }
+
+                    playBtn.addEventListener('click', togglePlay);
+                    muteBtn.addEventListener('click', toggleMute);
+
+                    // auto-play attempt
+                    bgMusic.play().then(function() {
+                        isPlaying = true;
+                        updateUI();
+                    }).catch(function() {
+                        // autoplay blocked – user must click
+                        isPlaying = false;
+                        updateUI();
                     });
+
+                    // update dot when audio state changes
+                    bgMusic.addEventListener('play', function() {
+                        isPlaying = true;
+                        updateUI();
+                    });
+                    bgMusic.addEventListener('pause', function() {
+                        isPlaying = false;
+                        updateUI();
+                    });
+                    bgMusic.addEventListener('volumechange', function() {
+                        isMuted = bgMusic.muted;
+                        updateUI();
+                    });
+
+                    // handle audio errors
+                    bgMusic.addEventListener('error', function(e) {
+                        console.warn('Audio error:', e);
+                        if (playBtn) playBtn.textContent = '⚠️ ERROR';
+                    });
+
+                    updateUI();
+                }
+            }
+
+            // if the intro is already complete (e.g., fast load), init audio
+            // but we call it from the terminal completion
+
+            // ─── 5. STAT COUNTER ANIMATION ───
+            const statNumbers = document.querySelectorAll('.stat-item .number');
+            const statObserver = new IntersectionObserver(function(entries) {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const raw = el.getAttribute('data-count') || el.textContent.replace(/[^0-9.]/g, '');
+                        const hasStar = el.textContent.includes('★');
+                        const isPercent = el.textContent.includes('%');
+                        const target = parseFloat(raw);
+                        if (isNaN(target)) continue;
+
+                        const duration = 1200;
+                        const startTime = performance.now();
+
+                        function updateCounter(now) {
+                            const progress = Math.min((now - startTime) / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            let current = eased * target;
+                            let display;
+                            if (isPercent) {
+                                display = Math.round(current) + '%';
+                            } else if (hasStar) {
+                                display = current.toFixed(1) + '★';
+                            } else {
+                                display = Math.round(current) + (raw.includes('+') ? '+' : '');
+                            }
+                            el.textContent = display;
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                // final value
+                                if (isPercent) el.textContent = Math.round(target) + '%';
+                                else if (hasStar) el.textContent = target.toFixed(1) + '★';
+                                else el.textContent = Math.round(target) + (raw.includes('+') ? '+' : '');
+                            }
+                        }
+                        requestAnimationFrame(updateCounter);
+                        statObserver.unobserve(el);
+                    }
+                }
+            }, { threshold: 0.4 });
+
+            for (const el of statNumbers) {
+                statObserver.observe(el);
+            }
+
+            // ─── 6. SMOOTH NAV LINK ACTIVE STATE ───
+            const navAnchors = document.querySelectorAll('.nav-links a');
+            for (const a of navAnchors) {
+                if (a.href === window.location.href || window.location.href.includes(a.getAttribute('href'))) {
+                    a.classList.add('active');
+                }
+            }
+
+            // ─── 7. EXIT TRANSITION for internal links ───
+            const allLinks = document.querySelectorAll('a[href^="https://arcade.name.ng"], a[href^="/"], a[href^="./"], a[href^="../"]');
+            for (const link of allLinks) {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                        e.preventDefault();
+                        document.body.classList.add('is-exiting');
+                        setTimeout(function() {
+                            window.location.href = href;
+                        }, 480);
+                    }
+                });
+            }
+
+            // ─── 8. KEYBOARD SHORTCUT: ESC to close menu ───
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (navLinks && navLinks.classList.contains('is-open')) {
+                        toggleMenu(false);
+                        if (toggle) toggle.focus();
+                    }
                 }
             });
-        });
+
+            console.log('🟢 Arcade Studio · System Online');
+
+        })();
     </script>
+
 </body>
 </html>
