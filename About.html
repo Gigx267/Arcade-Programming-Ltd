@@ -29,6 +29,7 @@
             --hud-border: rgba(0, 240, 255, 0.3);
             --text-main: #e0f7fc;
             --terminal-green: #00ff41;
+            --neon-red: #ff003c;
         }
 
         * {
@@ -170,30 +171,36 @@
         }
         .mission-card,
         .value-card,
-        .stat-item {
+        .stat-item,
+        .security-card {
             animation: cardDeploy 0.75s cubic-bezier(.16, 1, .3, 1) both;
         }
         .mission-card:nth-child(1),
         .value-card:nth-child(1),
-        .stat-item:nth-child(1) {
+        .stat-item:nth-child(1),
+        .security-card:nth-child(1) {
             animation-delay: 0.65s;
         }
         .mission-card:nth-child(2),
         .value-card:nth-child(2),
-        .stat-item:nth-child(2) {
+        .stat-item:nth-child(2),
+        .security-card:nth-child(2) {
             animation-delay: 0.8s;
         }
         .mission-card:nth-child(3),
         .value-card:nth-child(3),
-        .stat-item:nth-child(3) {
+        .stat-item:nth-child(3),
+        .security-card:nth-child(3) {
             animation-delay: 0.95s;
         }
         .value-card:nth-child(4),
-        .stat-item:nth-child(4) {
+        .stat-item:nth-child(4),
+        .security-card:nth-child(4) {
             animation-delay: 1.1s;
         }
         .stats-grid,
         .values-section,
+        .security-section,
         .footer {
             animation: contentRise 0.9s cubic-bezier(.16, 1, .3, 1) 0.65s both;
         }
@@ -668,6 +675,202 @@
             opacity: 0.85;
         }
 
+        /* ─── SECURITY DIVISION ─── */
+        .security-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .security-section .section-label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-red);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--neon-red);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 12px rgba(255, 0, 60, 0.3);
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .security-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 0, 60, 0.25);
+            padding: 2rem 1.5rem;
+            position: relative;
+            transition: all 0.35s ease;
+            clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 8% 100%, 0 92%);
+            overflow: hidden;
+        }
+
+        .security-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 0, 60, 0.06), transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .security-card:hover::before {
+            opacity: 1;
+        }
+
+        .security-card:hover {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
+            transform: translateY(-6px);
+        }
+
+        .security-card .sec-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 60, 0.3));
+        }
+
+        .security-card .sec-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--neon-red);
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .security-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        .security-card p {
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .security-card .sec-tag {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--neon-red);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            padding: 0.2rem 0.8rem;
+            clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+        }
+
+        /* Security Hero / Feature Row */
+        .security-feature-row {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            padding: 2.5rem;
+            position: relative;
+            margin-top: 1rem;
+            clip-path: polygon(0 0, 97% 0, 100% 4%, 100% 100%, 3% 100%, 0 96%);
+        }
+
+        .security-feature-row::before {
+            content: "// THREAT_RESPONSE_PROTOCOL";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--bg-dark);
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border: 1px solid var(--neon-red);
+            letter-spacing: 2px;
+        }
+
+        .security-feature-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: var(--neon-yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 0 20px rgba(255, 238, 0, 0.15);
+        }
+
+        .security-feature-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            border-left: 3px solid var(--neon-red);
+            padding-left: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .security-feature-text .highlight-red {
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(255, 0, 60, 0.3);
+        }
+
+        .security-feature-media {
+            position: relative;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            overflow: hidden;
+            height: 260px;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.1);
+            animation: neonPulseRed 5s ease-in-out infinite;
+        }
+
+        .security-feature-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(130%) saturate(110%) brightness(0.85);
+        }
+
+        .security-feature-media .sec-glitch-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(5, 8, 17, 0.88);
+            border: 1px solid var(--neon-red);
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            padding: 4px 14px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 0, 60, 0.4);
+        }
+
+        @keyframes neonPulseRed {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(255, 0, 60, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(255, 0, 60, 0.35);
+            }
+        }
+
         /* ── Footer ── */
         .footer {
             background: #020408;
@@ -859,6 +1062,15 @@
             .mission-section .mission-card:last-child {
                 grid-column: span 2;
             }
+            .security-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .security-feature-row {
+                grid-template-columns: 1fr;
+            }
+            .security-feature-media {
+                height: 200px;
+            }
         }
 
         @media (max-width: 992px) {
@@ -875,6 +1087,9 @@
                 grid-template-columns: 1fr;
             }
             .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .security-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -975,6 +1190,26 @@
                 align-items: flex-start;
                 gap: 0.8rem;
             }
+            .security-section {
+                padding: 0 1rem;
+            }
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+            .security-feature-row {
+                padding: 1.8rem 1.2rem;
+                grid-template-columns: 1fr;
+            }
+            .security-feature-media {
+                height: 170px;
+            }
+            .security-feature-text h2 {
+                font-size: 1.2rem;
+            }
+            .security-feature-text p {
+                font-size: 0.95rem;
+                padding-left: 1rem;
+            }
             .footer-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -1025,6 +1260,15 @@
             .logo::before {
                 font-size: 0.35rem;
                 top: -6px;
+            }
+            .security-feature-media {
+                height: 140px;
+            }
+            .security-card {
+                padding: 1.5rem 1rem;
+            }
+            .security-card .sec-icon {
+                font-size: 2rem;
             }
         }
 
@@ -1199,6 +1443,87 @@
                 </div>
             </div>
         </section>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- ─── NEW: CYBER SECURITY DIVISION ─── -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <section class="security-section" aria-label="Cyber Security Division">
+            <div class="section-label">// CYBER SECURITY DIVISION // THREAT_NEUTRALIZATION</div>
+
+            <!-- Feature Row: Hero + Image -->
+            <div class="security-feature-row">
+                <div class="security-feature-text">
+                    <h2>⚡ Fortifying Africa's Digital Frontier</h2>
+                    <p>
+                        We are committed to safeguarding our clients' valuable assets, ensuring their business continuity, and mitigating cyber risks. Our <span class="highlight-red">comprehensive solutions</span> protect your organization from cyberattacks — from threat detection and incident response to zero-trust architecture and compliance.
+                    </p>
+                    <p>
+                        As a security firm dedicated to safeguarding the digital assets of businesses across Africa, we combine <span class="highlight-red">cutting-edge technology</span> with battle-hardened operational discipline. Every defense layer is engineered to anticipate, resist, and recover from advanced persistent threats.
+                    </p>
+                    <a class="cta cta-secondary" href="https://gigx267.github.io/Arcade-Security-/">↯ Explore Security Ops</a>
+                </div>
+                <div class="security-feature-media">
+                    <img src="https://cdn.dribbble.com/userupload/23123569/file/original-1ceed9537e15ed363eb217b404b3bd2e.gif " alt="Cyber Security Operations Center" loading="lazy">
+                    <div class="sec-glitch-tag">// SECURE_CHANNEL_ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Security Pillars -->
+            <div class="security-grid" style="margin-top:2.5rem;">
+                <div class="security-card">
+                    <span class="sec-icon">🛡️</span>
+                    <span class="sec-number">// PILLAR_01</span>
+                    <h3>Asset Safeguarding</h3>
+                    <p>We protect your critical infrastructure, intellectual property, and customer data with multi-layered defense strategies and continuous monitoring.</p>
+                    <span class="sec-tag">Zero-Trust Architecture</span>
+                </div>
+
+                <div class="security-card">
+                    <span class="sec-icon">⚙️</span>
+                    <span class="sec-number">// PILLAR_02</span>
+                    <h3>Business Continuity</h3>
+                    <p>Resilience is built into every system. We design failover protocols, disaster recovery plans, and redundancy frameworks to keep your operations running.</p>
+                    <span class="sec-tag">99.99% Uptime Guarantee</span>
+                </div>
+
+                <div class="security-card">
+                    <span class="sec-icon">🔍</span>
+                    <span class="sec-number">// PILLAR_03</span>
+                    <h3>Risk Mitigation</h3>
+                    <p>Proactive threat hunting, vulnerability assessments, and real-time intelligence ensure you stay ahead of attackers — before they strike.</p>
+                    <span class="sec-tag">24/7 Threat Intelligence</span>
+                </div>
+
+                <div class="security-card">
+                    <span class="sec-icon">🌍</span>
+                    <span class="sec-number">// PILLAR_04</span>
+                    <h3>Pan-African Defense</h3>
+                    <p>We understand the unique cyber landscape of Africa. Our solutions are tailored to local regulatory frameworks, connectivity realities, and emerging threats.</p>
+                    <span class="sec-tag">Regional Compliance</span>
+                </div>
+            </div>
+
+            <!-- Security Stats / Badges -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:1.5rem; margin-top:2rem; background:var(--panel-bg); border:1px solid rgba(255,0,60,0.15); padding:2rem; clip-path:polygon(0 0, 98% 0, 100% 6%, 100% 100%, 2% 100%, 0 94%);">
+                <div style="text-align:center;">
+                    <div style="font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:var(--neon-red); text-shadow:0 0 20px rgba(255,0,60,0.25);">98%</div>
+                    <div style="font-family:'Orbitron',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--neon-cyan); text-transform:uppercase;">Threat Prevention Rate</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:var(--neon-yellow); text-shadow:0 0 20px rgba(255,238,0,0.2);">350+</div>
+                    <div style="font-family:'Orbitron',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--neon-cyan); text-transform:uppercase;">Vulnerabilities Remediated</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:var(--neon-cyan); text-shadow:0 0 20px rgba(0,240,255,0.2);">12ms</div>
+                    <div style="font-family:'Orbitron',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--neon-cyan); text-transform:uppercase;">Avg. Threat Response Time</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:var(--neon-pink); text-shadow:0 0 20px rgba(255,0,85,0.2);">100%</div>
+                    <div style="font-family:'Orbitron',sans-serif; font-size:0.7rem; letter-spacing:2px; color:var(--neon-cyan); text-transform:uppercase;">Client Security Retention</div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- ─── FOOTER ─── -->
@@ -1271,7 +1596,6 @@
                 '> ACTIVE.',
                 '> WELCOME TO ARCADE .',
                 '',
-              
                 '',
                 '> SYSTEM READY. AWAITING INPUT ...'
             ];
@@ -1282,11 +1606,9 @@
 
             function typeNextLine() {
                 if (lineIndex >= bootLines.length) {
-                    // All lines done → finish intro
                     isComplete = true;
                     setTimeout(function() {
                         introContainer.classList.add('is-complete');
-                        // Start background music after intro
                         initAudio();
                     }, 600);
                     return;
@@ -1301,6 +1623,7 @@
                 if (cursor) cursor.style.display = 'none';
 
                 let idx = 0;
+
                 function typeChar() {
                     if (idx < lineText.length) {
                         lineWrapper.textContent += lineText.charAt(idx);
@@ -1308,7 +1631,6 @@
                         setTimeout(typeChar, 18 + Math.random() * 22);
                     } else {
                         lineWrapper.classList.add('done');
-                        // show cursor again after a pause
                         setTimeout(function() {
                             let c = terminalEl.querySelector('.cursor-blink');
                             if (c) c.style.display = 'inline-block';
@@ -1320,7 +1642,6 @@
                 typeChar();
             }
 
-            // start the boot sequence after a brief delay
             setTimeout(typeNextLine, 400);
 
             // ─── 2. CANVAS PARTICLE NETWORK ───
@@ -1352,14 +1673,13 @@
                     this.vx = (Math.random() - 0.5) * MAX_SPEED * 2;
                     this.vy = (Math.random() - 0.5) * MAX_SPEED * 2;
                     this.radius = 1.8 + Math.random() * 2.2;
-                    this.hue = 190 + Math.random() * 30; // cyan-blue range
+                    this.hue = 190 + Math.random() * 30;
                 }
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
                     if (this.x < 0 || this.x > width) this.vx *= -1;
                     if (this.y < 0 || this.y > height) this.vy *= -1;
-                    // gentle drift
                     this.vx += (Math.random() - 0.5) * 0.03;
                     this.vy += (Math.random() - 0.5) * 0.03;
                     const sp = Math.hypot(this.vx, this.vy);
@@ -1373,7 +1693,6 @@
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.fillStyle = `hsla(${this.hue}, 90%, 65%, 0.7)`;
                     ctx.fill();
-                    // glow
                     ctx.shadowColor = `hsla(${this.hue}, 90%, 70%, 0.35)`;
                     ctx.shadowBlur = 12;
                     ctx.fill();
@@ -1423,7 +1742,6 @@
 
             window.addEventListener('resize', function() {
                 resize();
-                // reposition particles within new bounds
                 for (const p of particles) {
                     p.x = Math.min(p.x, width);
                     p.y = Math.min(p.y, height);
@@ -1477,15 +1795,13 @@
                 });
             }
 
-            // ─── 4. AUDIO with controls ───
+            // ─── 4. AUDIO ───
             const bgMusic = document.getElementById('bgMusic');
-            let audioReady = false;
             let musicControls = null;
 
             function initAudio() {
                 if (!bgMusic) return;
 
-                // create persistent controls
                 if (!document.getElementById('music-controls')) {
                     const ctrl = document.createElement('div');
                     ctrl.id = 'music-controls';
@@ -1535,17 +1851,14 @@
                     playBtn.addEventListener('click', togglePlay);
                     muteBtn.addEventListener('click', toggleMute);
 
-                    // auto-play attempt
                     bgMusic.play().then(function() {
                         isPlaying = true;
                         updateUI();
                     }).catch(function() {
-                        // autoplay blocked – user must click
                         isPlaying = false;
                         updateUI();
                     });
 
-                    // update dot when audio state changes
                     bgMusic.addEventListener('play', function() {
                         isPlaying = true;
                         updateUI();
@@ -1559,7 +1872,6 @@
                         updateUI();
                     });
 
-                    // handle audio errors
                     bgMusic.addEventListener('error', function(e) {
                         console.warn('Audio error:', e);
                         if (playBtn) playBtn.textContent = '⚠️ ERROR';
@@ -1568,9 +1880,6 @@
                     updateUI();
                 }
             }
-
-            // if the intro is already complete (e.g., fast load), init audio
-            // but we call it from the terminal completion
 
             // ─── 5. STAT COUNTER ANIMATION ───
             const statNumbers = document.querySelectorAll('.stat-item .number');
@@ -1603,7 +1912,6 @@
                             if (progress < 1) {
                                 requestAnimationFrame(updateCounter);
                             } else {
-                                // final value
                                 if (isPercent) el.textContent = Math.round(target) + '%';
                                 else if (hasStar) el.textContent = target.toFixed(1) + '★';
                                 else el.textContent = Math.round(target) + (raw.includes('+') ? '+' : '');
@@ -1627,8 +1935,9 @@
                 }
             }
 
-            // ─── 7. EXIT TRANSITION for internal links ───
-            const allLinks = document.querySelectorAll('a[href^="https://arcade.name.ng"], a[href^="/"], a[href^="./"], a[href^="../"]');
+            // ─── 7. EXIT TRANSITION ───
+            const allLinks = document.querySelectorAll(
+                'a[href^="https://arcade.name.ng"], a[href^="/"], a[href^="./"], a[href^="../"]');
             for (const link of allLinks) {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -1642,7 +1951,7 @@
                 });
             }
 
-            // ─── 8. KEYBOARD SHORTCUT: ESC to close menu ───
+            // ─── 8. KEYBOARD SHORTCUT ───
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     if (navLinks && navLinks.classList.contains('is-open')) {
