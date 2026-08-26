@@ -1,4 +1,3 @@
-
 <!-- Background Music Player -->
 <audio id="bgMusic" loop>
     <source src="mm.mp3" type="audio/mpeg">
@@ -7,42 +6,37 @@
 </audio>
 
 <script>
-    // Wait for the page to fully load
     window.addEventListener('load', function() {
         const bgMusic = document.getElementById('bgMusic');
-        
-        // Try to play the music automatically
         const playPromise = bgMusic.play();
-        
-        // Handle autoplay restrictions
         if (playPromise !== undefined) {
             playPromise.catch(error => {
                 console.log("Autoplay prevented:", error);
-                // Create a fallback play button
                 createMusicControls();
             });
         }
     });
     
-    // Create visible controls if autoplay is blocked
     function createMusicControls() {
         const musicControls = document.createElement('div');
         musicControls.id = 'music-controls';
         musicControls.innerHTML = `
-            <button id="playMusicBtn">▶ Play Background Music</button>
-            <button id="muteMusicBtn">🔇 Mute</button>
+            <button id="playMusicBtn">▶ PLAY AUDIO STREAM</button>
+            <button id="muteMusicBtn">🔇 MUTE</button>
         `;
         musicControls.style.cssText = `
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 10000;
-            background: rgba(10, 20, 22, 0.9);
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--teal-primary);
+            background: rgba(5, 8, 17, 0.95);
+            padding: 12px;
+            border-radius: 0px;
+            border: 1px solid #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            display: flex;
+            gap: 10px;
         `;
-        
         document.body.appendChild(musicControls);
         
         document.getElementById('playMusicBtn').addEventListener('click', function() {
@@ -60,114 +54,105 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-47MB9NV5P5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-47MB9NV5P5');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47MB9NV5P5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-47MB9NV5P5');
+    </script>
     <meta name="p:domain_verify" content="2a33f53220fc04775c15ba00f5c4ae58"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Studio | Websites for Aesthetic Brands</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap">
+    <title>Arcade Studio | Cyberpunk Web Architect & Digital Design</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-dark: #0a0a0a;
-            --gold-primary: #FFD700;
-            --gold-secondary: #b8860b;
-            --text-light: #f5f5f5;
-            --hover-glow: rgba(255, 215, 0, 0.3);
-            --diamond-gradient: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.5) 50%, rgba(255,255,255,0.8) 100%);
-            --teal-primary: #b6d2d3;
-            --teal-dark: #1a3a3c;
-            --teal-darker: #15272a;
+            --bg-dark: #050811;
+            --neon-yellow: #ffee00;
+            --neon-pink: #ff0055;
+            --neon-cyan: #00f0ff;
+            --panel-bg: rgba(10, 16, 26, 0.85);
+            --hud-border: rgba(0, 240, 255, 0.3);
+            --text-main: #e0f7fc;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
         }
         
         body {
-            background-color: var(--teal-darker);
-            color: var(--text-light);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
         }
-        
-        /* Navigation - Enhanced */
+
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Navigation HUD */
         .navbar {
-            background-color: rgba(10, 20, 22, 0.9);
-            color: var(--text-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid var(--teal-primary);
-            box-shadow: 0 0 15px rgba(182, 210, 211, 0.1);
+            background: rgba(5, 8, 17, 0.9);
+            border-bottom: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem;
         }
         
         .navbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
-       
         .logo {
-    color: transparent; /* Make text transparent to show only stroke/shadow */
-    font-weight: 700;
-    font-size: 2rem;
-    font-family: 'Orbitron', sans-serif; /* Futuristic, geometric font */
-    letter-spacing: 4px; /* More spaced out */
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4); /* Cyan glow */
-    -webkit-text-stroke: 1px #00ffff; /* Neon stroke around text */
-    /* Optional: Use a pseudo-element for a subtle "scanline" effect */
-    position: relative;
-    overflow: hidden; /* Important for scanline effect */
-}
-
-/* Pseudo-element for a subtle scanline or underglow */
-.logo::after {
-    content: '';
-    position: absolute;
-    bottom: -5px; /* Adjust based on your layout */
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, #8a2be2, transparent); /* Purple glowing line */
-    animation: pulse-line 2s infinite ease-in-out;
-}
-
-@keyframes pulse-line {
-    0%, 100% {
-        transform: scaleX(0.8);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scaleX(1);
-        opacity: 1;
-    }
-}
-        .logo:hover {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(182, 210, 211, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--neon-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 238, 0, 0.6);
+            text-decoration: none;
+            position: relative;
         }
-        
+
+        .logo::before {
+            content: "// SYS.LOC_01";
+            position: absolute;
+            top: -10px;
+            left: 0;
+            font-size: 0.5rem;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
@@ -175,556 +160,261 @@
         }
         
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 0.5rem 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 0.8rem;
             position: relative;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
         }
         
         .nav-links a:hover {
-            color: var(--teal-primary);
+            color: var(--neon-yellow);
+            background: rgba(0, 240, 255, 0.1);
+            text-shadow: 0 0 8px var(--neon-yellow);
+            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
         }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--teal-primary);
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-        
-        .mobile-menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            margin-top: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        #hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            filter: brightness(0.6);
-        }
-        
-        .hero-text {
-            text-align: center;
-            max-width: 800px;
-            padding: 0 2rem;
-            z-index: 2;
-        }
-        
-        .hero-text p {
-            font-size: 3.5rem;
+
+        /* Cyber Button Style */
+        .btn, .cta {
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--teal-primary);
-            font-family: "Playfair Display", serif;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            line-height: 1.2;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-        
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            padding: 0.9rem 2rem;
+            background: transparent;
+            color: var(--neon-yellow);
+            border: 1px solid var(--neon-yellow);
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
             position: relative;
-            overflow: hidden;
-            border: none;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(255, 238, 0, 0.1);
         }
-        
-        .btn {
-            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
-            color: #15272a;
-            box-shadow: 0 4px 15px rgba(182, 210, 211, 0.2);
+
+        .btn:hover, .cta-primary:hover {
+            background: var(--neon-yellow);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 238, 0, 0.6);
         }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
+
+        .cta-secondary {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
         }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+
+        .cta-secondary:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
         }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        /* Content Section */
+
+        /* Content Container HUD Layout */
         .content-container {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
+            max-width: 1300px;
+            margin: 7rem auto 4rem;
+            padding: 2rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
         }
-        
+
+        /* HUD Corner Markers */
+        .content-container::before {
+            content: "POINT OF NO RETURN // 07 30 56";
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--bg-dark);
+            color: var(--neon-pink);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border: 1px solid var(--neon-pink);
+            letter-spacing: 2px;
+        }
+
         .media-primary {
             position: relative;
+            border: 1px solid var(--neon-cyan);
+            height: 420px;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            height: 500px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
-        
+
         .hero-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(20%) contrast(110%);
+            filter: contrast(125%) saturate(120%);
         }
-        
+
         .media-secondary {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            position: relative;
         }
-        
+
         .animated-icon {
-            background: rgba(26, 58, 60, 0.7);
-            border: 1px solid rgba(182, 210, 211, 0.2);
-            border-radius: 10px;
+            background: rgba(5, 8, 17, 0.9);
+            border: 1px solid var(--hud-border);
+            height: 120px;
+            position: relative;
             overflow: hidden;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
         }
-        
+
         .animated-icon:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(182, 210, 211, 0.2);
-            border-color: var(--teal-primary);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+            transform: scale(1.02);
         }
-        
+
         .animated-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.8;
+            filter: grayscale(30%) contrast(120%);
         }
-        
-        .text-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .text-heading {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            color: var(--teal-primary);
-            margin-bottom: 2rem;
-            font-family: "Playfair Display", serif;
-        }
-        
-        .text-heading span {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        
-        .text-body {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .ctas {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .cta {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
+
+        /* Stylized Cyber Typography */
+        .cyber-heading {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 4rem;
+            color: var(--neon-yellow);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .cta-primary {
-            background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
-            color: #15272a;
-            border: none;
-        }
-        
-        .cta-secondary {
-            background: transparent;
-            color: var(--teal-primary);
-            border: 2px solid var(--teal-primary);
-        }
-        
-        .cta-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(182, 210, 211, 0.4);
-        }
-        
-        .cta-secondary:hover {
-            background: rgba(182, 210, 211, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        /* Services Section */
-        .services-section {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 1.5rem;
-            text-align: center;
-        }
-        
-        .section-title {
-            color: var(--teal-primary);
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-            font-family: "Playfair Display", serif;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: var(--teal-primary);
-            margin: 1rem auto 0;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background: var(--teal-dark);
-            border-radius: 12px;
-            padding: 2.5rem;
-            transition: all 0.5s ease;
-            border: 1px solid rgba(182, 210, 211, 0.1);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border-color: var(--teal-primary);
-        }
-        
-        .service-icon {
-            width: 60px;
-            height: 60px;
+            line-height: 0.9;
+            text-shadow: 3px 3px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan);
             margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(182, 210, 211, 0.1);
-            border-radius: 50%;
-            color: var(--teal-primary);
-            font-size: 1.5rem;
+            letter-spacing: 2px;
         }
-        
-        .service-card h3 {
-            color: var(--teal-primary);
-            font-size: 1.5rem;
+
+        .text-body p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--neon-cyan);
+            padding-left: 1rem;
+        }
+
+        /* Core Showcase / About Section */
+        .about-section {
+            max-width: 1300px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            background: var(--panel-bg);
+            border: 1px solid var(--hud-border);
+            position: relative;
+        }
+
+        .about-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3.2rem;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-cyan);
             margin-bottom: 1rem;
-            font-family: "Playfair Display", serif;
         }
-        
-        .service-card p {
-            color: var(--text-light);
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        /* Client Showcase */
-        .client-showcase {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 1.5rem;
-            text-align: center;
-        }
-        
-       
-        
-        /* Footer */
-        .footer {
-            background: #0a1416;
-            padding: 4rem 2rem 2rem;
-            color: var(--text-light);
-            position: relative;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--teal-primary);
-            font-family: "Playfair Display", serif;
-            letter-spacing: 1px;
-        }
-        
-        .footer-about {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .footer-social a {
-            color: var(--text-light);
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-social a:hover {
-            color: var(--teal-primary);
-        }
-        
-        .footer-heading {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--teal-primary);
+
+        .about-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
             text-transform: uppercase;
+        }
+
+        .about-text ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .about-text li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .about-text li::before {
+            content: "◢";
+            position: absolute;
+            left: 0;
+            color: var(--neon-yellow);
+            font-size: 0.9rem;
+        }
+
+        .about-text strong {
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
             letter-spacing: 1px;
         }
-        
-        .footer-links {
-            list-style: none;
+
+        /* Mobile Controls & Responsive Adjustments */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            padding: 0.5rem;
+            cursor: pointer;
         }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: var(--neon-cyan);
+            margin: 4px 0;
         }
-        
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .footer-links a:hover {
-            color: var(--teal-primary);
-            opacity: 1;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-        
-        /* Mobile menu styles */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            max-width: 400px;
-            height: 100vh;
-            background: #0a1416;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            padding: 80px 30px 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
-        .mobile-nav.active {
-            right: 0;
-        }
-        
-        .mobile-nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1.2rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(182, 210, 211, 0.2);
-            transition: color 0.3s ease;
-        }
-        
-        .mobile-nav a:hover {
-            color: var(--teal-primary);
-        }
-        
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Responsive adjustments */
+
         @media (max-width: 992px) {
             .content-container {
                 grid-template-columns: 1fr;
-                gap: 3rem;
             }
-            
-            .media-primary {
-                height: 400px;
-            }
-            
-            .text-heading {
-                font-size: 2.8rem;
+            .cyber-heading {
+                font-size: 3rem;
             }
         }
-        
+
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .hero-text p {
-                font-size: 2.5rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 250px;
-            }
-            
-            .ctas {
-                flex-direction: column;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-text p {
-                font-size: 2rem;
-            }
-            
-            .text-heading {
-                font-size: 2.2rem;
-            }
+            .mobile-menu-toggle { display: block; }
+            .nav-links { display: none; }
+            .cyber-heading { font-size: 2.3rem; }
+            .about-title { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- HUD Top Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="https://arcade.name.ng/index.html" class="logo">Arcade Studio</a>
             
             <ul class="nav-links">
                 <li><a href="https://arcade.name.ng/index.html">Home</a></li>
-                <li><a href="/About.html">About Us</a></li>
+                <li><a href="/About.html">About</a></li>
                 <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
                 <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
-                <li><a href="Arcadeblog.html">Blog </a></li>
+                <li><a href="Arcadeblog.html">Blog</a></li>
                 <li><a href="https://arcade.name.ng/founder/Found.html">Team</a></li>
                 <li><a href="https://arcade.name.ng/contact.html">Contact</a></li>
             </ul>
@@ -736,788 +426,440 @@
             </button>
         </div>
     </nav>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-nav" id="mobileNav">
-        <a href="https://arcade.name.ng/index.html">Home</a>
-        <a href="/About.html">About Us</a>
-        <a href="https://arcade.name.ng/projects.html">Projects</a>
-        <a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a>
-         <li><a href="Arcadeblog.html">Blog </a></li>
-        <a href="https://arcade.name.ng/founder/Found.html">Team</a>
-        <a href="https://arcade.name.ng/contact.html">Contact</a>
-    </div>
-    
-    <!-- Overlay for mobile menu -->
-    <div class="overlay" id="overlay"></div>
 
-    <!-- Hero Section -->
-   
-
-    <!-- Content Section -->
+    <!-- Main Content Grid HUD Module -->
     <section class="content-container">
         <div class="media-primary">
             <video class="hero-video" autoplay loop muted playsinline poster="https://cdn.dribbble.com/userupload/22027979/file/original-9e3ffdc91b024500b934edbb482ded2a.gif">
                 <source src="vc.mp4" type="video/mp4">
                 <source src="vc.mp4" type="video/webm">
-                <!-- Fallback image if video can't be loaded -->
-                <img alt="Arcade Studio team working on creative digital projects" src="https://cdn.dribbble.com/userupload/20007367/file/original-5c7803da6a0fc062d61a375e48b96a91.gif">
+                <img alt="Arcade Studio Cyber UI" src="https://cdn.dribbble.com/userupload/20007367/file/original-5c7803da6a0fc062d61a375e48b96a91.gif">
             </video>
         </div>
 
-        <div class="media-secondary">
-            <figure class="animated-icon">
-                <img alt="Web development illustration" src="https://i.pinimg.com/736x/40/f5/64/40f56413de11ae88f080afbe9a330a91.jpg" />
-            </figure>
-            <figure class="animated-icon">
-                <img alt="Animation icon" src="https://i.pinimg.com/736x/91/64/c1/9164c1a550f693f50a1e5be4b802735b.jpg" />
-            </figure>
-            <figure class="animated-icon">
-                <img alt="Cybersecurity shield icon" src= "https://i.pinimg.com/736x/19/5a/ba/195abaaf0e0673c893cf46cb3b4af5d5.jpg" />
-            </figure>
-            <figure class="animated-icon">
-                <img alt="Design icon" src="https://i.pinimg.com/736x/1f/e2/29/1fe22976405b21e530561c709bf9a65d.jpg " />
-            </figure>
-        </div>
-
         <div class="text-content">
-           
-            
+            <h1 class="cyber-heading">RUINER</h1>
             <div class="text-body">
                 <p>
-                    Arcade Studio is a Nigerian-based software development & animation studio with cybersecurity expertise. We craft 
-                    stunning digital experiences for aesthetic brands through bespoke websites, mobile applications, 
-                    and captivating animations—all secured with enterprise-grade protection.
+                    Arcade Studio is a Nigerian software development and animation powerhouse with enterprise cybersecurity expertise. We engineer dark, high-aesthetic web interfaces, custom mobile applications, and immersive motion architecture.
                 </p>
                 
                 <div class="ctas">
-                    <a class="cta cta-primary" href="https://arcade.name.ng/contact.html">Start Your Project</a>
-                    <a class="cta cta-secondary" href="https://arcade.name.ng/projects.html">See Past Projects </a>
+                    <a class="cta cta-primary" href="https://arcade.name.ng/contact.html">Initialize Project</a>
+                    <a class="cta cta-secondary" href="https://arcade.name.ng/projects.html">View Vault</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="media-secondary" style="grid-column: span 2;">
+            <figure class="animated-icon">
+                <img alt="Web Architecture" src="https://i.pinimg.com/736x/40/f5/64/40f56413de11ae88f080afbe9a330a91.jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="Animation System" src="https://i.pinimg.com/736x/91/64/c1/9164c1a550f693f50a1e5be4b802735b.jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="Cyber Defence" src="https://i.pinimg.com/736x/19/5a/ba/195abaaf0e0673c893cf46cb3b4af5d5.jpg" />
+            </figure>
+            <figure class="animated-icon">
+                <img alt="UI/UX Engineering" src="https://i.pinimg.com/736x/1f/e2/29/1fe22976405b21e530561c709bf9a65d.jpg" />
+            </figure>
+        </div>
+    </section>
+
+    <!-- Detailed About Section HUD Module -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 class="about-title">AESTHETIC ARCHITECTURE & CYBER SYSTEMS</h2>
+                <p class="about-subtitle">// SOFTWARE DEVELOPERS // ANIMATORS // CYBERSECURITY SPECIALISTS</p>
+                
+                <div class="about-text">
+                    <p>
+                        Abuja's premier software development and animation studio. We engineer interactive visual solutions on top of high-performance architecture and hardened security frameworks.
+                    </p>
+
+                    <h3 style="font-family: 'Orbitron', sans-serif; color: var(--neon-yellow); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem;">// CORE SYSTEM CAPABILITIES</h3>
+                    
+                    <ul>
+                        <li>
+                            <strong>Bespoke Web Systems:</strong> Tailor-made web experiences built from scratch. Custom frontend architecture, high-speed UX flow, and scalable backends.
+                        </li>
+                        <li>
+                            <strong>Mobile App Engineering:</strong> Native and cross-platform mobile apps engineered for speed, high-end visual appeal, and low latency interaction.
+                        </li>
+                        <li>
+                            <strong>Visual Animation Architecture:</strong> 2D/3D motion graphics, high-impact explainer animations, and cyberpunk aesthetic storytelling tailored for modern brands.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
-
-  
-<section class="about-section">
-    <div class="about-container">
-        <div class="about-content">
-            <h2 class="about-title">We Design Websites & Apps 
-for Aesthetic
-brands </h2>
-            <p class="about-subtitle">We are a passionate team of software developers, animators, and cybersecurity specialists </p>
-            
-            <div class="about-text">
-               <p>
-         Abuja's leading software development and animation powerhouse.  Our passion lies in bringing your vision to life through a comprehensive suite of services, all built on a foundation of cutting-edge technology and robust security.
-    </p>
-
-    <h2>Our Core Expertise: Crafting Digital Excellence</h2>
-    <p>
-        At Arcade Studio, our multidisciplinary team excels in three key areas, seamlessly integrated to deliver cohesive and impactful solutions:
-    </p>
-    <ul>
-        <li>
-            <strong>Bespoke Website Development:</strong> We go beyond templates to create custom-built websites that are a true extension of your brand's identity. From elegant e-commerce platforms to dynamic corporate sites, we focus on responsive design, intuitive user experience (UX), and scalable architecture, ensuring your online presence is both beautiful and high-performing across all devices.
-        </li>
-        <li>
-            <strong>Intuitive Mobile Application Creation:</strong> In today's mobile-first world, a powerful app can be a game-changer. We design and develop native and cross-platform mobile applications that are not only visually appealing but also incredibly user-friendly, secure, and optimized for performance, putting your brand directly into the hands of your audience.
-        </li>
-        <li>
-            <strong>Captivating Animations:</strong> Storytelling is at the heart of every great brand. Our animation specialists create compelling 2D and 3D animations, motion graphics, and explainer videos that grab attention, simplify complex ideas, and evoke emotion, ensuring your message resonates deeply with your target market.
-        </li>
-    </ul>
-
-            </div>
-        </div>
-        
-        <div class="about-media">
-            <!-- Bento-style video container -->
-            <div class="bento-grid">
-                <div class="bento-main">
-                    <div class="video-container">
-                        <video autoplay loop muted playsinline class="smart-video">
-                            <source src="bbh.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-overlay"></div>
-                    </div>
-                </div>
-                <div class="bento-cell bento-cell-1"></div>
-                <div class="bento-cell bento-cell-2"></div>
-                <div class="bento-cell bento-cell-3"></div>
-                <div class="bento-cell bento-cell-4"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Add this CSS to your style section -->
+<!-- Custom Cyberpunk HUD Stylesheet Extension -->
 <style>
-    /* About Section */
-    .about-section {
+    /* Cyberpunk Theme Variables */
+    :root {
+        --bg-dark: #050811;
+        --neon-yellow: #ffee00;
+        --neon-pink: #ff0055;
+        --neon-cyan: #00f0ff;
+        --panel-bg: rgba(10, 16, 26, 0.85);
+        --hud-border: rgba(0, 240, 255, 0.3);
+        --text-main: #e0f7fc;
+    }
+
+    /* Section 1: Why Choose Us Cyber HUD Grid */
+    .why-choose-us {
+        background: var(--bg-dark);
         padding: 6rem 2rem;
-        background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
         position: relative;
-        overflow: hidden;
+        border-top: 1px solid var(--hud-border);
     }
-    
-    .about-container {
-        max-width: 1200px;
+
+    .why-choose-us .container {
+        max-width: 1300px;
         margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4rem;
-        align-items: center;
     }
-    
-    .about-content {
-        flex: 1;
-        min-width: 300px;
-    }
-    
-    .about-media {
-        flex: 1;
-        min-width: 300px;
-    }
-    
-    .about-title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--blue-primary);
-        position: relative;
-        display: inline-block;
-    }
-    
-    .about-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 80px;
-        height: 3px;
-        background: linear-gradient(to right, var(--gold-primary), transparent);
-    }
-    
-    .about-subtitle {
-        font-size: 1.2rem;
-        color: var(--text-light);
-        opacity: 0.8;
+
+    .section-title {
+        font-family: 'Permanent Marker', cursive;
+        font-size: 3.5rem;
+        color: #fff;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-cyan);
         margin-bottom: 2rem;
     }
-    
-    .about-text {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: var(--text-light);
-        opacity: 0.9;
+
+    .text-gradient {
+        color: var(--neon-yellow);
     }
-    
-    .about-text p {
-        margin-bottom: 1.5rem;
-    }
-    
-    .about-features {
-        list-style: none;
-        margin: 2rem 0;
-    }
-    
-    .about-features li {
-        margin-bottom: 1rem;
-        padding-left: 2rem;
-        position: relative;
-    }
-    
-    .about-features i {
-        position: absolute;
-        left: 0;
-        top: 0.3rem;
-        color: var(--gold-primary);
-    }
-    
-    /* Bento Grid */
-    .bento-grid {
+
+    .benefits-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 10px;
-        height: 500px;
-        max-width: 600px;
-        margin: 0 auto;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
     }
-    
-    .bento-main {
-        grid-column: 1 / span 3;
-        grid-row: 1 / span 3;
+
+    .intro-text {
+        font-size: 1.2rem;
+        color: var(--neon-cyan);
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+    }
+
+    .benefits-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .benefit-card {
+        background: var(--panel-bg);
+        border: 1px solid var(--hud-border);
+        padding: 1.5rem;
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
         position: relative;
-        overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    
-    .bento-cell {
-        background: rgba(255,215,0,0.1);
-        border: 1px solid rgba(255,215,0,0.2);
-        border-radius: 10px;
+        clip-path: polygon(0 0, 95% 0, 100% 15%, 100% 100%, 5% 100%, 0 85%);
         transition: all 0.3s ease;
     }
-    
-    .bento-cell:hover {
-        background: rgba(21, 96, 158, 0.2);
-        transform: translateY(-5px);
+
+    .benefit-card:hover {
+        border-color: var(--neon-yellow);
+        box-shadow: 0 0 15px rgba(255, 238, 0, 0.3);
+        transform: translateX(5px);
     }
-    
-    .bento-cell-1 {
-        grid-column: 4;
-        grid-row: 1;
-               background: url(' https://cdn.dribbble.com/userupload/29915330/file/original-a1fdbfaf16f6c67df944cb0a1a5c5566.gif') center/cover;
+
+    .icon-wrapper {
+        background: rgba(0, 240, 255, 0.1);
+        border: 1px solid var(--neon-cyan);
+        color: var(--neon-yellow);
+        font-size: 1.8rem;
+        padding: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
-    .bento-cell-2 {
-        grid-column: 4;
-        grid-row: 2;
-                background: url('./c\ \(2\).jpg') center/cover;
+
+    .card-content h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-yellow);
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
     }
-    
-    .bento-cell-3 {
-        grid-column: 4;
-        grid-row: 3;
-        background: url('./c\ \(1\).jpg') center/cover;
+
+    .card-content p {
+        color: var(--text-main);
+        font-size: 1rem;
+        line-height: 1.5;
     }
-    
-    .bento-cell-4 {
-        grid-column: 1 / span 4;
-        grid-row: 4;
-        height: 20px;
-        background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-        opacity: 0.3;
-    }
-    
-    /* Video Container */
-    .video-container {
+
+    /* Showcase Video & Media Panels */
+    .benefits-showcase {
         position: relative;
-        width: 100%;
-        height: 100%;
     }
-    
-    .smart-video {
+
+    .showcase-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .showcase-main {
+        position: relative;
+        border: 1px solid var(--neon-cyan);
+        height: 300px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    }
+
+    .showcase-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 15px;
+        filter: contrast(120%);
     }
-    
-    .video-overlay {
+
+    .play-indicator {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 100%);
-        border-radius: 15px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--neon-yellow);
+        font-size: 2.5rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
-    
-    @media (max-width: 768px) {
-        .about-container {
-            flex-direction: column;
-        }
-        
-        .bento-grid {
-            height: 400px;
-        }
-        
-        .bento-main {
-            grid-column: 1 / span 4;
-            grid-row: 1 / span 2;
-        }
-        
-        .bento-cell-1, .bento-cell-2, .bento-cell-3 {
-            grid-column: span 1;
-            grid-row: 3;
+
+    .showcase-item {
+        height: 120px;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid var(--hud-border);
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .item-overlay {
+        background: rgba(5, 8, 17, 0.85);
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid var(--neon-cyan);
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-cyan);
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    /* Section 2: Hackers Blog Module */
+    .hackers-blog-section {
+        background: var(--panel-bg);
+        border: 1px solid var(--neon-pink);
+        padding: 5rem 2rem;
+        margin: 4rem auto;
+        max-width: 1300px;
+        position: relative;
+        box-shadow: 0 0 30px rgba(255, 0, 85, 0.15);
+    }
+
+    .hackers-blog-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .hackers-blog-title {
+        font-family: 'Permanent Marker', cursive;
+        font-size: 3rem;
+        color: var(--neon-pink);
+        text-shadow: 2px 2px 0px #000;
+        margin-bottom: 1rem;
+    }
+
+    .hackers-blog-subtitle {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-cyan);
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+    }
+
+    .hackers-blog-text p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--text-main);
+        margin-bottom: 1.5rem;
+    }
+
+    .hackers-blog-text ul {
+        list-style: none;
+        margin-bottom: 2rem;
+    }
+
+    .hackers-blog-text li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+    }
+
+    .hackers-blog-text li::before {
+        content: "⚡";
+        position: absolute;
+        left: 0;
+        color: var(--neon-yellow);
+    }
+
+    /* Section 3: Cyberpunk HUD Footer */
+    .footer {
+        background: #020408;
+        border-top: 1px solid var(--neon-cyan);
+        padding: 4rem 2rem 2rem;
+        color: var(--text-main);
+    }
+
+    .footer-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .footer-logo-text {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--neon-yellow);
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(255, 238, 0, 0.5);
+    }
+
+    .footer-about {
+        margin: 1rem 0;
+        line-height: 1.6;
+        opacity: 0.8;
+    }
+
+    .footer-heading {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-cyan);
+        font-size: 1.1rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--neon-yellow);
+        text-shadow: 0 0 5px var(--neon-yellow);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .footer-social a {
+        color: var(--neon-cyan);
+        font-size: 1.2rem;
+        border: 1px solid var(--hud-border);
+        padding: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+        color: var(--neon-yellow);
+        border-color: var(--neon-yellow);
+        box-shadow: 0 0 10px var(--neon-yellow);
+    }
+
+    .footer-bottom {
+        max-width: 1300px;
+        margin: 3rem auto 0;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.85rem;
+        color: rgba(224, 247, 252, 0.6);
+    }
+
+    @media (max-width: 992px) {
+        .benefits-grid, .hackers-blog-container, .footer-container {
+            grid-template-columns: 1fr;
         }
     }
 </style>
-   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Premium Benefits Section Styles */
-        .premium-benefits {
-            position: relative;
-            padding: 100px 0;
-            background: #0a0a0a;
-            color: #fff;
-            overflow: hidden;
-            font-family: 'Urbanist', sans-serif;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .text-gradient {
-            background: linear-gradient(90deg, #d4af37, #f4e6c8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .section-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .benefits-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 40px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .benefits-list {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .benefit-card {
-            display: flex;
-            gap: 20px;
-            padding: 25px;
-            background: rgba(20, 20, 20, 0.6);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-
-        .benefit-card:hover {
-            background: rgba(30, 30, 30, 0.8);
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .card-icon {
-            flex-shrink: 0;
-        }
-
-        .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-            border-radius: 12px;
-            font-size: 24px;
-            color: #d4af37;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .card-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .card-content p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .cta-wrapper {
-            position: relative;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            padding: 18px 35px;
-            background: linear-gradient(90deg, #d4af37, #f4e6c8);
-            color: #0a0a0a;
-            font-weight: 600;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-button .arrow-wrapper {
-            width: 24px;
-            height: 24px;
-            background: #0a0a0a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button i {
-            color: #d4af37;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .cta-button:hover .arrow-wrapper {
-            transform: translateX(5px);
-        }
-
-        /* Showcase Grid Styles */
-        .benefits-showcase {
-            position: relative;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 20px;
-            height: 600px;
-        }
-
-        .showcase-main {
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-
-        .showcase-item {
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-
-        .item-1 {
-            grid-column: 1;
-            grid-row: 3;
-        }
-
-        .item-2 {
-            grid-column: 2;
-            grid-row: 3;
-        }
-
-        /* Adjusted grid-row for items 3 and 4 to align within a 3-row grid */
-        .item-3 {
-            grid-column: 1;
-            grid-row: 1 / span 2; /* To make it span two rows if needed, adjust based on desired layout */
-        }
-
-        .item-4 {
-            grid-column: 2;
-            grid-row: 1 / span 2; /* To make it span two rows if needed, adjust based on desired layout */
-        }
-
-
-        .hover-3d:hover {
-            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.03);
-        }
-
-        .showcase-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.8), transparent 50%);
-        }
-
-        .play-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 2;
-        }
-
-        .pulse-circle {
-            width: 40px;
-            height: 40px;
-            background: rgba(212, 175, 55, 0.2);
-            border-radius: 50%;
-            position: absolute;
-            animation: pulse 2s infinite;
-        }
-
-        .play-indicator i {
-            font-size: 20px;
-            color: #d4af37;
-            margin-left: 10px;
-        }
-
-        .item-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .gradient-card {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #d4af37, #f4e6c8);
-            border-radius: 12px;
-            color: #0a0a0a;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .gradient-card i {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .gradient-card span {
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-inner {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .cursor-outer {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #fff;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            transition: all 0.15s;
-        }
-
-        /* Magnetic Button Effect */
-        .magnetic {
-            position: relative;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 1200px) {
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .benefits-showcase {
-                margin-top: 50px;
-                height: 500px;
-            }
-
-            .showcase-grid {
-                grid-template-rows: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust rows for smaller screens */
-            }
-
-            .item-3, .item-4 {
-                grid-column: span 1; /* Reset span for smaller screens */
-                grid-row: auto; /* Allow auto row placement */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .benefit-card {
-                flex-direction: column;
-            }
-
-            .showcase-grid {
-                height: 400px;
-            }
-        }
-    </style>
-</head>
-<body>
+<!-- Why Choose Us HUD Section -->
 <section class="why-choose-us">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Why Partner With <span class="text-gradient">Arcade Studio</span></h2>
-            
-</div>
-
-<div class="benefits-grid">
-    <div class="benefits-content">
-        <p class="intro-text">
-            Here's what sets us apart and makes us the ideal choice for your digital transformation:
-        </p>
-
-        <div class="benefits-list">
-            
-
-           
-
-           
-
-            <div class="benefit-card">
-                <div class="card-icon">
-                    <div class="icon-wrapper pulse">
-                        <i class="ph ph-sparkle"></i>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Boundary-Pushing Creativity</h3>
-                    <p>We don't follow trends - we set them. Our design team thrives on creating mind-blowing digital experiences that capture attention and leave lasting impressions. From bold visual concepts to innovative interactions, we transform ordinary projects into extraordinary digital showcases.</p>
-                </div>
-            </div>
-
-            <div class="benefit-card">
-                <div class="card-icon">
-                    <div class="icon-wrapper pulse">
-                        <i class="ph ph-handshake"></i>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Stress-Free Collaboration</h3>
-                    <p>We believe great work happens when the process is enjoyable. Our team makes working together effortless with clear communication, transparent pricing, and flexible approaches. You'll get premium quality without the premium headaches - just creative partnership that delivers results.</p>
-                </div>
-            </div>
-
-            <div class="benefit-card">
-                <div class="card-icon">
-                    <div class="icon-wrapper pulse">
-                        <i class="ph ph-coins"></i>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3>Premium Quality, Affordable Rates</h3>
-                    <p>Exceptional digital experiences shouldn't break the bank. We've streamlined our processes to deliver outstanding value without compromising quality. Whether you're a startup or established enterprise, we'll work within your budget to create solutions that drive real ROI.</p>
-                </div>
-            </div>
         </div>
-
-                <div class="cta-wrapper">
-                   
-                    </a>
+        <div class="benefits-grid">
+            <div class="benefits-content">
+                <p class="intro-text">// CORE SYSTEM ADVANTAGES</p>
+                <div class="benefits-list">
+                    <div class="benefit-card">
+                        <div class="card-icon">
+                            <div class="icon-wrapper pulse">
+                                <i class="ph ph-sparkle"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Boundary-Pushing Design</h3>
+                            <p>We build immersive visual architectures that set digital trends. From high-contrast cyberpunk layouts to smooth interactive flows, we engineer web platforms that captivate users.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="card-icon">
+                            <div class="icon-wrapper pulse">
+                                <i class="ph ph-handshake"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Transparent Collaboration</h3>
+                            <p>Transparent pricing, structured milestone tracking, and seamless integration. Experience high-tier engineering partnership without client overhead bottlenecks.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="card-icon">
+                            <div class="icon-wrapper pulse">
+                                <i class="ph ph-shield-check"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Hardened Security Architecture</h3>
+                            <p>Every web experience we deploy incorporates enterprise-grade protection, securing data vectors against threat actors while delivering speed and scalability.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1529,70 +871,109 @@ brands </h2>
                         </video>
                         <div class="video-overlay"></div>
                         <div class="play-indicator">
-                            <div class="pulse-circle"></div>
                             <i class="ph ph-play"></i>
                         </div>
                     </div>
                     <div class="showcase-item item-1 hover-3d" style="background-image: url('./f\ \(5\).webp')">
                         <div class="item-overlay">
-                            <span>Client-Centric Approach</span>
+                            <span>CLIENT-CENTRIC ARCHITECTURE</span>
                         </div>
                     </div>
                     <div class="showcase-item item-2 hover-3d" style="background-image: url('./f\ \(4\).webp')">
                         <div class="item-overlay">
-                            <span>Proven Results</span>
+                            <span>PROVEN ROI METRICS</span>
                         </div>
-                    </div>
-                   
-                      
-                   
-                   
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="particles-js" id="benefits-particles"></div>
-    <div class="custom-cursor">
-        <div class="cursor-inner"></div>
-        <div class="cursor-outer"></div>
+</section>
+
+<!-- Cyber Blog Showcase Module -->
+<section class="hackers-blog-section">
+    <div class="hackers-blog-container">
+        <div class="hackers-blog-content">
+            <h2 class="hackers-blog-title">Africa's #1 Cybersecurity Vault</h2>
+            <p class="hackers-blog-subtitle">// CYBER WARFARE • DEFENSE SYSTEMS • THREAT INTEL</p>
+            <div class="hackers-blog-text">
+                <p>
+                    Arcade Studio hosts the continent’s leading intelligence hub for cybersecurity, threat vector analysis, and ethical hacking techniques. Trusted by developers, security engineers, and digital innovators across Africa.
+                </p>
+                <ul>
+                    <li>African cyber warfare and active threat vectors</li>
+                    <li>Threat intel case studies and payload breakdowns</li>
+                    <li>Enterprise security frameworks for modern platforms</li>
+                    <li>Ethical hacking protocols and vulnerability research</li>
+                </ul>
+                <a class="btn cta-primary" href="Arcadeblog.html">Access Intel Feed</a>
+            </div>
+        </div>
+        <div class="hackers-blog-media">
+            <img src="tre (2).heic" alt="Africa's Cyber Security Intelligence" style="width:100%; border: 1px solid var(--neon-cyan); box-shadow: 0 0 20px rgba(0,240,255,0.3);">
+        </div>
     </div>
 </section>
 
+<!-- Cyber HUD Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">
+                <span class="footer-logo-text">Arcade Studio</span>
+            </div>
+            <p class="footer-about">Engineering high-aesthetic web systems, digital animations, and security infrastructure for forward-thinking global brands.</p>
+            <div class="footer-social">
+                <a href="#"><i class="ph ph-instagram-logo"></i></a>
+                <a href="#"><i class="ph ph-twitter-logo"></i></a>
+                <a href="#"><i class="ph ph-linkedin-logo"></i></a>
+                <a href="#"><i class="ph ph-dribbble-logo"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-col">
+            <h3 class="footer-heading">// Navigation</h3>
+            <ul class="footer-links">
+                <li><a href="https://arcade.name.ng/index.html">Home</a></li>
+                <li><a href="https://arcade.name.ng/about.html">About Us</a></li>
+                <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
+                <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-col">
+            <h3 class="footer-heading">// Capabilities</h3>
+            <ul class="footer-links">
+                <li><a href="#">Web Architecture</a></li>
+                <li><a href="#">Mobile Applications</a></li>
+                <li><a href="#">Motion Animation</a></li>
+                <li><a href="#">Cyber Defense</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-col">
+            <h3 class="footer-heading">// Terminal Contact</h3>
+            <ul class="footer-links">
+                <li><a href="tel:+2349061407613">+234 906 140 7613</a></li>
+                <li><a href="https://arcade.name.ng/contact.html">Dispatch Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Arcade Studio. All System Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Phosphor Icons Integration -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
 <script>
-    // Custom Cursor
-    const cursorInner = document.querySelector('.cursor-inner');
-    const cursorOuter = document.querySelector('.cursor-outer');
-
-    document.addEventListener('mousemove', e => {
-        cursorInner.style.left = e.clientX + 'px';
-        cursorInner.style.top = e.clientY + 'px';
-        cursorOuter.style.left = e.clientX + 'px';
-        cursorOuter.style.top = e.clientY + 'px';
-    });
-
-    // Magnetic Button Effect
-    document.querySelectorAll('.magnetic').forEach(button => {
-        button.addEventListener('mousemove', e => {
-            const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            button.style.transform = `translate(${(x - rect.width / 2) * 0.2}px, ${(y - rect.height / 2) * 0.2}px)`;
-            button.querySelector('.arrow-wrapper').style.transform = `translate(${(x - rect.width / 2) * 0.1}px, ${(y - rect.height / 2) * 0.1}px)`;
-        });
-
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = `translate(0, 0)`;
-            button.querySelector('.arrow-wrapper').style.transform = `translate(0, 0)`;
-        });
-    });
-
-    // Pause and Play video on hover for showcase-main
+    // Hover Video Indicator Script
     const showcaseVideo = document.querySelector('.showcase-video');
     const playIndicator = document.querySelector('.play-indicator');
 
-    if (showcaseVideo) {
+    if (showcaseVideo && playIndicator) {
         showcaseVideo.addEventListener('mouseenter', () => {
             showcaseVideo.pause();
             playIndicator.style.opacity = '1';
@@ -1613,208 +994,6 @@ brands </h2>
             }
         });
     }
-
 </script>
-
-<!-- Africa's Number 1 Hacker's Blog Section -->
-<section class="hackers-blog-section">
-    <div class="hackers-blog-container">
-        <div class="hackers-blog-content">
-            <h2 class="hackers-blog-title">
-                <span class="text-gradient">Africa's Number 1 Hacker's Blog</span>
-            </h2>
-            <p class="hackers-blog-subtitle">
-                Discover cyber warfare, digital defense, and hacker culture from the heart of Africa. Arcade Studio is the proud host of the continent’s leading blog on cybersecurity, ethical hacking, and digital conflict.
-            </p>
-            <div class="hackers-blog-text">
-                <p>
-                    Our blog is trusted by thousands of security professionals, tech enthusiasts, and curious minds across Africa and beyond. We publish <strong>exclusive stories</strong> on cyber attacks, threat intelligence, hacker profiles, and practical defense strategies. Whether you want the latest on global hacking trends or deep dives into Nigerian cyber conflicts, we’re your #1 source.
-                </p>
-                <ul>
-                    <li>Latest news on cyber warfare in Africa</li>
-                    <li>Profiles of top hacker groups</li>
-                    <li>Real-world case studies and expert analysis</li>
-                    <li>Tips for securing your brand, business, or personal data</li>
-                    <li>Ethical hacking tutorials and community discussions</li>
-                </ul>
-                <a class="cta cta-primary" href="Arcadeblog.html">Visit the Blog</a>
-            </div>
-        </div>
-        <div class="hackers-blog-media">
-            <img src="tre (2).heic" alt="Africa's Number 1 Hacker's Blog" style="width:100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-        </div>
-    </div>
-</section>
-
-<!-- Add to your main CSS or inside <style> tags -->
-<style>
-.hackers-blog-section {
-    background: linear-gradient(135deg, #15272a 0%, #1a3a3c 100%);
-    padding: 5rem 2rem;
-    margin-top: 3rem;
-}
-.hackers-blog-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
-.hackers-blog-content {
-    flex: 1;
-    min-width: 300px;
-}
-.hackers-blog-title {
-    font-size: 2.3rem;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 1px;
-}
-.hackers-blog-subtitle {
-    font-size: 1.15rem;
-    color: var(--teal-primary);
-    opacity: 0.8;
-    margin-bottom: 1.5rem;
-}
-.hackers-blog-text {
-    color: var(--text-light);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    opacity: 0.95;
-}
-.hackers-blog-text ul {
-    margin: 1.2rem 0 1.8rem 1.5rem;
-    padding-left: 0;
-}
-.hackers-blog-text li {
-    margin-bottom: 0.5rem;
-}
-.hackers-blog-media {
-    flex: 1;
-    min-width: 300px;
-}
-@media (max-width: 992px) {
-    .hackers-blog-container {
-        flex-direction: column;
-        gap: 2rem;
-    }
-}
-</style>
-
-
-
-
-
-
-
-
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <div class="footer-logo">
-                    <span class="footer-logo-text">Arcade Studio</span>
-                </div>
-                <p class="footer-about">Crafting stunning digital experiences for aesthetic brands with a focus on design, security, and innovation.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-dribbble"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h3 class="footer-heading">Navigation</h3>
-                <ul class="footer-links">
-                    <li><a href="https://arcade.name.ng/index.html">Home</a></li>
-                    <li><a href="https://arcade.name.ng/about.html">About Us</a></li>
-                    <li><a href="https://arcade.name.ng/projects.html">Projects</a></li>
-                    <li><a href="https://gigx267.github.io/Arcade-Security-/">Cybersecurity</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3 class="footer-heading">Services</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Web Development</a></li>
-                    <li><a href="#">Mobile Apps</a></li>
-                    <li><a href="#">Animation</a></li>
-                    <li><a href="#">Cybersecurity</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3 class="footer-heading">Contact</h3>
-                <ul class="footer-links">
-                   
-                    <li><a href="tel:+1234567890">09061407613</a></li>
-                    <li><a href="https://arcade.name.ng/contact.html">Contact Form</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 Arcade Studio. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('overlay');
-        
-        mobileMenuToggle.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !isExpanded);
-            mobileNav.classList.toggle('active');
-            overlay.classList.toggle('active');
-            
-            // Toggle hamburger animation
-            this.classList.toggle('open');
-        });
-        
-        // Close mobile menu when clicking overlay
-        overlay.addEventListener('click', function() {
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileNav.classList.remove('active');
-            this.classList.remove('active');
-            mobileMenuToggle.classList.remove('open');
-        });
-        
-        // Animate service cards on scroll
-        const animateOnScroll = () => {
-            const serviceCards = document.querySelectorAll('.service-card');
-            const windowHeight = window.innerHeight;
-            
-            serviceCards.forEach((card, index) => {
-                const cardPosition = card.getBoundingClientRect().top;
-                const animationPoint = windowHeight / 1.5;
-                
-                if (cardPosition < animationPoint) {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, index * 200);
-                }
-            });
-        };
-        
-        // Set initial state for animation
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.5s ease';
-        });
-        
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
-    </script>
 </body>
 </html>
