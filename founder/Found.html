@@ -16,6 +16,7 @@
             --neon-green: #00ff66;
             --neon-orange: #ff5500;
             --neon-yellow: #ffee00;
+            --neon-teal: #00ffc8;
             --bg-dark: #060814;
             --card-border-glow: rgba(0, 240, 255, 0.4);
         }
@@ -451,12 +452,20 @@
                 url('https://i.pinimg.com/1200x/7c/67/27/7c67276a9358586d141546f7965924c7.jpg');
         }
         
-  .card-7 {
-            --card-accent: var(--neon-yellow);
-            --card-glow: rgba(255, 238, 0, 0.5);
+        .card-7 {
+            --card-accent: var(--neon-teal);
+            --card-glow: rgba(0, 255, 200, 0.5);
             background-image: linear-gradient(to top, rgba(6, 8, 20, 0.9) 10%, transparent 60%),
                 url('https://i.pinimg.com/736x/7f/b2/e8/7fb2e84fe67dfb4b7417dfdbd57bfe5c.jpg');
         }
+
+        /* Center the lone 7th card on desktop (3-col layout) */
+        @media (min-width: 1025px) {
+            .card-7 {
+                grid-column: 2;
+            }
+        }
+
         /* --- Responsive Design --- */
         @media (max-width: 1024px) {
             .grid-container {
@@ -607,10 +616,6 @@
             <div class="bold-number">5</div>
         </div>
 
-
-
-
-        
         <!-- Card 6: Benedict -->
         <div class="cyber-card card-6">
             <div class="laser-sweep"></div>
@@ -625,6 +630,7 @@
             </div>
             <div class="bold-number">6</div>
         </div>
+
         <!-- Card 7: Emmanuel Onyenwuzor -->
         <div class="cyber-card card-7">
             <div class="laser-sweep"></div>
@@ -639,6 +645,7 @@
             </div>
             <div class="bold-number">7</div>
         </div>
+
     </main>
 
     <!-- JavaScript for Menu Toggle, Staggered Entrance & Hover Tilt -->
